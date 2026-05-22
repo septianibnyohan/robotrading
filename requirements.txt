@@ -1,0 +1,14 @@
+MetaTrader5
+pandas
+numpy
+vectorbt
+matplotlib
+openbb
+openbb-nasdaq
+python-dotenv
+prometheus_client
+requests
+pytest
+scipy
+statsmodels
+pandas_ta

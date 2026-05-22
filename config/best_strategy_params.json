@@ -1,0 +1,10 @@
+{
+    "parameters": {
+        "ema_window": 60,
+        "rsi_window": 13,
+        "rsi_extreme": 7
+    },
+    "base_return": 0.0,
+    "is_fragile": false,
+    "max_sensitivity_drop": 0.0
+}
