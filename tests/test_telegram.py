@@ -82,10 +82,12 @@ class TestTelegramNotifier(unittest.TestCase):
         self.assertEqual(payload["chat_id"], "12345")
         self.assertEqual(payload["text"], "Hello World")
 
+    @patch('utils.telegram.get_telegram_config')
     @patch('utils.telegram.TelegramNotifier.get_latest_chat_id')
     @patch('utils.telegram.requests.post')
-    def test_send_message_dynamic_chat_id(self, mock_post, mock_get_chat_id):
+    def test_send_message_dynamic_chat_id(self, mock_post, mock_get_chat_id, mock_get_config):
         """Test sending message resolves chat ID dynamically if empty."""
+        mock_get_config.return_value = {"bot_token": "dummy_token", "chat_id": ""}
         mock_get_chat_id.return_value = "55555"
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -96,10 +98,10 @@ class TestTelegramNotifier(unittest.TestCase):
         success = notifier.send_message("Testing Dynamic", async_send=False)
         
         self.assertTrue(success)
-        self.assertEqual(notifier.chat_id, "6247242674")
+        self.assertEqual(notifier.chat_id, "55555")
         mock_post.assert_called_once()
         payload = mock_post.call_args[1]["json"]
-        self.assertEqual(payload["chat_id"], "6247242674")
+        self.assertEqual(payload["chat_id"], "55555")
 
     @patch('utils.telegram.requests.post')
     def test_send_message_exception_safety(self, mock_post):
