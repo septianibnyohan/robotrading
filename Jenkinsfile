@@ -14,7 +14,7 @@ pipeline {
                     if (isUnix()) {
                         sh '''
                             python3 -m venv venv
-                            venv/bin/pip install --upgrade pip
+                            venv/bin/python -m pip install --upgrade pip
                         '''
                     } else {
                         bat '''
@@ -32,7 +32,7 @@ pipeline {
                             
                             echo Using Python executable: %PY_PATH%
                             "%PY_PATH%" -m venv venv
-                            venv\\Scripts\\pip install --upgrade pip
+                            venv\\Scripts\\python.exe -m pip install --upgrade pip
                         '''
                     }
                 }
