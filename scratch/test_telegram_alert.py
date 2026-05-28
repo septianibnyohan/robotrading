@@ -37,11 +37,23 @@ def main():
     test_message = (
         "<b>[RoboBTC Test Alert]</b>\n"
         "This is a test notification verifying the Telegram integration.\n\n"
+        "• <b>Current Price:</b> 2011.50\n"
         "• <b>EMA Fast:</b> 2012.34\n"
         "• <b>EMA Slow:</b> 2010.56\n"
         "• <b>RSI Previous:</b> 48.75\n"
-        "• <b>RSI Current:</b> 52.10\n"
-        "<i>Crossover event successfully verified!</i>"
+        "• <b>RSI Current:</b> 52.10\n\n"
+        "📈 <b>Long Criteria:</b>\n"
+        "- Volatility OK: ✅\n"
+        "- Trend OK: ✅\n"
+        "- Fast EMA &gt; Slow EMA: ✅\n"
+        "- RSI Cross Up: ✅\n"
+        "- Close &gt; Fast EMA: ❌\n\n"
+        "📉 <b>Short Criteria:</b>\n"
+        "- Volatility OK: ✅\n"
+        "- Trend OK: ✅\n"
+        "- Fast EMA &lt; Slow EMA: ❌\n"
+        "- RSI Cross Down: ❌\n"
+        "- Close &lt; Fast EMA: ❌"
     )
     
     print("\nSending test message...")

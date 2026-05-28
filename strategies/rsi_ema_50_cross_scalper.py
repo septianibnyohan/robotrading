@@ -155,6 +155,16 @@ class RsiEma50CrossScalperStrategy(TradingStrategy):
                 f"{df[['time', 'close', 'fast_ema', 'slow_ema', 'rsi', 'atr', 'signal']].tail(5).to_string()}\n"
                 f"----------------------"
             )
+
+            df["info"] = (f"[STRATEGY DEBUG] Candle: {last_time} | Close: {last_row['close']:.2f} | "
+                f"Fast EMA: {last_row['fast_ema']:.2f} | Slow EMA: {last_row['slow_ema']:.2f} (diff: {ema_diff:.2f}, threshold: {0.5*last_row['atr']:.2f}) | "
+                f"RSI(7): {last_row['rsi']:.2f} (prev: {last_row['prev_rsi']:.2f}) | ATR(14): {last_row['atr']:.2f} | "
+                f"Long Criteria: {long_criteria} | "
+                f"Short Criteria: {short_criteria}\n"
+                f"--- DataFrame Tail ---\n"
+                f"{df[['time', 'close', 'fast_ema', 'slow_ema', 'rsi', 'atr', 'signal']].tail(5).to_string()}\n"
+                f"----------------------")
+
             self.last_debug_time = last_time
             
             # 2. Informational entry logs

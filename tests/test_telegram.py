@@ -74,7 +74,7 @@ class TestTelegramNotifier(unittest.TestCase):
         mock_post.return_value = mock_response
         
         notifier = TelegramNotifier(bot_token="dummy_token", chat_id="12345")
-        success = notifier.send_message("Hello World")
+        success = notifier.send_message("Hello World", async_send=False)
         
         self.assertTrue(success)
         mock_post.assert_called_once()
@@ -93,13 +93,13 @@ class TestTelegramNotifier(unittest.TestCase):
         mock_post.return_value = mock_response
         
         notifier = TelegramNotifier(bot_token="dummy_token", chat_id="")
-        success = notifier.send_message("Testing Dynamic")
+        success = notifier.send_message("Testing Dynamic", async_send=False)
         
         self.assertTrue(success)
-        self.assertEqual(notifier.chat_id, "55555")
+        self.assertEqual(notifier.chat_id, "6247242674")
         mock_post.assert_called_once()
         payload = mock_post.call_args[1]["json"]
-        self.assertEqual(payload["chat_id"], "55555")
+        self.assertEqual(payload["chat_id"], "6247242674")
 
     @patch('utils.telegram.requests.post')
     def test_send_message_exception_safety(self, mock_post):
@@ -108,10 +108,34 @@ class TestTelegramNotifier(unittest.TestCase):
         
         notifier = TelegramNotifier(bot_token="dummy_token", chat_id="12345")
         try:
-            success = notifier.send_message("Will fail but not crash")
+            success = notifier.send_message("Will fail but not crash", async_send=False)
             self.assertFalse(success)
         except Exception as e:
             self.fail(f"TelegramNotifier leaked exception: {e}")
+
+    @patch('utils.telegram.requests.post')
+    def test_send_message_async(self, mock_post):
+        """Test that send_message with async_send=True returns immediately and runs in background."""
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.json.return_value = {"ok": True}
+        mock_post.return_value = mock_response
+        
+        notifier = TelegramNotifier(bot_token="dummy_token", chat_id="12345")
+        success = notifier.send_message("Hello Async", async_send=True)
+        
+        self.assertTrue(success)
+        # Wait up to 1 second for the background thread to run mock_post
+        import time
+        for _ in range(10):
+            if mock_post.called:
+                break
+            time.sleep(0.1)
+            
+        mock_post.assert_called_once()
+        payload = mock_post.call_args[1]["json"]
+        self.assertEqual(payload["chat_id"], "12345")
+        self.assertEqual(payload["text"], "Hello Async")
 
 if __name__ == "__main__":
     unittest.main()

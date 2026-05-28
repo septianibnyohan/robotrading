@@ -1,0 +1,118 @@
+{
+  "spec_version": "3.0.0",
+  "title": "Bitcoin M5 Trading Bot - Python for Exness MT5 Cent Account",
+  "description": "Python trading bot using MetaTrader5 module. Trades BTCUSDC on M5 timeframe, Exness cent account. Fixed lot 0.01, spread cost 0.15 per trade.",
+  "broker": "Exness",
+  "platform": "MetaTrader 5 (Python integration)",
+  "account_type": "cent account",
+  "symbol": "BTCUSDc",
+  "base_timeframe": "M5",
+  "higher_timeframe": "H1",
+  "lot_size_fixed": 0.01,
+  "spread_cost_per_trade_usd": 0.15,
+  "max_spread_allowed": 0.30,
+  "trading_sessions": ["London (08:00-17:00 GMT)", "New York (13:00-21:00 GMT)"],
+  "indicator_components": [
+    {
+      "name": "EMA_Trend_Filter",
+      "type": "exponential_moving_average",
+      "periods": [9, 21, 200],
+      "timeframe": "M5",
+      "rules": {
+        "long_only": "price > M5_200_EMA AND H1_50_EMA rising",
+        "short_only": "price < M5_200_EMA AND H1_50_EMA falling"
+      }
+    },
+    {
+      "name": "RSI_Momentum",
+      "type": "relative_strength_index",
+      "period": 14,
+      "timeframe": "M5",
+      "crypto_adjustment": {
+        "overbought": 80,
+        "oversold": 20,
+        "midline_bullish": "RSI > 50",
+        "midline_bearish": "RSI < 50"
+      },
+      "entry_rules": {
+        "long": "RSI crosses above 40 (from below) AND price > 200 EMA",
+        "short": "RSI crosses below 60 (from above) AND price < 200 EMA"
+      }
+    },
+    {
+      "name": "ATR_Volatility_Stop",
+      "type": "average_true_range",
+      "period": 14,
+      "timeframe": "M5",
+      "multiplier_stop": 1.5,
+      "multiplier_target": 3.0
+    },
+    {
+      "name": "Volume_Confirmation",
+      "type": "volume_with_ema",
+      "period": 10,
+      "timeframe": "M5",
+      "threshold": "current_volume > 1.5 * volume_ema(10)"
+    },
+    {
+      "name": "ADX_Trend_Strength",
+      "type": "average_directional_index",
+      "period": 14,
+      "timeframe": "M5",
+      "threshold": 25
+    },
+    {
+      "name": "MultiTimeframe_Alignment",
+      "type": "confluence_check",
+      "timeframes": ["M5", "M15", "H1"],
+      "rules": "All three timeframes must agree on direction for entry."
+    }
+  ],
+  "signal_generation_logic": {
+    "long_entry_conditions": [
+      "price > M5_200_EMA",
+      "H1_50_EMA slope > 0",
+      "RSI(14) > 40 and rising",
+      "ADX(14) > 25",
+      "volume > volume_ema(10) * 1.5",
+      "candle_close > M5_9_EMA"
+    ],
+    "short_entry_conditions": [
+      "price < M5_200_EMA",
+      "H1_50_EMA slope < 0",
+      "RSI(14) < 60 and falling",
+      "ADX(14) > 25",
+      "volume > volume_ema(10) * 1.5",
+      "candle_close < M5_9_EMA"
+    ],
+    "exit_logic": {
+      "take_profit": "entry_price ± (ATR(14) * 3.0)",
+      "stop_loss": "entry_price ∓ (ATR(14) * 1.5)",
+      "trailing_stop": "activate after +1.5% move, trail at 1.0× ATR",
+      "time_exit": "close if no new high/low after 20 minutes (4 M5 candles)"
+    }
+  },
+  "risk_management": {
+    "max_risk_per_trade_percent": 1.0,
+    "max_daily_loss_percent": 5.0,
+    "position_sizing": "fixed lot = 0.01",
+    "max_concurrent_positions": 1,
+    "circuit_breaker": "disable trading after 5 consecutive losses OR daily loss > 5%",
+    "spread_cost_handling": "subtract 0.15 USD from net profit after each trade close"
+  },
+  "python_implementation_notes": {
+    "mt5_module": "MetaTrader5",
+    "required_libraries": ["MetaTrader5", "pandas", "numpy", "time", "datetime", "logging"],
+    "indicator_calculation": "use pandas_ta or manual numpy/vectorized methods",
+    "candle_check": "poll every 5 seconds, detect new M5 candle via timestamps",
+    "order_execution": "mt5.OrderSend() with symbol = 'BTCUSDC', volume = 0.01, magic = 20260523",
+    "session_filter": "check current server time (GMT) against London/NY sessions",
+    "logging": "log to file and console, include spread deductions"
+  },
+  "deployment_steps": [
+    "Install MetaTrader5 package: pip install MetaTrader5",
+    "Run script while MT5 terminal is open and logged into Exness cent account",
+    "Ensure BTCUSDC symbol is visible in Market Watch",
+    "Test on demo cent account first"
+  ]
+}

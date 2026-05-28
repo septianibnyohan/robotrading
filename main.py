@@ -194,7 +194,8 @@ def main():
 
             # Check for RSI 50 crossover on completed candle
             forming_time = df.iloc[-1]['time']
-            completed_df = df_signals[df_signals['time'] < forming_time]
+            # completed_df = df_signals[df_signals['time'] < forming_time]
+            completed_df = df_signals
             if not completed_df.empty:
                 completed_row = completed_df.iloc[-1]
                 completed_time = completed_row['time']
@@ -208,13 +209,35 @@ def main():
                     
                     if rsi_cross_up or rsi_cross_down:
                         direction = "UP" if rsi_cross_up else "DOWN"
+
+                        # Determine criteria matches
+                        vol_ok = bool(completed_row.get('volatility_ok', True))
+                        trend_ok = bool(completed_row.get('ema_trend_ok', True))
+                        fast_gt_slow = bool(completed_row['fast_ema'] > completed_row['slow_ema'])
+                        fast_lt_slow = bool(completed_row['fast_ema'] < completed_row['slow_ema'])
+                        close_gt_fast = bool(completed_row['close'] > completed_row['fast_ema'])
+                        close_lt_fast = bool(completed_row['close'] < completed_row['fast_ema'])
+
                         msg = (
                             f"🔔 <b>RSI 50 Cross Detected ({direction})</b>\n"
                             f"<b>Time:</b> {completed_time}\n"
+                            f"<b>Current Price:</b> {completed_row['close']:.2f}\n"
                             f"<b>EMA Fast:</b> {completed_row['fast_ema']:.2f}\n"
                             f"<b>EMA Slow:</b> {completed_row['slow_ema']:.2f}\n"
                             f"<b>RSI Previous:</b> {prev_rsi:.2f}\n"
-                            f"<b>RSI Current:</b> {curr_rsi:.2f}"
+                            f"<b>RSI Current:</b> {curr_rsi:.2f}\n\n"
+                            f"📈 <b>Long Criteria:</b>\n"
+                            f"- Volatility OK: {'✅' if vol_ok else '❌'}\n"
+                            f"- Trend OK: {'✅' if trend_ok else '❌'}\n"
+                            f"- Fast EMA &gt; Slow EMA: {'✅' if fast_gt_slow else '❌'}\n"
+                            f"- RSI Cross Up: {'✅' if rsi_cross_up else '❌'}\n"
+                            f"- Close &gt; Fast EMA: {'✅' if close_gt_fast else '❌'}\n\n"
+                            f"📉 <b>Short Criteria:</b>\n"
+                            f"- Volatility OK: {'✅' if vol_ok else '❌'}\n"
+                            f"- Trend OK: {'✅' if trend_ok else '❌'}\n"
+                            f"- Fast EMA &lt; Slow EMA: {'✅' if fast_lt_slow else '❌'}\n"
+                            f"- RSI Cross Down: {'✅' if rsi_cross_down else '❌'}\n"
+                            f"- Close &lt; Fast EMA: {'✅' if close_lt_fast else '❌'}\n"
                         )
                         notifier.send_message(msg)
                         last_notified_rsi_cross_time = completed_time
@@ -243,6 +266,9 @@ def main():
             # 4. Open Positions Monitoring & Manage Exits
             positions = executor.get_open_positions()
             current_time = datetime.now(timezone.utc)
+            long_exit_sig = bool(last_completed.get('long_exit', False))
+            short_exit_sig = bool(last_completed.get('short_exit', False))
+            closed_any = False
             
             for pos in positions:
                 # Time Stop Check
@@ -251,7 +277,7 @@ def main():
                 
                 if elapsed_min >= args.max_hold_min:
                     logger.info(f"Time Stop hit for position {pos.ticket}. Holding time: {elapsed_min:.1f} mins.")
-                    executor.close_all_positions() # Close all for symbol
+                    executor.close_position(pos)
                     sig_logger.log(
                         signal_type="EXIT_TIME_STOP",
                         price=bid if pos.type == mt5.POSITION_TYPE_BUY else ask,
@@ -259,8 +285,54 @@ def main():
                         atr=last_completed['atr'],
                         status="executed"
                     )
+                    closed_any = True
                     continue
                 
+                # Technical Exit Check
+                if pos.type == mt5.POSITION_TYPE_BUY and long_exit_sig:
+                    logger.info(f"Technical Long Exit triggered for position {pos.ticket}.")
+                    executor.close_position(pos)
+                    sig_logger.log(
+                        signal_type="EXIT_LONG",
+                        price=bid,
+                        spread=spread_points,
+                        atr=last_completed['atr'],
+                        status="executed"
+                    )
+                    exit_msg = (
+                        f"🚪 <b>Technical Long Exit Triggered</b>\n"
+                        f"<b>Ticket:</b> {pos.ticket}\n"
+                        f"<b>Price:</b> {bid:.2f}\n"
+                        f"<b>RSI:</b> {last_completed['rsi']:.2f}\n"
+                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.2f}\n"
+                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.2f}"
+                    )
+                    notifier.send_message(exit_msg)
+                    closed_any = True
+                    continue
+                    
+                if pos.type == mt5.POSITION_TYPE_SELL and short_exit_sig:
+                    logger.info(f"Technical Short Exit triggered for position {pos.ticket}.")
+                    executor.close_position(pos)
+                    sig_logger.log(
+                        signal_type="EXIT_SHORT",
+                        price=ask,
+                        spread=spread_points,
+                        atr=last_completed['atr'],
+                        status="executed"
+                    )
+                    exit_msg = (
+                        f"🚪 <b>Technical Short Exit Triggered</b>\n"
+                        f"<b>Ticket:</b> {pos.ticket}\n"
+                        f"<b>Price:</b> {ask:.2f}\n"
+                        f"<b>RSI:</b> {last_completed['rsi']:.2f}\n"
+                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.2f}\n"
+                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.2f}"
+                    )
+                    notifier.send_message(exit_msg)
+                    closed_any = True
+                    continue
+
                 # Trailing Stop Check
                 if args.use_trail and pos.sl > 0:
                     # Calculate initial SL distance in price units
@@ -284,6 +356,10 @@ def main():
                                 logger.info(f"Trailing Stop Sell: Moving SL from {pos.sl} to {new_sl}")
                                 executor.modify_position_sltp(pos.ticket, new_sl, pos.tp)
             
+            # Refresh position state if we closed any
+            if closed_any:
+                positions = executor.get_open_positions()
+
             # If we already have open positions, do not check entries
             if len(positions) > 0:
                 time.sleep(0.5)
@@ -292,9 +368,12 @@ def main():
             # 5. Evaluate Entry Signals
             long_trigger = bool(last_completed['long_entry'])
             short_trigger = bool(last_completed['short_entry'])
+
+
             
             if (long_trigger or short_trigger) and last_completed_time != last_trade_bar:
                 signal_type = "BUY" if long_trigger else "SELL"
+
                 price = ask if long_trigger else bid
                 atr_val = last_completed['atr']
                 
@@ -316,11 +395,11 @@ def main():
                     continue
                     
                 # C. Spread Filter
-                if spread_points > args.max_spread:
-                    logger.warning(f"Trade rejected: spread ({spread_points:.1f}) > max ({args.max_spread})")
-                    sig_logger.log(signal_type, price, spread_points, atr_val, "rejected", "spread > max")
-                    last_trade_bar = last_completed_time
-                    continue
+                # if spread_points > args.max_spread:
+                #     logger.warning(f"Trade rejected: spread ({spread_points:.1f}) > max ({args.max_spread})")
+                #     sig_logger.log(signal_type, price, spread_points, atr_val, "rejected", "spread > max")
+                #     last_trade_bar = last_completed_time
+                #     continue
                 
                 # Technical filters already applied inside strategy (volatility_ok, ema_trend_ok)
                 # But let's log if they failed just in case

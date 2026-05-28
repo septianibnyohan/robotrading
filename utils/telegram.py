@@ -1,4 +1,5 @@
 import logging
+import threading
 import requests
 from config.credentials import get_telegram_config
 
@@ -52,14 +53,26 @@ class TelegramNotifier:
             
         return None
 
-    def send_message(self, text: str) -> bool:
+    def send_message(self, text: str, async_send: bool = True) -> bool:
         """
         Sends a message to the configured Telegram chat.
-        If chat_id is missing, it will attempt dynamic lookup.
+        If async_send is True, it spawns a background thread and returns True immediately.
+        Otherwise, it runs synchronously.
         """
         if not self.bot_token:
             return False
-            
+
+        if async_send:
+            thread = threading.Thread(target=self._send_message_sync, args=(text,), daemon=True)
+            thread.start()
+            return True
+        else:
+            return self._send_message_sync(text)
+
+    def _send_message_sync(self, text: str) -> bool:
+        """
+        Internal synchronous method to send the Telegram message.
+        """
         # Try resolving chat_id dynamically if empty
         if not self.chat_id:
             logger.info("[TELEGRAM] Chat ID is not configured. Attempting to resolve chat ID from latest bot updates...")

@@ -89,40 +89,55 @@ class TradeExecutor:
             return []
         return positions
 
+    def close_position(self, pos):
+        """
+        Closes a specific open position.
+        """
+        tick = mt5.symbol_info_tick(self.symbol)
+        if tick is None:
+            logger.error(f"Failed to get tick for closing position {pos.ticket}")
+            return None
+
+        type_dict = {
+            mt5.POSITION_TYPE_BUY: mt5.ORDER_TYPE_SELL,
+            mt5.POSITION_TYPE_SELL: mt5.ORDER_TYPE_BUY
+        }
+        price_dict = {
+            mt5.POSITION_TYPE_BUY: tick.bid,
+            mt5.POSITION_TYPE_SELL: tick.ask
+        }
+
+        if pos.type not in type_dict:
+            logger.error(f"Unknown position type: {pos.type}")
+            return None
+
+        request = {
+            "action": mt5.TRADE_ACTION_DEAL,
+            "symbol": self.symbol,
+            "volume": pos.volume,
+            "type": type_dict[pos.type],
+            "position": pos.ticket,
+            "price": price_dict[pos.type],
+            "magic": 123456,
+            "comment": "RoboBTC Close",
+            "type_time": mt5.ORDER_TIME_GTC,
+            "type_filling": mt5.ORDER_FILLING_IOC,
+        }
+
+        result = mt5.order_send(request)
+        if result.retcode != mt5.TRADE_RETCODE_DONE:
+            logger.error(f"Failed to close position {pos.ticket}: {result.comment}")
+        else:
+            logger.info(f"Closed position {pos.ticket}")
+        return result
+
     def close_all_positions(self):
         """
         Closes all open positions for the current symbol.
         """
         positions = self.get_open_positions()
         for pos in positions:
-            tick = mt5.symbol_info_tick(self.symbol)
-            type_dict = {
-                mt5.POSITION_TYPE_BUY: mt5.ORDER_TYPE_SELL,
-                mt5.POSITION_TYPE_SELL: mt5.ORDER_TYPE_BUY
-            }
-            price_dict = {
-                mt5.POSITION_TYPE_BUY: tick.bid,
-                mt5.POSITION_TYPE_SELL: tick.ask
-            }
-            
-            request = {
-                "action": mt5.TRADE_ACTION_DEAL,
-                "symbol": self.symbol,
-                "volume": pos.volume,
-                "type": type_dict[pos.type],
-                "position": pos.ticket,
-                "price": price_dict[pos.type],
-                "magic": 123456,
-                "comment": "RoboBTC Close",
-                "type_time": mt5.ORDER_TIME_GTC,
-                "type_filling": mt5.ORDER_FILLING_IOC,
-            }
-            
-            result = mt5.order_send(request)
-            if result.retcode != mt5.TRADE_RETCODE_DONE:
-                logger.error(f"Failed to close position {pos.ticket}: {result.comment}")
-            else:
-                logger.info(f"Closed position {pos.ticket}")
+            self.close_position(pos)
 
     def modify_position_sltp(self, ticket, stop_loss, take_profit):
         """
