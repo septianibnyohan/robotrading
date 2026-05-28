@@ -34,7 +34,7 @@ def check_circuit_breaker(starting_balance):
     """Validates risk limits."""
     today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     profit = get_daily_realized_profit(today)
-    loss_pct = 0.0 if starting_balance <= 0 else (-profit) / starting_balance
+    # loss_pct = 0.0 if starting_balance <= 0 else (-profit) / starting_balance
     # if loss_pct > 0.05:
     #     logger.warning(f"Daily loss ({loss_pct*100:.2f}%) exceeds 5% threshold.")
     #     return False, profit

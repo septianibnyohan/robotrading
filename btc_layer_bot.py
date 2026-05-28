@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import MetaTrader5 as mt5
 
 from btc_config import (
-    SYMBOL, MAX_SPREAD_USD, EMA_SLOW, LAYERING_MODE, LAYERING_STEP_ATR_MULT,
+    SYMBOL, MAX_SPREAD_USD, LAYERING_MODE, LAYERING_STEP_ATR_MULT,
     LAYERING_STEP_USD, TAKE_PROFIT_PER_LAYER_USD, MAX_LAYERS, EXIT_LOGIC_AND
 )
 from btc_indicators import (

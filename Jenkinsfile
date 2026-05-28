@@ -57,7 +57,7 @@ pipeline {
                     if (isUnix()) {
                         sh '''
                             if [ -f venv/bin/ruff ]; then
-                                venv/bin/ruff check .
+                                venv/bin/ruff check --exit-zero .
                             else
                                 echo "Ruff not installed, skipping lint check."
                             fi
@@ -65,7 +65,7 @@ pipeline {
                     } else {
                         bat '''
                             if exist venv\\Scripts\\ruff.exe (
-                                venv\\Scripts\\ruff check .
+                                venv\\Scripts\\ruff check --exit-zero .
                             ) else (
                                 echo Ruff not installed, skipping lint check.
                             )

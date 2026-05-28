@@ -1,6 +1,5 @@
 import logging
 import MetaTrader5 as mt5
-from btc_config import SYMBOL
 from btc_trading import modify_position_sl, close_position_by_ticket
 
 logger = logging.getLogger(__name__)
