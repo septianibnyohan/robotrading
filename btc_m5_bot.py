@@ -4,7 +4,7 @@ import logging
 from datetime import datetime, timezone
 import MetaTrader5 as mt5
 
-from btc_config import SYMBOL, MAX_SPREAD_USD, EMA_SLOW
+import btc_config
 from btc_indicators import (
     calculate_m5_indicators, calculate_h1_indicators, 
     calculate_m15_indicators, fetch_rates, rates_to_df
@@ -24,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 def check_new_candle(last_time):
     """Detects closed M5 candle."""
-    m5_rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M5, 0, 500)
-    if m5_rates is None or len(m5_rates) < EMA_SLOW:
+    m5_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M5, 0, 500)
+    if m5_rates is None or len(m5_rates) < btc_config.EMA_SLOW:
         return None, last_time
     df_m5 = rates_to_df(m5_rates)
     completed_time = df_m5.iloc[-2]['time']
@@ -36,7 +36,7 @@ def check_new_candle(last_time):
 def recover_trade_state(pos):
     """Recovers the trade state from the open position."""
     logger.info(f"Active position found upon startup: {pos.ticket}. Recovering trade state...")
-    m5_rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M5, 0, 100)
+    m5_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M5, 0, 100)
     atr = 100.0
     if m5_rates is not None and len(m5_rates) > 0:
         df = rates_to_df(m5_rates)
@@ -110,11 +110,11 @@ def evaluate_and_execute(df_m5, tick, starting_balance):
         return None
     df_m5 = calculate_m5_indicators(df_m5)
     m5_comp, m5_prev = df_m5.iloc[-2], df_m5.iloc[-3]
-    h1_comp = calculate_h1_indicators(fetch_rates(SYMBOL, mt5.TIMEFRAME_H1, 100)).iloc[-2]
-    m15_comp = calculate_m15_indicators(fetch_rates(SYMBOL, mt5.TIMEFRAME_M15, 300)).iloc[-2]
+    h1_comp = calculate_h1_indicators(fetch_rates(btc_config.SYMBOL, mt5.TIMEFRAME_H1, 100)).iloc[-2]
+    m15_comp = calculate_m15_indicators(fetch_rates(btc_config.SYMBOL, mt5.TIMEFRAME_M15, 300)).iloc[-2]
     spread = tick.ask - tick.bid
-    if spread > MAX_SPREAD_USD:
-        logger.warning(f"Spread {spread:.2f} exceeds limit {MAX_SPREAD_USD:.2f}.")
+    if spread > btc_config.MAX_SPREAD_USD:
+        logger.warning(f"Spread {spread:.2f} exceeds limit {btc_config.MAX_SPREAD_USD:.2f}.")
         return None
     return check_entry_triggers(m5_comp, m5_prev, h1_comp, m15_comp, tick)
 
@@ -137,8 +137,8 @@ def run_trading_loop(starting_balance):
     logger.info("Entering trading loop...")
     try:
         while True:
-            tick = mt5.symbol_info_tick(SYMBOL)
-            positions = mt5.positions_get(symbol=SYMBOL)
+            tick = mt5.symbol_info_tick(btc_config.SYMBOL)
+            positions = mt5.positions_get(symbol=btc_config.SYMBOL)
             if not positions:
                 state = None
             if tick:

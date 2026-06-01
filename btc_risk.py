@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timezone, timedelta
 import MetaTrader5 as mt5
-from btc_config import SYMBOL
+import btc_config
 
 logger = logging.getLogger(__name__)
 
@@ -11,7 +11,7 @@ def get_daily_realized_profit(start_time):
     profit = 0.0
     if deals:
         for d in deals:
-            if d.symbol == SYMBOL:
+            if d.symbol == btc_config.SYMBOL:
                 profit += d.profit + d.swap + d.commission
     return profit
 
@@ -21,7 +21,7 @@ def get_consecutive_losses():
     week_deals = mt5.history_deals_get(now - timedelta(days=7), now)
     losses = 0
     if week_deals:
-        closing = [d for d in week_deals if d.symbol == SYMBOL and d.entry in [mt5.DEAL_ENTRY_OUT, mt5.DEAL_ENTRY_INOUT]]
+        closing = [d for d in week_deals if d.symbol == btc_config.SYMBOL and d.entry in [mt5.DEAL_ENTRY_OUT, mt5.DEAL_ENTRY_INOUT]]
         closing.sort(key=lambda x: x.time, reverse=True)
         for d in closing:
             if (d.profit + d.swap + d.commission) < 0:

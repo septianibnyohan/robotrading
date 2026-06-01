@@ -4,10 +4,7 @@ import logging
 from datetime import datetime, timezone
 import MetaTrader5 as mt5
 
-from btc_config import (
-    SYMBOL, MAX_SPREAD_USD, LAYERING_MODE, LAYERING_STEP_ATR_MULT,
-    LAYERING_STEP_USD, TAKE_PROFIT_PER_LAYER_USD, MAX_LAYERS, EXIT_LOGIC_AND
-)
+import btc_config
 from btc_indicators import (
     calculate_m1_layer_indicators, calculate_h1_layer_indicators, rates_to_df
 )
@@ -68,22 +65,22 @@ def check_h1_exit_conditions(h1_row, direction):
     logger.info(f"[H1 EXIT EVAL] Direction: {direction}, Close: {close:.2f}, EMA200: {ema_200:.2f}, RSI: {rsi:.2f}")
     cond_rsi = rsi <= 40 if direction == "BUY" else rsi >= 50
     cond_close = close <= ema_200 if direction == "BUY" else close >= ema_200
-    if EXIT_LOGIC_AND:
+    if btc_config.EXIT_LOGIC_AND:
         return cond_rsi and cond_close
     return cond_rsi or cond_close
 
 def get_layer_step(h1_row):
     """Calculates grid spacing step in USD."""
-    if LAYERING_MODE == "ATR":
+    if btc_config.LAYERING_MODE == "ATR":
         atr = h1_row['atr_14'] if 'atr_14' in h1_row else 100.0
-        return atr * LAYERING_STEP_ATR_MULT
-    return LAYERING_STEP_USD
+        return atr * btc_config.LAYERING_STEP_ATR_MULT
+    return btc_config.LAYERING_STEP_USD
 
 def handle_layering(positions, state, step, tick):
     """Applies grid layering when the price moves against the first entry."""
     direction, first_entry_price = state["direction"], state["first_entry_price"]
     total_layers = state["total_layers"]
-    if MAX_LAYERS is not None and total_layers >= MAX_LAYERS:
+    if btc_config.MAX_LAYERS is not None and total_layers >= btc_config.MAX_LAYERS:
         return
     offset = total_layers * step
     if direction == "BUY" and tick.ask <= first_entry_price - offset:
@@ -101,7 +98,7 @@ def handle_basket_tp(positions, state):
     """Checks basket profit and closes all positions if Take Profit target is met."""
     total_profit = sum(p.profit + p.swap for p in positions)
     total_layers = state["total_layers"]
-    target_profit = TAKE_PROFIT_PER_LAYER_USD * total_layers
+    target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * total_layers
     logger.debug(f"[BASKET TP CHECK] Profit: {total_profit:.2f} USD, Target: {target_profit:.2f} USD")
     if total_profit >= target_profit:
         logger.info(f"[BASKET TP] Take Profit met ({total_profit:.2f} >= {target_profit:.2f}). Closing all...")
@@ -136,8 +133,8 @@ def handle_h1_exit_eval(h1_row, positions, state):
 
 def fetch_indicators_data():
     """Fetches and calculates H1 and M1 indicators."""
-    h1_rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_H1, 0, 300)
-    m1_rates = mt5.copy_rates_from_pos(SYMBOL, mt5.TIMEFRAME_M1, 0, 100)
+    h1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_H1, 0, 300)
+    m1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M1, 0, 100)
     if h1_rates is None or m1_rates is None:
         return None, None
     h1_df = calculate_h1_layer_indicators(rates_to_df(h1_rates))
@@ -147,8 +144,8 @@ def fetch_indicators_data():
 def is_spread_valid(tick):
     """Checks if current spread is within allowed limits."""
     spread = tick.ask - tick.bid
-    if spread > MAX_SPREAD_USD:
-        logger.warning(f"Spread {spread:.2f} exceeds limit {MAX_SPREAD_USD:.2f}.")
+    if spread > btc_config.MAX_SPREAD_USD:
+        logger.warning(f"Spread {spread:.2f} exceeds limit {btc_config.MAX_SPREAD_USD:.2f}.")
         return False
     return True
 
@@ -165,7 +162,7 @@ def process_loop_logic(positions, state, h1_df, m1_df, h1_row, tick, loop_state,
             total_profit = sum(p.profit + p.swap for p in positions)
             offset = state["total_layers"] * step
             trigger = state["first_entry_price"] - offset if state["direction"] == "BUY" else state["first_entry_price"] + offset
-            logger.info(f"[Basket Log] Layers: {state['total_layers']} | Net Profit: {total_profit:.2f} USD (Target TP: {TAKE_PROFIT_PER_LAYER_USD * state['total_layers']:.2f} USD) | Next Trigger: {trigger:.2f}")
+            logger.info(f"[Basket Log] Layers: {state['total_layers']} | Net Profit: {total_profit:.2f} USD (Target TP: {btc_config.TAKE_PROFIT_PER_LAYER_USD * state['total_layers']:.2f} USD) | Next Trigger: {trigger:.2f}")
         completed_h1_time = h1_df.iloc[-2]['time']
         if loop_state["last_h1_time"] is None or completed_h1_time > loop_state["last_h1_time"]:
             loop_state["last_h1_time"] = completed_h1_time
@@ -188,8 +185,8 @@ def run_trading_loop(starting_balance):
     state = None
     try:
         while True:
-            tick = mt5.symbol_info_tick(SYMBOL)
-            positions = mt5.positions_get(symbol=SYMBOL)
+            tick = mt5.symbol_info_tick(btc_config.SYMBOL)
+            positions = mt5.positions_get(symbol=btc_config.SYMBOL)
             if not positions:
                 state = None
             elif state is None:

@@ -60,5 +60,24 @@ class TestStrategyEdgeCases(unittest.TestCase):
         self.assertIn('rsi', res.columns)
         self.assertFalse(res['rsi'].isnull().all())
 
+class TestDynamicConfig(unittest.TestCase):
+    def test_dynamic_config_time_based_switching(self):
+        """Verify dynamic configuration switches based on time."""
+        import btc_config
+        from unittest.mock import patch
+
+        # Case 1: normal config time (e.g. 10:00 AM)
+        with patch.object(btc_config, '_get_current_hour', return_value=10):
+            # accessing LOT_SIZE should return normal config value (0.02)
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.02)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 2.0)
+
+        # Case 2: low risk config time (e.g. 4:00 PM)
+        with patch.object(btc_config, '_get_current_hour', return_value=16):
+            # accessing LOT_SIZE should return low risk config value (0.01)
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.0)
+
+
 if __name__ == '__main__':
     unittest.main()

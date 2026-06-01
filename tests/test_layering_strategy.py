@@ -77,26 +77,26 @@ class TestLayeringStrategy(unittest.TestCase):
     def test_check_h1_exit_buy_and(self):
         """Verify H1 Buy exit triggers under logical AND."""
         row = {'close': 74800.0, 'ema_200': 75000.0, 'rsi_14': 38.0}
-        with patch('btc_layer_bot.EXIT_LOGIC_AND', True):
+        with patch('btc_config.EXIT_LOGIC_AND', True):
             self.assertTrue(bot.check_h1_exit_conditions(row, "BUY"))
 
     def test_check_h1_exit_buy_and_fail(self):
         """Verify H1 Buy exit does not trigger if only one condition is met under AND."""
         row = {'close': 75200.0, 'ema_200': 75000.0, 'rsi_14': 38.0}
-        with patch('btc_layer_bot.EXIT_LOGIC_AND', True):
+        with patch('btc_config.EXIT_LOGIC_AND', True):
             self.assertFalse(bot.check_h1_exit_conditions(row, "BUY"))
 
     def test_get_layer_step_usd(self):
         """Verify step returns LAYERING_STEP_USD in USD mode."""
         row = {'atr_14': 150.0}
-        with patch('btc_layer_bot.LAYERING_MODE', 'USD'):
-            self.assertEqual(bot.get_layer_step(row), bot.LAYERING_STEP_USD)
+        with patch('btc_config.LAYERING_MODE', 'USD'):
+            self.assertEqual(bot.get_layer_step(row), bot.btc_config.LAYERING_STEP_USD)
 
     def test_get_layer_step_atr(self):
         """Verify step returns ATR multiplier in ATR mode."""
         row = {'atr_14': 150.0}
-        with patch('btc_layer_bot.LAYERING_MODE', 'ATR'):
-            self.assertEqual(bot.get_layer_step(row), 150.0 * bot.LAYERING_STEP_ATR_MULT)
+        with patch('btc_config.LAYERING_MODE', 'ATR'):
+            self.assertEqual(bot.get_layer_step(row), 150.0 * bot.btc_config.LAYERING_STEP_ATR_MULT)
 
     @patch('btc_layer_bot.open_trade')
     def test_handle_layering_buy_triggered(self, mock_open_trade):
