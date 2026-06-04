@@ -43,6 +43,12 @@ class TradeExecutor:
             logger.error(f"Buy order failed: {result.comment} (code: {result.retcode})")
         else:
             logger.info(f"BUY order executed: {volume} lots at {tick.ask}")
+            try:
+                from data.trade_logger import TradeRsiLogger
+                db_logger = TradeRsiLogger()
+                db_logger.log_trade(result.order, "BUY", self.symbol, result.price, volume)
+            except Exception as ex:
+                logger.error(f"Error logging buy to DB: {ex}")
         
         return result
 
@@ -77,6 +83,12 @@ class TradeExecutor:
             logger.error(f"Sell order failed: {result.comment} (code: {result.retcode})")
         else:
             logger.info(f"SELL order executed: {volume} lots at {tick.bid}")
+            try:
+                from data.trade_logger import TradeRsiLogger
+                db_logger = TradeRsiLogger()
+                db_logger.log_trade(result.order, "SELL", self.symbol, result.price, volume)
+            except Exception as ex:
+                logger.error(f"Error logging sell to DB: {ex}")
             
         return result
 
@@ -129,6 +141,12 @@ class TradeExecutor:
             logger.error(f"Failed to close position {pos.ticket}: {result.comment}")
         else:
             logger.info(f"Closed position {pos.ticket}")
+            try:
+                from data.trade_logger import TradeRsiLogger
+                db_logger = TradeRsiLogger()
+                db_logger.log_trade(pos.ticket, "CLOSED", self.symbol, result.price, pos.volume)
+            except Exception as ex:
+                logger.error(f"Error logging close to DB: {ex}")
         return result
 
     def close_all_positions(self):

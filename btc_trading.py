@@ -48,6 +48,14 @@ def close_position_by_ticket(ticket, volume, pos_type, exit_reason):
         logger.error(f"Failed to close {ticket}: {res.comment}")
         return False
     logger.info(f"Closed {ticket} ({exit_reason}). Net Profit: {est_profit - btc_config.SPREAD_DEDUCTION_USD:.2f} USD")
+    
+    try:
+        from data.trade_logger import TradeRsiLogger
+        db_logger = TradeRsiLogger()
+        db_logger.log_trade(ticket, "CLOSED", btc_config.SYMBOL, price, volume)
+    except Exception as ex:
+        logger.error(f"Error logging close to DB: {ex}")
+        
     return True
 
 def close_all_open_positions(reason="Shutdown"):
@@ -83,4 +91,12 @@ def open_trade(direction, entry_price, sl_price, tp_price):
         logger.error(f"Failed {direction} entry: {res.comment}")
         return None
     logger.info(f"Opened {direction} ({res.order}) at {entry_price:.2f}")
+    
+    try:
+        from data.trade_logger import TradeRsiLogger
+        db_logger = TradeRsiLogger()
+        db_logger.log_trade(res.order, direction, btc_config.SYMBOL, entry_price, btc_config.LOT_SIZE)
+    except Exception as ex:
+        logger.error(f"Error logging trade to DB: {ex}")
+        
     return res.order

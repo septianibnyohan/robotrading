@@ -62,21 +62,34 @@ class TestStrategyEdgeCases(unittest.TestCase):
 
 class TestDynamicConfig(unittest.TestCase):
     def test_dynamic_config_time_based_switching(self):
-        """Verify dynamic configuration switches based on time."""
+        """Verify dynamic configuration switches based on time and day."""
         import btc_config
+        import datetime
         from unittest.mock import patch
 
-        # Case 1: normal config time (e.g. 10:00 AM)
-        with patch.object(btc_config, '_get_current_hour', return_value=10):
-            # accessing LOT_SIZE should return normal config value (0.02)
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.02)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 2.0)
+        # Case 1: Weekday (Wednesday), normal config time (10:00 AM)
+        wednesday_morning = datetime.datetime(2026, 6, 3, 10, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
 
-        # Case 2: low risk config time (e.g. 4:00 PM)
-        with patch.object(btc_config, '_get_current_hour', return_value=16):
-            # accessing LOT_SIZE should return low risk config value (0.01)
+        # Case 2: Weekday (Wednesday), low risk config time (4:00 PM)
+        wednesday_evening = datetime.datetime(2026, 6, 3, 16, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=wednesday_evening):
             self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.0)
+
+        # Case 3: Weekend (Saturday), daytime (10:00 AM) -> always normal config
+        saturday_morning = datetime.datetime(2026, 6, 6, 10, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=saturday_morning):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
+
+        # Case 4: Weekend (Saturday), evening (4:00 PM) -> always normal config
+        saturday_evening = datetime.datetime(2026, 6, 6, 16, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=saturday_evening):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
 
 
 if __name__ == '__main__':
