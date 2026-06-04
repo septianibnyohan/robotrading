@@ -33,9 +33,17 @@ class TradeRsiLogger:
                     rsi_h1 REAL,
                     rsi_h4 REAL,
                     rsi_d1 REAL,
-                    rsi_w1 REAL
+                    rsi_w1 REAL,
+                    profit REAL
                 )
             """)
+            
+            # Check if profit column exists, and if not, add it
+            cursor.execute("PRAGMA table_info(trade_rsi_log)")
+            columns = [col[1] for col in cursor.fetchall()]
+            if "profit" not in columns:
+                cursor.execute("ALTER TABLE trade_rsi_log ADD COLUMN profit REAL")
+                
             conn.commit()
         except Exception as e:
             logger.error(f"Error creating trade_rsi_log table: {e}")
@@ -76,7 +84,7 @@ class TradeRsiLogger:
             logger.error(f"Error calculating RSI for {symbol} {timeframe}: {e}")
             return 50.0
 
-    def log_trade(self, ticket, action, symbol, price, volume):
+    def log_trade(self, ticket, action, symbol, price, volume, profit=None):
         """
         Fetches multi-timeframe RSI values and logs the trade/close details to SQLite.
         """
@@ -103,8 +111,9 @@ class TradeRsiLogger:
             cursor.execute("""
                 INSERT INTO trade_rsi_log (
                     timestamp, ticket, action, symbol, price, volume,
-                    rsi_m1, rsi_m5, rsi_m15, rsi_30, rsi_h1, rsi_h4, rsi_d1, rsi_w1
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    rsi_m1, rsi_m5, rsi_m15, rsi_30, rsi_h1, rsi_h4, rsi_d1, rsi_w1,
+                    profit
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 timestamp,
                 int(ticket) if ticket is not None else None,
@@ -119,10 +128,11 @@ class TradeRsiLogger:
                 rsi_values['rsi_h1'],
                 rsi_values['rsi_h4'],
                 rsi_values['rsi_d1'],
-                rsi_values['rsi_w1']
+                rsi_values['rsi_w1'],
+                float(profit) if profit is not None else None
             ))
             conn.commit()
-            logger.info(f"Logged trade to database: {action} ticket {ticket} for {symbol} with MTF RSIs.")
+            logger.info(f"Logged trade to database: {action} ticket {ticket} for {symbol} with MTF RSIs and profit {profit}.")
         except Exception as e:
             logger.error(f"Error inserting trade log to database: {e}")
         finally:

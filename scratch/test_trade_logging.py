@@ -23,13 +23,14 @@ def run_manual_test(mock_copy_rates):
     logger = TradeRsiLogger(db_path=db_path)
 
     ticket = 12345678
-    action = "BUY"
+    action = "CLOSED"
     symbol = "BTCUSDc"
     price = 68000.50
     volume = 0.12
+    profit = 150.75
 
-    print(f"Logging trade: ticket={ticket}, action={action}, symbol={symbol}, price={price}, volume={volume}")
-    logger.log_trade(ticket, action, symbol, price, volume)
+    print(f"Logging trade: ticket={ticket}, action={action}, symbol={symbol}, price={price}, volume={volume}, profit={profit}")
+    logger.log_trade(ticket, action, symbol, price, volume, profit=profit)
 
     print("Verifying database insertion...")
     conn = sqlite3.connect(db_path)
@@ -68,6 +69,7 @@ def run_manual_test(mock_copy_rates):
         print(f"  RSI H4: {row[12]:.4f}")
         print(f"  RSI D1: {row[13]:.4f}")
         print(f"  RSI W1: {row[14]:.4f}")
+        print(f"  Profit: {row[15]}")
         print("\nVerification SUCCESSFUL!")
     else:
         print("\nVerification FAILED: Row not found.")

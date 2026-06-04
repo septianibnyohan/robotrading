@@ -61,10 +61,11 @@ class TestTradeRsiLogger(unittest.TestCase):
         logger_inst = TradeRsiLogger(db_path=self.db_path)
         logger_inst.log_trade(
             ticket=999888,
-            action="BUY",
+            action="CLOSED",
             symbol="XAUUSD",
             price=2050.25,
-            volume=0.05
+            volume=0.05,
+            profit=25.50
         )
         
         conn = sqlite3.connect(self.db_path)
@@ -76,7 +77,7 @@ class TestTradeRsiLogger(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         row = rows[0]
         self.assertEqual(row[2], 999888)
-        self.assertEqual(row[3], "BUY")
+        self.assertEqual(row[3], "CLOSED")
         self.assertEqual(row[4], "XAUUSD")
         self.assertEqual(row[5], 2050.25)
         self.assertEqual(row[6], 0.05)
@@ -84,6 +85,9 @@ class TestTradeRsiLogger(unittest.TestCase):
         # Verify 8 timeframes (M1, M5, M15, M30, H1, H4, D1, W1)
         for idx in range(7, 15):
             self.assertTrue(0 <= row[idx] <= 100)
+            
+        # Verify profit value
+        self.assertEqual(row[15], 25.50)
 
 if __name__ == '__main__':
     unittest.main()

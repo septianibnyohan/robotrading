@@ -52,7 +52,7 @@ def close_position_by_ticket(ticket, volume, pos_type, exit_reason):
     try:
         from data.trade_logger import TradeRsiLogger
         db_logger = TradeRsiLogger()
-        db_logger.log_trade(ticket, "CLOSED", btc_config.SYMBOL, price, volume)
+        db_logger.log_trade(ticket, "CLOSED", btc_config.SYMBOL, price, volume, profit=est_profit)
     except Exception as ex:
         logger.error(f"Error logging close to DB: {ex}")
         
