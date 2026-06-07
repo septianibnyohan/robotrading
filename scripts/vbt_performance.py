@@ -16,7 +16,7 @@ def main():
     logger.info("Generating Performance Report using VectorBT...")
 
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     storage = DataStorage()
     # Load data from SQLite

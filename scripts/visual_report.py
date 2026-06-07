@@ -16,7 +16,7 @@ def main():
     logger.info("Starting Visual Reporting Dashboard Generation (Days 132-135)...")
 
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     storage = DataStorage()
     df = storage.load_rates(symbol, 1, limit=10000)

@@ -15,7 +15,7 @@ def main():
     logger.info("Generating Performance Report for RSI-EMA Scalper Strategy...")
 
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     storage = DataStorage()
     df = storage.load_rates(symbol, 1, limit=50000)

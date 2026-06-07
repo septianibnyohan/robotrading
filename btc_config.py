@@ -2,79 +2,103 @@ import sys
 import types
 from datetime import datetime
 import importlib
+import logging
+import contextvars
 
-SYMBOL = "BTCUSDc"
-MAGIC_NUMBER = 20260523
-LOT_SIZE = 0.01 * 12
-MAX_SPREAD_USD = 15
-SPREAD_DEDUCTION_USD = 0.15
-MAX_CONCURRENT_POSITIONS = 1
+logger = logging.getLogger(__name__)
 
-EMA_FAST, EMA_MED, EMA_SLOW = 9, 21, 200
-H1_EMA_PERIOD, RSI_PERIOD, ATR_PERIOD = 50, 14, 14
-ADX_PERIOD, VOL_EMA_PERIOD = 14, 10
+# Context-local active symbol
+_active_symbol_var = contextvars.ContextVar('active_symbol', default="BTCUSDc")
 
-# Layering Strategy Config
-LAYERING_MODE = "USD"  # "USD" or "ATR"
-LAYERING_STEP_ATR_MULT = 1.0 * 12
-LAYERING_STEP_USD = 100.0
-TAKE_PROFIT_PER_LAYER_USD = 0.20 * 12
-MAX_LAYERS = None  # None for unlimited
-EXIT_LOGIC_AND = True  # True: both RSI & close conditions; False: either condition
+# Configured active symbols
+ACTIVE_SYMBOLS = ["BTCUSDc"]
 
+def set_active_symbol(symbol):
+    _active_symbol_var.set(symbol)
+    
+    # Pre-import the symbol module to verify it exists and log success/failure
+    try:
+        importlib.import_module(f"config.symbols.{symbol}")
+        # logger.info(f"Active symbol configuration set to: {symbol}")
+    except ImportError:
+        logger.warning(
+            f"Configuration module config.symbols.{symbol} not found! "
+            f"Falling back to default BTCUSDc config."
+        )
 
 class DynamicConfigModule(types.ModuleType):
     def __getattribute__(self, name):
-        # Exclude internal/dunder names, and the dispatcher internals
-        if name.startswith('__') or name in ('_get_active_module', '_low_risk_module', '_get_current_time'):
+        # Prevent infinite recursion for internal attributes/methods
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
             return super().__getattribute__(name)
+            
+        if name == 'ACTIVE_SYMBOL':
+            return _active_symbol_var.get()
         
-        target_module = self._get_active_module()
-        if target_module is self:
+        # Check if the attribute was set/patched directly on this proxy module object first
+        if name in self.__dict__:
             return super().__getattribute__(name)
-        else:
-            return getattr(target_module, name)
+            
+        # Load active symbol module
+        symbol_module = self._get_symbol_module()
+        
+        # Check if low risk overrides apply (weekdays outside 08:00 - 15:00)
+        now = self._get_current_time()
+        is_weekend = now.weekday() >= 5
+        is_low_risk = False
+        if not is_weekend:
+            if not (8 <= now.hour < 15):
+                is_low_risk = True
+                
+        # Return overridden value if in low-risk mode
+        if is_low_risk and hasattr(symbol_module, 'LOW_RISK_OVERRIDES') and name in symbol_module.LOW_RISK_OVERRIDES:
+            return symbol_module.LOW_RISK_OVERRIDES[name]
+            
+        # Return standard attribute
+        if hasattr(symbol_module, name):
+            return getattr(symbol_module, name)
+            
+        # Fallback to module's own attributes (e.g. methods or other globals)
+        try:
+            return super().__getattribute__(name)
+        except AttributeError:
+            raise AttributeError(
+                f"Module 'btc_config' has no attribute '{name}' "
+                f"(Active symbol configuration: {self.ACTIVE_SYMBOL})"
+            )
 
     def __setattr__(self, name, value):
-        if name.startswith('__') or name in ('_low_risk_module', '_get_current_time'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
             super().__setattr__(name, value)
+        elif name == 'ACTIVE_SYMBOL':
+            _active_symbol_var.set(value)
         else:
-            target_module = self._get_active_module()
-            if target_module is self:
-                super().__setattr__(name, value)
-            else:
-                setattr(target_module, name, value)
+            symbol_module = self._get_symbol_module()
+            setattr(symbol_module, name, value)
 
     def __delattr__(self, name):
-        if name.startswith('__') or name in ('_low_risk_module', '_get_current_time'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
             super().__delattr__(name)
+        elif name == 'ACTIVE_SYMBOL':
+            _active_symbol_var.set("BTCUSDc")
         else:
-            target_module = self._get_active_module()
-            if target_module is self:
-                super().__delattr__(name)
-            else:
-                delattr(target_module, name)
+            symbol_module = self._get_symbol_module()
+            try:
+                delattr(symbol_module, name)
+            except AttributeError:
+                if name in self.__dict__:
+                    super().__delattr__(name)
 
     def _get_current_time(self):
         return datetime.now()
-
-    def _get_active_module(self):
-        # Current local system time
-        now = self._get_current_time()
-        is_weekend = now.weekday() >= 5
         
-        if is_weekend:
-            # On weekend, always use btc_config (self)
-            return self
-        else:
-            # On weekday, use normal config if time is >= 08:00 and < 15:00
-            if 8 <= now.hour < 15:
-                return self
-            else:
-                if not hasattr(self, '_low_risk_module'):
-                    self._low_risk_module = importlib.import_module('btc_low_risk_config')
-                return self._low_risk_module
-
+    def _get_symbol_module(self):
+        symbol = _active_symbol_var.get()
+        try:
+            return importlib.import_module(f"config.symbols.{symbol}")
+        except ImportError:
+            # Fallback to loading default symbol config
+            return importlib.import_module("config.symbols.BTCUSDc")
 
 # Override this module's class in sys.modules to enable dynamic lookup
 sys.modules[__name__].__class__ = DynamicConfigModule

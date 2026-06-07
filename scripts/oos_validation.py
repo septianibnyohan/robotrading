@@ -38,7 +38,7 @@ def main():
     # 2. Fetch Data
     storage = DataStorage()
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     # Load 60,000 bars for split (approx 40 days)
     df = storage.load_rates(symbol, 1, limit=60000)

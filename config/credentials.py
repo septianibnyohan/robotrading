@@ -11,7 +11,7 @@ def get_mt5_credentials():
         "login": int(os.getenv("EXNESS_LOGIN", 0)),
         "password": os.getenv("EXNESS_PASSWORD", ""),
         "server": os.getenv("EXNESS_SERVER", ""),
-        "symbol": os.getenv("EXNESS_SYMBOL", "BTCUSDm"),
+        "symbol": os.getenv("EXNESS_SYMBOL", "BTCUSDc,XAUUSDc"),
     }
 
 def get_telegram_config():

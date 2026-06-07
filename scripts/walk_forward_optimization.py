@@ -18,7 +18,7 @@ from config.credentials import get_mt5_credentials
 def get_data():
     storage = DataStorage()
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     # Load ~50,000 bars
     df = storage.load_rates(symbol, 1, limit=50000)

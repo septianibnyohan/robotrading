@@ -1,6 +1,7 @@
 import sys
 import time
 import logging
+import threading
 from datetime import datetime, timezone
 import MetaTrader5 as mt5
 
@@ -96,13 +97,15 @@ def handle_layering(positions, state, step, tick):
 
 def handle_basket_tp(positions, state):
     """Checks basket profit and closes all positions if Take Profit target is met."""
-    total_profit = sum(p.profit + p.swap for p in positions)
+    current_symbol = btc_config.SYMBOL
+    symbol_positions = [p for p in positions if p.symbol == current_symbol]
+    total_profit = sum(p.profit + p.swap for p in symbol_positions)
     total_layers = state["total_layers"]
     target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * total_layers
-    logger.debug(f"[BASKET TP CHECK] Profit: {total_profit:.2f} USD, Target: {target_profit:.2f} USD")
+    logger.debug(f"[{current_symbol} BASKET TP CHECK] Profit: {total_profit:.2f} USD, Target: {target_profit:.2f} USD")
     if total_profit >= target_profit:
-        logger.info(f"[BASKET TP] Take Profit met ({total_profit:.2f} >= {target_profit:.2f}). Closing all...")
-        close_all_open_positions("BASKET_TP")
+        logger.info(f"[{current_symbol} BASKET TP] Take Profit met ({total_profit:.2f} >= {target_profit:.2f}). Closing all positions for {current_symbol}...")
+        close_all_open_positions("BASKET_TP", symbol=current_symbol, magic=btc_config.MAGIC_NUMBER)
         return True
     return False
 
@@ -178,15 +181,19 @@ def process_loop_logic(positions, state, h1_df, m1_df, h1_row, tick, loop_state,
             state = check_and_trigger_entry(h1_row, m1_df, tick)
     return state
 
-def run_trading_loop(starting_balance):
+def run_trading_loop(symbol, starting_balance, stop_event):
     """Orchestrates layering strategy checking tick data and completed candles."""
-    logger.info("Entering trading loop...")
+    btc_config.set_active_symbol(symbol)
+    logger.info(f"[{symbol}] Entering trading loop...")
     loop_state = {"last_h1_time": None, "last_m1_time": None}
     state = None
-    try:
-        while True:
-            tick = mt5.symbol_info_tick(btc_config.SYMBOL)
-            positions = mt5.positions_get(symbol=btc_config.SYMBOL)
+    while not stop_event.is_set():
+        try:
+            btc_config.set_active_symbol(symbol)
+            tick = mt5.symbol_info_tick(symbol)
+            raw_positions = mt5.positions_get(symbol=symbol)
+            magic_number = btc_config.MAGIC_NUMBER
+            positions = [p for p in raw_positions if p.magic == magic_number] if raw_positions else []
             if not positions:
                 state = None
             elif state is None:
@@ -196,21 +203,75 @@ def run_trading_loop(starting_balance):
                 if h1_df is not None and m1_df is not None:
                     h1_row = h1_df.iloc[-2]
                     state = process_loop_logic(positions, state, h1_df, m1_df, h1_row, tick, loop_state, starting_balance)
-            time.sleep(1.0)
-    except KeyboardInterrupt:
-        logger.info("Shutdown requested. Closing all positions...")
-        close_all_open_positions("Shutdown")
-    finally:
-        mt5.shutdown()
+        except Exception as e:
+            logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
+        time.sleep(1.0)
+    
+    logger.info(f"[{symbol}] Closing all positions...")
+    close_all_open_positions("Shutdown", symbol=symbol, magic=btc_config.MAGIC_NUMBER)
 
 def main():
+    import argparse
+    from config.credentials import get_mt5_credentials
+    
+    credentials = get_mt5_credentials()
+    # default_symbol = credentials.get("symbol", "BTCUSDc,XAUUSDc")
+    default_symbol = credentials.get("symbol", "BTCUSDc")
+    
+    parser = argparse.ArgumentParser(description="BTC Layer Trading Bot")
+    parser.add_argument("--symbol", type=str, default=default_symbol, help="Symbol(s) to trade (comma-separated or 'all')")
+    args = parser.parse_args()
+    
+    # Resolve symbols list
+    if args.symbol.lower() == "all":
+        symbols = btc_config.ACTIVE_SYMBOLS
+    else:
+        symbols = [s.strip() for s in args.symbol.split(",") if s.strip()]
+        
+    if not symbols:
+        logger.error("No valid symbols specified.")
+        sys.exit(1)
+        
+    # Set the first symbol as active for MT5 initialization
+    btc_config.set_active_symbol(symbols[0])
     initialize_mt5()
+    
+    # Select all other symbols in MT5
+    for sym in symbols:
+        if not mt5.symbol_select(sym, True):
+            logger.error(f"Symbol {sym} select failed.")
+            mt5.shutdown()
+            sys.exit(1)
+            
     account_info = mt5.account_info()
     if not account_info:
+        logger.error("Failed to get MT5 account info.")
+        mt5.shutdown()
         sys.exit(1)
+        
     today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     starting_balance = account_info.balance - get_daily_realized_profit(today)
-    run_trading_loop(starting_balance)
+    
+    stop_event = threading.Event()
+    threads = []
+    for sym in symbols:
+        t = threading.Thread(target=run_trading_loop, args=(sym, starting_balance, stop_event), name=f"Thread-{sym}")
+        t.start()
+        threads.append(t)
+        time.sleep(0.5) # Stagger start slightly
+        
+    try:
+        while True:
+            time.sleep(1.0)
+    except KeyboardInterrupt:
+        logger.info("Shutdown requested. Signaling threads to exit...")
+        stop_event.set()
+        
+    for t in threads:
+        t.join()
+        
+    mt5.shutdown()
+    logger.info("Shutdown complete.")
 
 if __name__ == "__main__":
     main()

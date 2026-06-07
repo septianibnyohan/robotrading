@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch, MagicMock
 import pandas as pd
 import numpy as np
 import sys
@@ -61,6 +62,11 @@ class TestStrategyEdgeCases(unittest.TestCase):
         self.assertFalse(res['rsi'].isnull().all())
 
 class TestDynamicConfig(unittest.TestCase):
+    def test_active_symbols_list(self):
+        """Verify ACTIVE_SYMBOLS list is correctly defined in btc_config."""
+        import btc_config
+        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc"])
+
     def test_dynamic_config_time_based_switching(self):
         """Verify dynamic configuration switches based on time and day."""
         import btc_config
@@ -70,27 +76,104 @@ class TestDynamicConfig(unittest.TestCase):
         # Case 1: Weekday (Wednesday), normal config time (10:00 AM)
         wednesday_morning = datetime.datetime(2026, 6, 3, 10, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
-
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
+ 
         # Case 2: Weekday (Wednesday), low risk config time (4:00 PM)
         wednesday_evening = datetime.datetime(2026, 6, 3, 16, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=wednesday_evening):
             self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.0)
-
+ 
         # Case 3: Weekend (Saturday), daytime (10:00 AM) -> always normal config
         saturday_morning = datetime.datetime(2026, 6, 6, 10, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=saturday_morning):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
-
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
+ 
         # Case 4: Weekend (Saturday), evening (4:00 PM) -> always normal config
         saturday_evening = datetime.datetime(2026, 6, 6, 16, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=saturday_evening):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.03)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 3.0)
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
+
+    def test_dynamic_config_context_isolation(self):
+        """Verify that separate threads/contexts can maintain separate active symbols concurrently."""
+        import btc_config
+        import threading
+        import time
+
+        results = {}
+
+        def thread_task(symbol_name, sleep_time):
+            btc_config.set_active_symbol(symbol_name)
+            time.sleep(sleep_time)
+            # Retrieve values after sleep to ensure other threads did not overwrite it
+            results[symbol_name] = {
+                "symbol": btc_config.SYMBOL,
+                "lot_size": btc_config.LOT_SIZE,
+            }
+
+        t1 = threading.Thread(target=thread_task, args=("BTCUSDc", 0.2))
+        t2 = threading.Thread(target=thread_task, args=("XAUUSDc", 0.1))
+
+        t1.start()
+        # Give t1 a head start to set to BTCUSDc
+        time.sleep(0.05)
+        t2.start()
+
+        t1.join()
+        t2.join()
+
+        # Both contexts should resolve to their respective symbol configs correctly
+        self.assertEqual(results["BTCUSDc"]["symbol"], "BTCUSDc")
+        self.assertAlmostEqual(results["BTCUSDc"]["lot_size"], 0.52)
+        
+        self.assertEqual(results["XAUUSDc"]["symbol"], "XAUUSDc")
+        self.assertAlmostEqual(results["XAUUSDc"]["lot_size"], 0.01)
+
+
+class TestBtcTrading(unittest.TestCase):
+    @patch('MetaTrader5.positions_get')
+    @patch('btc_trading.close_position_by_ticket')
+    def test_close_all_open_positions_with_symbol(self, mock_close_ticket, mock_positions_get):
+        """Verify close_all_open_positions filters by symbol correctly."""
+        from btc_trading import close_all_open_positions, close_all_open_position
+        
+        # Mock some open positions
+        mock_pos1 = MagicMock()
+        mock_pos1.ticket = 11111
+        mock_pos1.volume = 0.01
+        mock_pos1.type = 0  # BUY
+        mock_pos1.symbol = "XAUUSDc"
+        mock_pos1.magic = 20260606
+        
+        mock_positions_get.return_value = [mock_pos1]
+        
+        # Test close_all_open_positions with specific symbol
+        close_all_open_positions("BASKET_TP", symbol="XAUUSDc")
+        
+        mock_positions_get.assert_called_once_with(symbol="XAUUSDc")
+        mock_close_ticket.assert_called_once_with(11111, 0.01, 0, "BASKET_TP", symbol="XAUUSDc")
+        
+        # Test the alias function close_all_open_position
+        mock_positions_get.reset_mock()
+        mock_close_ticket.reset_mock()
+        
+        mock_pos2 = MagicMock()
+        mock_pos2.ticket = 22222
+        mock_pos2.volume = 0.52
+        mock_pos2.type = 0  # BUY
+        mock_pos2.symbol = "BTCUSDc"
+        mock_pos2.magic = 20260523
+        
+        mock_positions_get.return_value = [mock_pos2]
+        
+        close_all_open_position("BASKET_TP", symbol="BTCUSDc")
+        mock_positions_get.assert_called_once_with(symbol="BTCUSDc")
+        mock_close_ticket.assert_called_once_with(22222, 0.52, 0, "BASKET_TP", symbol="BTCUSDc")
 
 
 if __name__ == '__main__':
+    from unittest.mock import MagicMock
     unittest.main()

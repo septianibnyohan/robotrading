@@ -17,7 +17,7 @@ def main():
     logger.info("Starting Exhaustive Grid Search with VectorBT...")
 
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     storage = DataStorage()
     # Load a substantial amount of data for optimization

@@ -120,16 +120,18 @@ class TestLayeringStrategy(unittest.TestCase):
     @patch('btc_layer_bot.close_all_open_positions')
     def test_handle_basket_tp_triggered(self, mock_close):
         """Verify basket TP closes positions when target profit is exceeded."""
-        pos1 = MagicMock(profit=10.0, commission=0.0, swap=0.0)
-        pos2 = MagicMock(profit=15.0, commission=0.0, swap=0.0)
+        import btc_config
+        pos1 = MagicMock(symbol=btc_config.SYMBOL, profit=10.0, commission=0.0, swap=0.0)
+        pos2 = MagicMock(symbol=btc_config.SYMBOL, profit=15.0, commission=0.0, swap=0.0)
         state = {"total_layers": 2}  # Target: 2 * 0.20 = 0.40. Profit is 25.0
         self.assertTrue(bot.handle_basket_tp([pos1, pos2], state))
-        mock_close.assert_called_once_with("BASKET_TP")
+        mock_close.assert_called_once_with("BASKET_TP", symbol=btc_config.SYMBOL, magic=btc_config.MAGIC_NUMBER)
 
     @patch('btc_layer_bot.close_all_open_positions')
     def test_handle_basket_tp_not_triggered(self, mock_close):
         """Verify basket TP does not trigger when profit is below target."""
-        pos1 = MagicMock(profit=-1.0, commission=0.0, swap=0.0)
+        import btc_config
+        pos1 = MagicMock(symbol=btc_config.SYMBOL, profit=-1.0, commission=0.0, swap=0.0)
         state = {"total_layers": 1}  # Target: 0.20. Profit is -1.0
         self.assertFalse(bot.handle_basket_tp([pos1], state))
         mock_close.assert_not_called()

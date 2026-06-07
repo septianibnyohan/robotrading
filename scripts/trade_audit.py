@@ -17,7 +17,7 @@ def main():
     logger.info("Starting Trade-Level Auditing (Days 129-131)...")
 
     credentials = get_mt5_credentials()
-    symbol = credentials.get('symbol', 'BTCUSDm')
+    symbol = credentials.get('symbol', 'BTCUSDc')
     
     storage = DataStorage()
     df = storage.load_rates(symbol, 1, limit=10000)

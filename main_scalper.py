@@ -99,38 +99,48 @@ def check_cooldown(symbol, timeframe_minutes, current_bar_time, logger):
     return False, None
 
 def main():
-    parser = argparse.ArgumentParser(description="EMA+RSI(7) 50-Cross Scalper for XAUUSD")
-    parser.add_argument("--fast-ema", type=int, default=5, help="Fast EMA period (5 for M1, 9 for M5)")
-    parser.add_argument("--slow-ema", type=int, default=13, help="Slow EMA period (13 for M1, 21 for M5)")
-    parser.add_argument("--rsi-period", type=int, default=7, help="RSI period")
+    # Two-pass parsing: first parse only '--symbol' to initialize configuration
+    temp_parser = argparse.ArgumentParser(add_help=False)
+    temp_parser.add_argument("--symbol", type=str, default=None)
+    temp_args, _ = temp_parser.parse_known_args()
+    
+    # Resolve active symbol
+    import btc_config
+    if temp_args.symbol:
+        btc_config.set_active_symbol(temp_args.symbol)
+    else:
+        credentials = get_mt5_credentials()
+        btc_config.set_active_symbol(credentials.get("symbol", "XAUUSDc"))
+        
+    symbol = btc_config.SYMBOL
+
+    parser = argparse.ArgumentParser(description="EMA+RSI(7) 50-Cross Scalper")
+    parser.add_argument("--symbol", type=str, default=symbol, help="Symbol to trade")
+    parser.add_argument("--fast-ema", type=int, default=getattr(btc_config, "EMA_FAST", 5), help="Fast EMA period")
+    parser.add_argument("--slow-ema", type=int, default=getattr(btc_config, "EMA_SLOW", 13), help="Slow EMA period")
+    parser.add_argument("--rsi-period", type=int, default=getattr(btc_config, "RSI_PERIOD", 7), help="RSI period")
     parser.add_argument("--rsi-level", type=float, default=50.0, help="RSI crossing level")
     parser.add_argument("--min-atr", type=float, default=0.8, help="Min ATR(14) to filter flat markets")
-    parser.add_argument("--max-spread", type=int, default=25, help="Max spread in points (1 point = 0.01)")
+    parser.add_argument("--max-spread", type=int, default=int(getattr(btc_config, "MAX_SPREAD_USD", 25) if symbol.startswith("XAU") else getattr(btc_config, "MAX_SPREAD_USD", 15)), help="Max spread")
     parser.add_argument("--use-news", type=bool, default=True, help="Block trades around news")
     parser.add_argument("--rr", type=float, default=1.5, help="Risk Reward ratio")
     parser.add_argument("--fixed-sl-pips", type=float, default=5.0, help="Fixed stop loss in pips if ATR not used")
     parser.add_argument("--use-atr-sl", type=bool, default=True, help="Use ATR based stop loss")
     parser.add_argument("--max-hold-min", type=int, default=10, help="Max position holding time in minutes")
-    parser.add_argument("--lot-size", type=float, default=0.01, help="Position volume")
+    parser.add_argument("--lot-size", type=float, default=getattr(btc_config, "LOT_SIZE", 0.01), help="Position volume")
     parser.add_argument("--use-trail", type=bool, default=True, help="Use trailing stop")
     parser.add_argument("--timeframe", type=str, default="M1", choices=["M1", "M5"], help="Primary timeframe")
     
     args = parser.parse_args()
     
     logger = setup_logging()
-    logger.info("Initializing XAUUSD EMA+RSI 50-Cross Scalper...")
+    logger.info(f"Initializing {symbol} EMA+RSI 50-Cross Scalper...")
     
     # 1. MT5 Connection
     bridge = MT5Bridge()
     if not bridge.connect():
         logger.error("Could not connect to MT5. Exiting.")
         return
-        
-    credentials = get_mt5_credentials()
-    symbol = credentials['symbol']
-    if "XAUUSD" not in symbol:
-        # Standardize for gold if credentials is set to something else
-        symbol = "XAUUSDc" # Fallback to cent account gold symbol
         
     logger.info(f"Bot started. Instrument: {symbol} | Timeframe: {args.timeframe}")
     logger.info(f"Parameters: Fast EMA={args.fast_ema}, Slow EMA={args.slow_ema}, RSI={args.rsi_period}, "
