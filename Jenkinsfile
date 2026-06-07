@@ -92,6 +92,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'echo "Unix deployment not configured."'
+                    } else {
+                        bat 'powershell -ExecutionPolicy Bypass -File "scripts/deploy_layer_bot.ps1"'
+                    }
+                }
+            }
+        }
     }
 
     post {

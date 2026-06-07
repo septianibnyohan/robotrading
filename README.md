@@ -34,6 +34,10 @@ A professional-grade algorithmic trading system for BTCUSD using the MetaTrader 
 - `monitoring/`: Logging and metrics exportation.
 - `scripts/`: Resilience and emergency tools.
 
+## Add symbols
+- btc_config.py -> ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm"]
+- .env -> EXNESS_SYMBOL=BTCUSDc,XAUUSDc
+
 ## Roadmap
 
 Developed over a 365-day horizon:

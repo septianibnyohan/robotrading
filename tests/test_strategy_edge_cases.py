@@ -65,7 +65,7 @@ class TestDynamicConfig(unittest.TestCase):
     def test_active_symbols_list(self):
         """Verify ACTIVE_SYMBOLS list is correctly defined in btc_config."""
         import btc_config
-        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc"])
+        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm"])
 
     def test_dynamic_config_time_based_switching(self):
         """Verify dynamic configuration switches based on time and day."""
@@ -73,35 +73,56 @@ class TestDynamicConfig(unittest.TestCase):
         import datetime
         from unittest.mock import patch
 
-        # Case 1: Weekday (Wednesday), normal config time (10:00 AM)
-        wednesday_morning = datetime.datetime(2026, 6, 3, 10, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
+        # --- BTCUSD Scheduling Rules ---
+        btc_config.set_active_symbol("BTCUSDc")
+
+        # Case 1: Weekday (Wednesday) at 05:00 AM (Within 04:00 - 06:00 morning normal window)
+        wednesday_morning_1 = datetime.datetime(2026, 6, 3, 5, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning_1):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.53)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 53.0)
+
+        # Case 2: Weekday (Wednesday) at 10:00 AM (Within 09:00 - 13:00 midday normal window)
+        wednesday_morning_2 = datetime.datetime(2026, 6, 3, 10, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning_2):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.53)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 53.0)
  
-        # Case 2: Weekday (Wednesday), low risk config time (4:00 PM)
+        # Case 3: Weekday (Wednesday) at 16:00 PM (Outside normal windows -> low risk config)
         wednesday_evening = datetime.datetime(2026, 6, 3, 16, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=wednesday_evening):
             self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.0)
  
-        # Case 3: Weekend (Saturday), daytime (10:00 AM) -> always normal config
-        saturday_morning = datetime.datetime(2026, 6, 6, 10, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=saturday_morning):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
- 
-        # Case 4: Weekend (Saturday), evening (4:00 PM) -> always normal config
+        # Case 4: Weekend (Saturday) at 16:00 PM (Weekend -> always normal config)
         saturday_evening = datetime.datetime(2026, 6, 6, 16, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=saturday_evening):
-            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.52)
-            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 52.0)
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.53)
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 53.0)
+
+        # --- XAUUSD Scheduling Rules ---
+        btc_config.set_active_symbol("XAUUSDc")
+
+        # Case 5: Weekday (Wednesday) at 10:00 AM (Within 07:00 - 16:00 normal window)
+        xau_normal_time = datetime.datetime(2026, 6, 3, 10, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=xau_normal_time):
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.5)
+
+        # Case 6: Weekday (Wednesday) at 18:00 PM (Outside 07:00 - 16:00 -> low risk)
+        xau_lowrisk_time = datetime.datetime(2026, 6, 3, 18, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=xau_lowrisk_time):
+            self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, 1.0)
+
+        # Clean up by resetting active symbol to default
+        btc_config.set_active_symbol("BTCUSDc")
 
     def test_dynamic_config_context_isolation(self):
         """Verify that separate threads/contexts can maintain separate active symbols concurrently."""
         import btc_config
         import threading
         import time
+        import datetime
+        from unittest.mock import patch
 
         results = {}
 
@@ -114,20 +135,23 @@ class TestDynamicConfig(unittest.TestCase):
                 "lot_size": btc_config.LOT_SIZE,
             }
 
-        t1 = threading.Thread(target=thread_task, args=("BTCUSDc", 0.2))
-        t2 = threading.Thread(target=thread_task, args=("XAUUSDc", 0.1))
+        # Mock time as Sunday daytime so both symbols use their normal configuration
+        sunday_daytime = datetime.datetime(2026, 6, 7, 10, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=sunday_daytime):
+            t1 = threading.Thread(target=thread_task, args=("BTCUSDc", 0.2))
+            t2 = threading.Thread(target=thread_task, args=("XAUUSDc", 0.1))
 
-        t1.start()
-        # Give t1 a head start to set to BTCUSDc
-        time.sleep(0.05)
-        t2.start()
+            t1.start()
+            # Give t1 a head start to set to BTCUSDc
+            time.sleep(0.05)
+            t2.start()
 
-        t1.join()
-        t2.join()
+            t1.join()
+            t2.join()
 
         # Both contexts should resolve to their respective symbol configs correctly
         self.assertEqual(results["BTCUSDc"]["symbol"], "BTCUSDc")
-        self.assertAlmostEqual(results["BTCUSDc"]["lot_size"], 0.52)
+        self.assertAlmostEqual(results["BTCUSDc"]["lot_size"], 0.53)
         
         self.assertEqual(results["XAUUSDc"]["symbol"], "XAUUSDc")
         self.assertAlmostEqual(results["XAUUSDc"]["lot_size"], 0.01)

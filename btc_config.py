@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 _active_symbol_var = contextvars.ContextVar('active_symbol', default="BTCUSDc")
 
 # Configured active symbols
+# ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm"]
 ACTIVE_SYMBOLS = ["BTCUSDc"]
 
 def set_active_symbol(symbol):
@@ -42,13 +43,29 @@ class DynamicConfigModule(types.ModuleType):
         # Load active symbol module
         symbol_module = self._get_symbol_module()
         
-        # Check if low risk overrides apply (weekdays outside 08:00 - 15:00)
+        # Check if low risk overrides apply
+        symbol = _active_symbol_var.get()
         now = self._get_current_time()
         is_weekend = now.weekday() >= 5
         is_low_risk = False
-        if not is_weekend:
-            if not (8 <= now.hour < 15):
+        
+        if "XAUUSD" in symbol:
+            # Normal config if 07:00 - 16:00 WIB; low risk otherwise
+            if not (7 <= now.hour < 16):
                 is_low_risk = True
+        elif "BTCUSD" in symbol:
+            # Weekend -> always normal config
+            # Weekday -> normal config if 04:00 - 06:00 or 09:00 - 13:00 WIB; low risk otherwise
+            if not is_weekend:
+                in_morning_window = (4 <= now.hour < 6)
+                in_midday_window = (9 <= now.hour < 13)
+                if not (in_morning_window or in_midday_window):
+                    is_low_risk = True
+        else:
+            # Fallback for other symbols: normal config during weekday peak hours (08:00 - 15:00)
+            if not is_weekend:
+                if not (8 <= now.hour < 15):
+                    is_low_risk = True
                 
         # Return overridden value if in low-risk mode
         if is_low_risk and hasattr(symbol_module, 'LOW_RISK_OVERRIDES') and name in symbol_module.LOW_RISK_OVERRIDES:
