@@ -1,7 +1,7 @@
 SYMBOL = "BTCUSDc"
 MAGIC_NUMBER = 20260523
 MAGIC_NUMBER_M5 = 20260524
-LOT_SIZE = 0.01 * 53
+LOT_SIZE = 0.01 * 103
 MAX_SPREAD_USD = 15
 SPREAD_DEDUCTION_USD = 0.15
 MAX_CONCURRENT_POSITIONS = 1
@@ -12,15 +12,15 @@ ADX_PERIOD, VOL_EMA_PERIOD = 14, 10
 
 # Layering Strategy Config
 LAYERING_MODE = "USD"  # "USD" or "ATR"
-LAYERING_STEP_ATR_MULT = 1.0 * 53
+LAYERING_STEP_ATR_MULT = 1.0 * 103
 LAYERING_STEP_USD = 100.0
-TAKE_PROFIT_PER_LAYER_USD = 0.20 * 53
+TAKE_PROFIT_PER_LAYER_USD = 0.20 * 103
 MAX_LAYERS = None  # None for unlimited
 EXIT_LOGIC_AND = True  # True: both RSI & close conditions; False: either condition
 
 # Low risk overrides (used outside peak hours on weekdays)
 LOW_RISK_OVERRIDES = {
-    "LOT_SIZE": 0.01 * 1,
+    "LOT_SIZE": 0.01 * 5,
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * 1,
+    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * 5,
 }

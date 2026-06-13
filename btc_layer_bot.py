@@ -205,7 +205,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                     state = process_loop_logic(positions, state, h1_df, m1_df, h1_row, tick, loop_state, starting_balance)
         except Exception as e:
             logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
-        time.sleep(1.0)
+        time.sleep(20)
     
     logger.info(f"[{symbol}] Closing all positions...")
     close_all_open_positions("Shutdown", symbol=symbol, magic=btc_config.MAGIC_NUMBER)
