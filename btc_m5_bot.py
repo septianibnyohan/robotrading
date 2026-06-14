@@ -145,6 +145,15 @@ def run_trading_loop(symbol, starting_balance, stop_event):
             raw_positions = mt5.positions_get(symbol=symbol)
             magic_number = getattr(btc_config, "MAGIC_NUMBER_M5", btc_config.MAGIC_NUMBER)
             positions = [p for p in raw_positions if p.magic == magic_number] if raw_positions else []
+            if positions:
+                threshold = btc_config.number_of_normal_layer * btc_config.constant
+                if len(positions) > threshold:
+                    logger.warning(
+                        f"[{symbol}] Open positions ({len(positions)}) exceeded threshold ({threshold}). "
+                        f"Closing all positions."
+                    )
+                    close_all_open_positions("Layer Limit Exceeded", symbol=symbol, magic=magic_number)
+                    positions = []
             if not positions:
                 state = None
             if tick:
@@ -160,9 +169,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
             logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
         time.sleep(5.0)
         
-    logger.info(f"[{symbol}] Closing all positions...")
-    magic_number = getattr(btc_config, "MAGIC_NUMBER_M5", btc_config.MAGIC_NUMBER)
-    close_all_open_positions("Graceful Shutdown", symbol=symbol, magic=magic_number)
+    logger.info(f"[{symbol}] Exiting trading loop (keeping open positions).")
 
 def main():
     import argparse

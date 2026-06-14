@@ -101,7 +101,14 @@ def handle_basket_tp(positions, state):
     symbol_positions = [p for p in positions if p.symbol == current_symbol]
     total_profit = sum(p.profit + p.swap for p in symbol_positions)
     total_layers = state["total_layers"]
-    target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * total_layers
+    
+    if btc_config.is_low_risk_time():
+        layers_for_tp = min(total_layers, btc_config.number_of_normal_layer)
+        logger.info(f"[{current_symbol} BASKET TP CHECK] Low-risk hours detected. Capping TP layers to {layers_for_tp} (total={total_layers}, limit={btc_config.number_of_normal_layer}).")
+    else:
+        layers_for_tp = total_layers
+        
+    target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * layers_for_tp
     logger.debug(f"[{current_symbol} BASKET TP CHECK] Profit: {total_profit:.2f} USD, Target: {target_profit:.2f} USD")
     if total_profit >= target_profit:
         logger.info(f"[{current_symbol} BASKET TP] Take Profit met ({total_profit:.2f} >= {target_profit:.2f}). Closing all positions for {current_symbol}...")
@@ -194,6 +201,15 @@ def run_trading_loop(symbol, starting_balance, stop_event):
             raw_positions = mt5.positions_get(symbol=symbol)
             magic_number = btc_config.MAGIC_NUMBER
             positions = [p for p in raw_positions if p.magic == magic_number] if raw_positions else []
+            if positions:
+                threshold = btc_config.number_of_normal_layer * btc_config.constant
+                if len(positions) > threshold:
+                    logger.warning(
+                        f"[{symbol}] Open positions ({len(positions)}) exceeded threshold ({threshold}). "
+                        f"Closing all positions."
+                    )
+                    close_all_open_positions("Layer Limit Exceeded", symbol=symbol, magic=magic_number)
+                    positions = []
             if not positions:
                 state = None
             elif state is None:
@@ -207,8 +223,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
             logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
         time.sleep(20)
     
-    logger.info(f"[{symbol}] Closing all positions...")
-    close_all_open_positions("Shutdown", symbol=symbol, magic=btc_config.MAGIC_NUMBER)
+    logger.info(f"[{symbol}] Exiting trading loop (keeping open positions).")
 
 def main():
     import argparse

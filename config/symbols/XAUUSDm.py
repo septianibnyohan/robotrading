@@ -17,6 +17,8 @@ LAYERING_STEP_USD = 10.0
 TAKE_PROFIT_PER_LAYER_USD = 0.20
 MAX_LAYERS = None  # None for unlimited
 EXIT_LOGIC_AND = True  # True: both RSI & close conditions; False: either condition
+number_of_normal_layer = 5
+constant = 2
 
 # Low risk overrides (used outside peak hours on weekdays)
 LOW_RISK_OVERRIDES = {

@@ -30,7 +30,7 @@ def set_active_symbol(symbol):
 class DynamicConfigModule(types.ModuleType):
     def __getattribute__(self, name):
         # Prevent infinite recursion for internal attributes/methods
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time'):
             return super().__getattribute__(name)
             
         if name == 'ACTIVE_SYMBOL':
@@ -45,27 +45,29 @@ class DynamicConfigModule(types.ModuleType):
         
         # Check if low risk overrides apply
         symbol = _active_symbol_var.get()
-        now = self._get_current_time()
-        is_weekend = now.weekday() >= 5
-        is_low_risk = False
+        is_low_risk = self.is_low_risk_time()
         
-        if "XAUUSD" in symbol:
-            # Normal config if 07:00 - 16:00 WIB; low risk otherwise
-            if not (7 <= now.hour < 16):
-                is_low_risk = True
-        elif "BTCUSD" in symbol:
-            # Weekend -> always normal config
-            # Weekday -> normal config if 04:00 - 06:00 or 09:00 - 13:00 WIB; low risk otherwise
-            if not is_weekend:
-                in_morning_window = (4 <= now.hour < 6)
-                in_midday_window = (9 <= now.hour < 13)
-                if not (in_morning_window or in_midday_window):
-                    is_low_risk = True
-        else:
-            # Fallback for other symbols: normal config during weekday peak hours (08:00 - 15:00)
-            if not is_weekend:
-                if not (8 <= now.hour < 15):
-                    is_low_risk = True
+        if is_low_risk:
+            import MetaTrader5 as mt5
+            try:
+                if mt5.terminal_info() is not None:
+                    raw_positions = mt5.positions_get(symbol=symbol)
+                    if raw_positions:
+                        magic_numbers = []
+                        if hasattr(symbol_module, 'MAGIC_NUMBER'):
+                            magic_numbers.append(symbol_module.MAGIC_NUMBER)
+                        if hasattr(symbol_module, 'MAGIC_NUMBER_M5'):
+                            magic_numbers.append(symbol_module.MAGIC_NUMBER_M5)
+                        
+                        if magic_numbers:
+                            has_active_trades = any(p.magic in magic_numbers for p in raw_positions)
+                        else:
+                            has_active_trades = True
+                            
+                        if has_active_trades:
+                            is_low_risk = False
+            except Exception as e:
+                logger.error(f"Error checking open positions in btc_config: {e}")
                 
         # Return overridden value if in low-risk mode
         if is_low_risk and hasattr(symbol_module, 'LOW_RISK_OVERRIDES') and name in symbol_module.LOW_RISK_OVERRIDES:
@@ -85,7 +87,7 @@ class DynamicConfigModule(types.ModuleType):
             )
 
     def __setattr__(self, name, value):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time'):
             super().__setattr__(name, value)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set(value)
@@ -94,7 +96,7 @@ class DynamicConfigModule(types.ModuleType):
             setattr(symbol_module, name, value)
 
     def __delattr__(self, name):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time'):
             super().__delattr__(name)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set("BTCUSDc")
@@ -105,6 +107,30 @@ class DynamicConfigModule(types.ModuleType):
             except AttributeError:
                 if name in self.__dict__:
                     super().__delattr__(name)
+
+    def is_low_risk_time(self):
+        symbol = _active_symbol_var.get()
+        now = self._get_current_time()
+        is_weekend = now.weekday() >= 5
+        
+        if "XAUUSD" in symbol:
+            # Normal config if 07:00 - 16:00 WIB; low risk otherwise
+            if not (7 <= now.hour < 16):
+                return True
+        elif "BTCUSD" in symbol:
+            # Weekend -> always normal config
+            # Weekday -> normal config if 04:00 - 06:00 or 09:00 - 13:00 WIB; low risk otherwise
+            if not is_weekend:
+                in_morning_window = (4 <= now.hour < 6)
+                in_midday_window = (9 <= now.hour < 13)
+                if not (in_morning_window or in_midday_window):
+                    return True
+        else:
+            # Fallback for other symbols: normal config during weekday peak hours (08:00 - 15:00)
+            if not is_weekend:
+                if not (8 <= now.hour < 15):
+                    return True
+        return False
 
     def _get_current_time(self):
         return datetime.now()
