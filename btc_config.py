@@ -49,6 +49,7 @@ class DynamicConfigModule(types.ModuleType):
         
         if is_low_risk:
             import MetaTrader5 as mt5
+            from datetime import datetime
             try:
                 if mt5.terminal_info() is not None:
                     raw_positions = mt5.positions_get(symbol=symbol)
@@ -60,12 +61,20 @@ class DynamicConfigModule(types.ModuleType):
                             magic_numbers.append(symbol_module.MAGIC_NUMBER_M5)
                         
                         if magic_numbers:
-                            has_active_trades = any(p.magic in magic_numbers for p in raw_positions)
+                            matching_positions = [p for p in raw_positions if p.magic in magic_numbers]
                         else:
-                            has_active_trades = True
+                            matching_positions = raw_positions
                             
-                        if has_active_trades:
-                            is_low_risk = False
+                        if matching_positions:
+                            has_normal_layer = False
+                            for pos in matching_positions:
+                                pos_time_local = datetime.fromtimestamp(pos.time)
+                                if not self.is_low_risk_time(pos_time_local):
+                                    has_normal_layer = True
+                                    break
+                                    
+                            if has_normal_layer:
+                                is_low_risk = False
             except Exception as e:
                 logger.error(f"Error checking open positions in btc_config: {e}")
                 
@@ -108,9 +117,12 @@ class DynamicConfigModule(types.ModuleType):
                 if name in self.__dict__:
                     super().__delattr__(name)
 
-    def is_low_risk_time(self):
+    def is_low_risk_time(self, dt=None):
         symbol = _active_symbol_var.get()
-        now = self._get_current_time()
+        if dt is None:
+            now = self._get_current_time()
+        else:
+            now = dt
         is_weekend = now.weekday() >= 5
         
         if "XAUUSD" in symbol:

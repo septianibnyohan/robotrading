@@ -102,13 +102,29 @@ def handle_basket_tp(positions, state):
     total_profit = sum(p.profit + p.swap for p in symbol_positions)
     total_layers = state["total_layers"]
     
-    if btc_config.is_low_risk_time():
-        layers_for_tp = min(total_layers, btc_config.number_of_normal_layer)
-        logger.info(f"[{current_symbol} BASKET TP CHECK] Low-risk hours detected. Capping TP layers to {layers_for_tp} (total={total_layers}, limit={btc_config.number_of_normal_layer}).")
+    # Count active normal configuration layers based on position open time
+    from datetime import datetime
+    normal_active_layers = 0
+    for pos in symbol_positions:
+        pos_time_local = datetime.fromtimestamp(pos.time)
+        if not btc_config.is_low_risk_time(pos_time_local):
+            normal_active_layers += 1
+            
+    if normal_active_layers > 0:
+        # If normal configuration trades are active, target profit is based on normal active layers
+        target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * normal_active_layers
+        logger.info(
+            f"[{current_symbol} BASKET TP CHECK] Normal trade active. "
+            f"Target profit based on {normal_active_layers} normal layers: {target_profit:.2f} USD (total profit: {total_profit:.2f} USD)."
+        )
     else:
-        layers_for_tp = total_layers
+        # If only low-risk trades are active, target profit uses low-risk overrides
+        target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * total_layers
+        logger.info(
+            f"[{current_symbol} BASKET TP CHECK] Only low-risk trades active. "
+            f"Target profit based on {total_layers} low-risk layers: {target_profit:.2f} USD (total profit: {total_profit:.2f} USD)."
+        )
         
-    target_profit = btc_config.TAKE_PROFIT_PER_LAYER_USD * layers_for_tp
     logger.debug(f"[{current_symbol} BASKET TP CHECK] Profit: {total_profit:.2f} USD, Target: {target_profit:.2f} USD")
     if total_profit >= target_profit:
         logger.info(f"[{current_symbol} BASKET TP] Take Profit met ({total_profit:.2f} >= {target_profit:.2f}). Closing all positions for {current_symbol}...")
