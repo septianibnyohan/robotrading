@@ -30,6 +30,36 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
             self.assertFalse(btc_config.is_low_risk_time())
 
+        # XAUUSD scheduling cases
+        btc_config.set_active_symbol("XAUUSDc")
+        try:
+            # Monday all day -> normal config (False)
+            monday_time = datetime.datetime(2026, 6, 1, 10, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=monday_time):
+                self.assertFalse(btc_config.is_low_risk_time())
+
+            # Saturday 01:00-03:00 -> normal config (False)
+            sat_normal_time = datetime.datetime(2026, 6, 6, 2, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=sat_normal_time):
+                self.assertFalse(btc_config.is_low_risk_time())
+
+            # Saturday outside 01:00-03:00 -> low risk (True)
+            sat_lowrisk_time = datetime.datetime(2026, 6, 6, 5, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=sat_lowrisk_time):
+                self.assertTrue(btc_config.is_low_risk_time())
+
+            # Tuesday-Friday standard peak hours -> normal config (False)
+            wed_normal_time = datetime.datetime(2026, 6, 3, 10, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=wed_normal_time):
+                self.assertFalse(btc_config.is_low_risk_time())
+
+            # Tuesday-Friday off-peak hours -> low risk (True)
+            wed_lowrisk_time = datetime.datetime(2026, 6, 3, 18, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=wed_lowrisk_time):
+                self.assertTrue(btc_config.is_low_risk_time())
+        finally:
+            btc_config.set_active_symbol("BTCUSDc")
+
     @patch('MetaTrader5.terminal_info')
     @patch('MetaTrader5.positions_get')
     def test_normal_config_preserved_when_trades_open(self, mock_positions_get, mock_terminal_info):
@@ -149,14 +179,16 @@ class TestBasketTpAdjustment(unittest.TestCase):
         state = {"total_layers": 2}
         
         # Total profit is 3.0 USD (exceeds target 2.0 USD) -> should return True
-        self.assertTrue(btc_layer_bot.handle_basket_tp([pos1, pos2], state))
+        with patch.object(btc_config, '_get_current_time', return_value=low_risk_time):
+            self.assertTrue(btc_layer_bot.handle_basket_tp([pos1, pos2], state))
         mock_close.assert_called_once_with("BASKET_TP", symbol="BTCUSDc", magic=20260523)
         
         mock_close.reset_mock()
         # Total profit is 1.0 USD (below target 2.0 USD) -> should return False
         pos1.profit = 0.5
         pos2.profit = 0.5
-        self.assertFalse(btc_layer_bot.handle_basket_tp([pos1, pos2], state))
+        with patch.object(btc_config, '_get_current_time', return_value=low_risk_time):
+            self.assertFalse(btc_layer_bot.handle_basket_tp([pos1, pos2], state))
         mock_close.assert_not_called()
 
 

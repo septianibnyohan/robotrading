@@ -11,8 +11,7 @@ logger = logging.getLogger(__name__)
 _active_symbol_var = contextvars.ContextVar('active_symbol', default="BTCUSDc")
 
 # Configured active symbols
-# ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm"]
-ACTIVE_SYMBOLS = ["BTCUSDc"]
+ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm"]
 
 def set_active_symbol(symbol):
     _active_symbol_var.set(symbol)
@@ -126,9 +125,14 @@ class DynamicConfigModule(types.ModuleType):
         is_weekend = now.weekday() >= 5
         
         if "XAUUSD" in symbol:
-            # Normal config if 07:00 - 16:00 WIB; low risk otherwise
-            if not (7 <= now.hour < 16):
-                return True
+            # Normal config on Monday, Saturday 01:00-03:00, or Tuesday-Friday 07:00-16:00 WIB
+            if now.weekday() == 0:  # Monday
+                return False
+            if now.weekday() == 5 and (1 <= now.hour < 3):  # Saturday 01:00 <= time < 03:00
+                return False
+            if now.weekday() in (1, 2, 3, 4) and (7 <= now.hour < 16):  # Tuesday-Friday peak hours
+                return False
+            return True
         elif "BTCUSD" in symbol:
             # Weekend -> always normal config
             # Weekday -> normal config if 04:00 - 06:00 or 09:00 - 13:00 WIB; low risk otherwise
