@@ -48,20 +48,20 @@ class TestLayeringStrategy(unittest.TestCase):
         self.assertIsNone(bot.check_h1_signal(row))
 
     def test_check_m1_crossover_up(self):
-        """Verify M1 RSI crossover Buy triggers when RSI crosses above 30."""
+        """Verify M1 RSI crossover Buy triggers when RSI crosses above 20."""
         df = pd.DataFrame([
-            {'rsi_14': 25.0},  # iloc[-3]
-            {'rsi_14': 32.0},  # iloc[-2]
-            {'rsi_14': 35.0}   # iloc[-1] (active)
+            {'rsi_14': 18.0},  # iloc[-3]
+            {'rsi_14': 22.0},  # iloc[-2]
+            {'rsi_14': 25.0}   # iloc[-1] (active)
         ])
         self.assertEqual(bot.check_m1_crossover(df), "BUY")
 
     def test_check_m1_crossover_down(self):
-        """Verify M1 RSI crossover Sell triggers when RSI crosses below 70."""
+        """Verify M1 RSI crossover Sell triggers when RSI crosses below 80."""
         df = pd.DataFrame([
-            {'rsi_14': 75.0},  # iloc[-3]
-            {'rsi_14': 68.0},  # iloc[-2]
-            {'rsi_14': 65.0}   # iloc[-1] (active)
+            {'rsi_14': 82.0},  # iloc[-3]
+            {'rsi_14': 78.0},  # iloc[-2]
+            {'rsi_14': 75.0}   # iloc[-1] (active)
         ])
         self.assertEqual(bot.check_m1_crossover(df), "SELL")
 
@@ -106,7 +106,7 @@ class TestLayeringStrategy(unittest.TestCase):
         tick = MagicMock(ask=74850.0)  # offset is 1 * 100 = 100. Price is 74850 <= 74900
         bot.handle_layering([], state, 100.0, tick)
         self.assertEqual(state["total_layers"], 2)
-        mock_open_trade.assert_called_once_with("BUY", 74850.0, 0.0, 0.0)
+        mock_open_trade.assert_called_once_with("BUY", 74850.0, 0.0, 0.0, magic=bot.btc_config.MAGIC_NUMBER)
 
     @patch('btc_layer_bot.open_trade')
     def test_handle_layering_buy_not_triggered(self, mock_open_trade):
@@ -122,7 +122,8 @@ class TestLayeringStrategy(unittest.TestCase):
         """Verify basket TP closes positions when target profit is exceeded."""
         import btc_config
         import datetime
-        with patch.object(btc_config, 'TAKE_PROFIT_PER_LAYER_USD', 0.20):
+        import config.symbols.BTCUSDc as symbol_cfg
+        with patch.object(symbol_cfg, 'TAKE_PROFIT_PER_LAYER_USD', 0.20):
             pos1 = MagicMock(symbol=btc_config.SYMBOL, profit=10.0, commission=0.0, swap=0.0)
             pos2 = MagicMock(symbol=btc_config.SYMBOL, profit=15.0, commission=0.0, swap=0.0)
             pos1.time = datetime.datetime(2026, 6, 3, 10, 0, 0).timestamp()
@@ -136,12 +137,95 @@ class TestLayeringStrategy(unittest.TestCase):
         """Verify basket TP does not trigger when profit is below target."""
         import btc_config
         import datetime
-        with patch.object(btc_config, 'TAKE_PROFIT_PER_LAYER_USD', 0.20):
+        import config.symbols.BTCUSDc as symbol_cfg
+        with patch.object(symbol_cfg, 'TAKE_PROFIT_PER_LAYER_USD', 0.20):
             pos1 = MagicMock(symbol=btc_config.SYMBOL, profit=-1.0, commission=0.0, swap=0.0)
             pos1.time = datetime.datetime(2026, 6, 3, 10, 0, 0).timestamp()
             state = {"total_layers": 1}  # Target: 0.20. Profit is -1.0
             self.assertFalse(bot.handle_basket_tp([pos1], state))
             mock_close.assert_not_called()
+
+    @patch('MetaTrader5.copy_rates_from_pos')
+    @patch('btc_layer_bot.rates_to_df')
+    @patch('btc_layer_bot.calculate_h1_layer_indicators')
+    @patch('btc_layer_bot.calculate_m1_layer_indicators')
+    def test_fetch_indicators_data_timeframes(self, mock_calc_m1, mock_calc_h1, mock_rates_to_df, mock_copy_rates):
+        """Verify fetch_indicators_data uses H1, M1, and M5 for all symbols."""
+        import btc_config
+        
+        mock_copy_rates.return_value = [1, 2, 3]
+        mock_rates_to_df.return_value = pd.DataFrame()
+        mock_calc_h1.return_value = pd.DataFrame()
+        mock_calc_m1.return_value = pd.DataFrame()
+
+        # Test with BTCUSDc (should call H1, M1, and M5)
+        with patch('btc_config.SYMBOL', 'BTCUSDc'):
+            bot.fetch_indicators_data()
+            calls = mock_copy_rates.call_args_list
+            self.assertEqual(calls[0][0][1], mt5.TIMEFRAME_H1)
+            self.assertEqual(calls[1][0][1], mt5.TIMEFRAME_M1)
+            self.assertEqual(calls[2][0][1], mt5.TIMEFRAME_M5)
+
+        mock_copy_rates.reset_mock()
+
+        # Test with XAGUSDc (should call H1, M1, and M5)
+        with patch('btc_config.SYMBOL', 'XAGUSDc'):
+            bot.fetch_indicators_data()
+            calls = mock_copy_rates.call_args_list
+            self.assertEqual(calls[0][0][1], mt5.TIMEFRAME_H1)
+            self.assertEqual(calls[1][0][1], mt5.TIMEFRAME_M1)
+            self.assertEqual(calls[2][0][1], mt5.TIMEFRAME_M5)
+
+    @patch('MetaTrader5.positions_get')
+    @patch('MetaTrader5.symbol_info_tick')
+    @patch('btc_layer_bot.fetch_indicators_data')
+    @patch('btc_layer_bot.process_loop_logic')
+    def test_run_trading_loop_m1_m5_prioritization(self, mock_process_loop, mock_fetch_indicators, mock_tick, mock_positions_get):
+        """Verify run_trading_loop correctly prioritizes M5 over M1 positions, and uses the correct magic_number."""
+        import btc_config
+        
+        # Setup mocks
+        tick_mock = MagicMock()
+        mock_tick.return_value = tick_mock
+        
+        # Mock non-empty dataframes to avoid IndexError on iloc[-2]
+        mock_h1_df = pd.DataFrame([
+            {'time': 1, 'close': 100.0, 'ema_200': 90.0, 'atr_14': 1.0},
+            {'time': 2, 'close': 101.0, 'ema_200': 91.0, 'atr_14': 1.1}
+        ])
+        mock_m1_df = pd.DataFrame([
+            {'time': 1, 'rsi_14': 50.0},
+            {'time': 2, 'rsi_14': 52.0}
+        ])
+        mock_fetch_indicators.return_value = (mock_h1_df, mock_m1_df, mock_m1_df)
+        
+        # 1. When both M1 and M5 positions exist, prioritize M5
+        pos_m1 = MagicMock(magic=btc_config.MAGIC_NUMBER, ticket=101)
+        pos_m5 = MagicMock(magic=getattr(btc_config, 'MAGIC_NUMBER_M5', 20260524), ticket=102)
+        mock_positions_get.return_value = [pos_m1, pos_m5]
+        
+        stop_event = MagicMock()
+        stop_event.is_set.side_effect = [False, True]  # Run exactly once
+        
+        with patch('btc_layer_bot.is_spread_valid', return_value=True):
+            bot.run_trading_loop('BTCUSDc', 100000.0, stop_event)
+            
+        mock_process_loop.assert_called_once()
+        passed_positions = mock_process_loop.call_args[0][0]
+        self.assertEqual(len(passed_positions), 1)
+        self.assertEqual(passed_positions[0].ticket, 102)
+
+        # 2. When only M1 positions exist, prioritize M1
+        mock_process_loop.reset_mock()
+        mock_positions_get.return_value = [pos_m1]
+        stop_event.is_set.side_effect = [False, True]
+        
+        with patch('btc_layer_bot.is_spread_valid', return_value=True):
+            bot.run_trading_loop('BTCUSDc', 100000.0, stop_event)
+            
+        passed_positions = mock_process_loop.call_args[0][0]
+        self.assertEqual(len(passed_positions), 1)
+        self.assertEqual(passed_positions[0].ticket, 101)
 
 if __name__ == "__main__":
     unittest.main()

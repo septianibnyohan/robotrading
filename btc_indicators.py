@@ -23,11 +23,13 @@ def compute_emas(df):
     df['ema_200'] = df['close'].ewm(span=btc_config.EMA_SLOW, adjust=False).mean()
     return df
 
-def compute_rsi(df):
-    """Calculates RSI for M5 timeframe."""
+def compute_rsi(df, period=None):
+    """Calculates RSI."""
+    if period is None:
+        period = btc_config.RSI_PERIOD
     delta = df['close'].diff()
-    gain = (delta.where(delta > 0, 0.0)).ewm(alpha=1/btc_config.RSI_PERIOD, adjust=False).mean()
-    loss = (-delta.where(delta < 0, 0.0)).ewm(alpha=1/btc_config.RSI_PERIOD, adjust=False).mean()
+    gain = (delta.where(delta > 0, 0.0)).ewm(alpha=1/period, adjust=False).mean()
+    loss = (-delta.where(delta < 0, 0.0)).ewm(alpha=1/period, adjust=False).mean()
     rs = gain / (loss + 1e-10)
     df['rsi_14'] = 100 - (100 / (1 + rs))
     return df
@@ -81,9 +83,10 @@ def calculate_m15_indicators(df):
     return df
 
 def calculate_m1_layer_indicators(df):
-    """Calculates M1 indicators (RSI 14)."""
+    """Calculates M1 indicators (RSI 7)."""
     df = df.sort_values('time').copy()
-    df = compute_rsi(df)
+    rsi_period = getattr(btc_config, 'RSI_PERIOD_M1', 7)
+    df = compute_rsi(df, period=rsi_period)
     return df
 
 def calculate_h1_layer_indicators(df):

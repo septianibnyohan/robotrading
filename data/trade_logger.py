@@ -34,15 +34,18 @@ class TradeRsiLogger:
                     rsi_h4 REAL,
                     rsi_d1 REAL,
                     rsi_w1 REAL,
-                    profit REAL
+                    profit REAL,
+                    spread REAL
                 )
             """)
             
-            # Check if profit column exists, and if not, add it
+            # Check if profit and spread columns exist, and if not, add them
             cursor.execute("PRAGMA table_info(trade_rsi_log)")
             columns = [col[1] for col in cursor.fetchall()]
             if "profit" not in columns:
                 cursor.execute("ALTER TABLE trade_rsi_log ADD COLUMN profit REAL")
+            if "spread" not in columns:
+                cursor.execute("ALTER TABLE trade_rsi_log ADD COLUMN spread REAL")
                 
             conn.commit()
         except Exception as e:
@@ -84,7 +87,7 @@ class TradeRsiLogger:
             logger.error(f"Error calculating RSI for {symbol} {timeframe}: {e}")
             return 50.0
 
-    def log_trade(self, ticket, action, symbol, price, volume, profit=None):
+    def log_trade(self, ticket, action, symbol, price, volume, profit=None, spread=None):
         """
         Fetches multi-timeframe RSI values and logs the trade/close details to SQLite.
         """
@@ -104,6 +107,19 @@ class TradeRsiLogger:
             rsi_values[rsi_name] = self._calculate_rsi(symbol, tf_const)
             
         timestamp = datetime.now(timezone.utc).isoformat()
+
+        # Dynamic fallback to fetch spread from mt5 if not provided
+        if spread is None:
+            try:
+                tick = mt5.symbol_info_tick(symbol)
+                if tick is not None:
+                    spread = tick.ask - tick.bid
+                else:
+                    info = mt5.symbol_info(symbol)
+                    if info is not None:
+                        spread = info.spread * info.point if info.point else info.spread
+            except Exception as e:
+                logger.error(f"Error fetching spread for {symbol}: {e}")
         
         conn = sqlite3.connect(self.db_path)
         try:
@@ -112,8 +128,8 @@ class TradeRsiLogger:
                 INSERT INTO trade_rsi_log (
                     timestamp, ticket, action, symbol, price, volume,
                     rsi_m1, rsi_m5, rsi_m15, rsi_30, rsi_h1, rsi_h4, rsi_d1, rsi_w1,
-                    profit
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    profit, spread
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 timestamp,
                 int(ticket) if ticket is not None else None,
@@ -129,10 +145,11 @@ class TradeRsiLogger:
                 rsi_values['rsi_h4'],
                 rsi_values['rsi_d1'],
                 rsi_values['rsi_w1'],
-                float(profit) if profit is not None else None
+                float(profit) if profit is not None else None,
+                float(spread) if spread is not None else None
             ))
             conn.commit()
-            logger.info(f"Logged trade to database: {action} ticket {ticket} for {symbol} with MTF RSIs and profit {profit}.")
+            logger.info(f"Logged trade to database: {action} ticket {ticket} for {symbol} with MTF RSIs, profit {profit}, and spread {spread}.")
         except Exception as e:
             logger.error(f"Error inserting trade log to database: {e}")
         finally:

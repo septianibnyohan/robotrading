@@ -46,7 +46,8 @@ class TradeExecutor:
             try:
                 from data.trade_logger import TradeRsiLogger
                 db_logger = TradeRsiLogger()
-                db_logger.log_trade(result.order, "BUY", self.symbol, result.price, volume)
+                spread_val = tick.ask - tick.bid if tick is not None else None
+                db_logger.log_trade(result.order, "BUY", self.symbol, result.price, volume, spread=spread_val)
             except Exception as ex:
                 logger.error(f"Error logging buy to DB: {ex}")
         
@@ -86,7 +87,8 @@ class TradeExecutor:
             try:
                 from data.trade_logger import TradeRsiLogger
                 db_logger = TradeRsiLogger()
-                db_logger.log_trade(result.order, "SELL", self.symbol, result.price, volume)
+                spread_val = tick.ask - tick.bid if tick is not None else None
+                db_logger.log_trade(result.order, "SELL", self.symbol, result.price, volume, spread=spread_val)
             except Exception as ex:
                 logger.error(f"Error logging sell to DB: {ex}")
             
@@ -144,7 +146,8 @@ class TradeExecutor:
             try:
                 from data.trade_logger import TradeRsiLogger
                 db_logger = TradeRsiLogger()
-                db_logger.log_trade(pos.ticket, "CLOSED", self.symbol, result.price, pos.volume, profit=pos.profit)
+                spread_val = tick.ask - tick.bid if tick is not None else None
+                db_logger.log_trade(pos.ticket, "CLOSED", self.symbol, result.price, pos.volume, profit=pos.profit, spread=spread_val)
             except Exception as ex:
                 logger.error(f"Error logging close to DB: {ex}")
         return result

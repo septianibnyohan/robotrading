@@ -27,7 +27,7 @@ except ImportError:
     winsound = None
 
 # Audio alert functions
-def trigger_audio_alert(side):
+def trigger_audio_alert(side, symbol=""):
     """
     Triggers a beep and uses Windows TTS to say the action.
     """
@@ -43,7 +43,8 @@ def trigger_audio_alert(side):
     # 2. Text-to-Speech via PowerShell
     try:
         import subprocess
-        msg = f"{side.upper()} Gold trade triggered"
+        asset = "Silver" if "XAG" in symbol else ("Gold" if "XAU" in symbol else "BTC")
+        msg = f"{side.upper()} {asset} trade triggered"
         # Run PowerShell asynchronously to prevent blocking the main loop
         subprocess.Popen([
             "powershell", 
@@ -114,6 +115,10 @@ def main():
         
     symbol = btc_config.SYMBOL
 
+    is_gold = symbol.startswith("XAU")
+    is_silver = symbol.startswith("XAG")
+    default_spread = int(getattr(btc_config, "MAX_SPREAD_USD", 2.5) * 10) if is_gold else (int(getattr(btc_config, "MAX_SPREAD_USD", 0.05) * 1000) if is_silver else int(getattr(btc_config, "MAX_SPREAD_USD", 15)))
+
     parser = argparse.ArgumentParser(description="EMA+RSI(7) 50-Cross Scalper")
     parser.add_argument("--symbol", type=str, default=symbol, help="Symbol to trade")
     parser.add_argument("--fast-ema", type=int, default=getattr(btc_config, "EMA_FAST", 5), help="Fast EMA period")
@@ -121,7 +126,7 @@ def main():
     parser.add_argument("--rsi-period", type=int, default=getattr(btc_config, "RSI_PERIOD", 7), help="RSI period")
     parser.add_argument("--rsi-level", type=float, default=50.0, help="RSI crossing level")
     parser.add_argument("--min-atr", type=float, default=0.8, help="Min ATR(14) to filter flat markets")
-    parser.add_argument("--max-spread", type=int, default=int(getattr(btc_config, "MAX_SPREAD_USD", 25) if symbol.startswith("XAU") else getattr(btc_config, "MAX_SPREAD_USD", 15)), help="Max spread")
+    parser.add_argument("--max-spread", type=int, default=default_spread, help="Max spread")
     parser.add_argument("--use-news", type=bool, default=True, help="Block trades around news")
     parser.add_argument("--rr", type=float, default=1.5, help="Risk Reward ratio")
     parser.add_argument("--fixed-sl-pips", type=float, default=5.0, help="Fixed stop loss in pips if ATR not used")
@@ -162,7 +167,7 @@ def main():
     
     tf_const = mt5.TIMEFRAME_M1 if args.timeframe == "M1" else mt5.TIMEFRAME_M5
     tf_minutes = 1 if args.timeframe == "M1" else 5
-    pip_size = 0.10 # 1 pip = 0.10 USD (10 points) for XAUUSD
+    pip_size = 0.01 if "XAGUSD" in symbol else 0.10
     
     last_trade_bar = None
     last_notified_rsi_cross_time = None
@@ -429,7 +434,7 @@ def main():
                 if res and res.retcode == mt5.TRADE_RETCODE_DONE:
                     logger.info(f"Trade successfully placed! Ticket: {res.order}")
                     sig_logger.log(signal_type, price, spread_points, atr_val, "executed")
-                    trigger_audio_alert(signal_type)
+                    trigger_audio_alert(signal_type, symbol)
                     last_trade_bar = last_completed_time
                 else:
                     reason = res.comment if res else "unknown error"

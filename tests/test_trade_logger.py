@@ -65,7 +65,8 @@ class TestTradeRsiLogger(unittest.TestCase):
             symbol="XAUUSD",
             price=2050.25,
             volume=0.05,
-            profit=25.50
+            profit=25.50,
+            spread=1.50
         )
         
         conn = sqlite3.connect(self.db_path)
@@ -88,6 +89,44 @@ class TestTradeRsiLogger(unittest.TestCase):
             
         # Verify profit value
         self.assertEqual(row[15], 25.50)
+        # Verify spread value
+        self.assertEqual(row[16], 1.50)
+
+    @patch('MetaTrader5.symbol_info_tick')
+    @patch('MetaTrader5.copy_rates_from_pos')
+    def test_log_trade_spread_fallback(self, mock_copy_rates, mock_symbol_info_tick):
+        dtype = [('time', 'i8'), ('open', 'f8'), ('high', 'f8'), ('low', 'f8'), ('close', 'f8'), 
+                 ('tick_volume', 'i8'), ('spread', 'i8'), ('real_volume', 'i8')]
+        mock_rates = [(1700000000 + i, 10.0, 12.0, 9.0, 10.0 + i, 10, 1, 0) for i in range(150)]
+        rates_array = np.array(mock_rates, dtype=dtype)
+        mock_copy_rates.return_value = rates_array
+        
+        # Mock tick
+        mock_tick = MagicMock()
+        mock_tick.ask = 2051.0
+        mock_tick.bid = 2049.5
+        mock_symbol_info_tick.return_value = mock_tick
+        
+        logger_inst = TradeRsiLogger(db_path=self.db_path)
+        logger_inst.log_trade(
+            ticket=999888,
+            action="CLOSED",
+            symbol="XAUUSD",
+            price=2050.25,
+            volume=0.05,
+            profit=25.50
+        )
+        
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM trade_rsi_log")
+        rows = cursor.fetchall()
+        conn.close()
+        
+        self.assertEqual(len(rows), 1)
+        row = rows[0]
+        # Verify spread value is calculated ask - bid = 1.50
+        self.assertAlmostEqual(row[16], 1.50)
 
 if __name__ == '__main__':
     unittest.main()

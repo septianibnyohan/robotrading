@@ -74,7 +74,8 @@ def close_position_by_ticket(ticket, volume, pos_type, exit_reason, symbol=None)
     try:
         from data.trade_logger import TradeRsiLogger
         db_logger = TradeRsiLogger()
-        db_logger.log_trade(ticket, "CLOSED", target_symbol, price, volume, profit=est_profit)
+        spread_val = tick.ask - tick.bid if tick is not None else None
+        db_logger.log_trade(ticket, "CLOSED", target_symbol, price, volume, profit=est_profit, spread=spread_val)
     except Exception as ex:
         logger.error(f"Error logging close to DB: {ex}")
         
@@ -150,7 +151,14 @@ def open_trade(direction, entry_price, sl_price, tp_price, symbol=None, magic=No
     try:
         from data.trade_logger import TradeRsiLogger
         db_logger = TradeRsiLogger()
-        db_logger.log_trade(res.order, direction, target_symbol, entry_price, lot_size)
+        spread_val = None
+        try:
+            tick = mt5.symbol_info_tick(target_symbol)
+            if tick is not None:
+                spread_val = tick.ask - tick.bid
+        except Exception:
+            pass
+        db_logger.log_trade(res.order, direction, target_symbol, entry_price, lot_size, spread=spread_val)
     except Exception as ex:
         logger.error(f"Error logging trade to DB: {ex}")
         
