@@ -113,17 +113,12 @@ def handle_basket_tp(positions, state):
     total_profit = sum(p.profit + p.swap for p in symbol_positions)
     total_layers = state["total_layers"]
     
-    # Check risk level of each position based on its open time
-    from datetime import datetime
-    pos_risks = []
-    for pos in symbol_positions:
-        pos_time_local = datetime.fromtimestamp(pos.time)
-        pos_risks.append(btc_config.get_risk_level(pos_time_local))
-        
-    if "low" in pos_risks:
-        basket_risk = "low"
-    elif "moderate" in pos_risks:
-        basket_risk = "moderate"
+    # Check risk level based on the oldest position (the one that activated the trade)
+    if symbol_positions:
+        from datetime import datetime
+        oldest_pos = min(symbol_positions, key=lambda p: p.time)
+        pos_time_local = datetime.fromtimestamp(oldest_pos.time)
+        basket_risk = btc_config.get_risk_level(pos_time_local)
     else:
         basket_risk = "normal"
         
@@ -186,6 +181,7 @@ def check_and_trigger_entry(h1_row, m1_df, m5_df, tick):
             
     # Check M1 crossover entry (except XAGUSD)
     is_xagusd = "XAGUSD" in btc_config.SYMBOL
+    logger.info(f"[{btc_config.SYMBOL}]Check M1, is_xagusd: {is_xagusd}")
     if not is_xagusd:
         m1_cross = check_timeframe_crossover(m1_df, "M1")
         if h1_signal == m1_cross:
@@ -316,7 +312,8 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                 state = None
             elif state is None:
                 state = recover_layer_state(positions)
-            if tick and is_spread_valid(tick):
+            # if tick and is_spread_valid(tick):
+            if tick:
                 h1_df, m1_df, m5_df = fetch_indicators_data()
                 if h1_df is not None and m1_df is not None and m5_df is not None:
                     h1_row = h1_df.iloc[-2]

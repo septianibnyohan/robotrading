@@ -14,13 +14,24 @@ baskets['open_hour'] = baskets['first_trade_open_time'].dt.hour
 baskets['open_day'] = baskets['first_trade_open_time'].dt.day_name()
 baskets['open_day_num'] = baskets['first_trade_open_time'].dt.dayofweek
 baskets['open_date'] = baskets['first_trade_open_time'].dt.date
+baskets['open_year'] = baskets['first_trade_open_time'].dt.year
 
-print("=== OVERALL STATS (XAGUSDc) ===")
+print("=== OVERALL STATS (XAGUSDc - 12.5 YEARS) ===")
 print(f"Total baskets closed: {len(baskets)}")
 print(f"Max layers reached: {baskets['total_layers'].max()}")
 print(f"Mean layers per basket: {baskets['total_layers'].mean():.2f}")
 print(f"95th percentile: {baskets['total_layers'].quantile(0.95):.2f}")
 print(f"99th percentile: {baskets['total_layers'].quantile(0.99):.2f}")
+
+# Group by calendar year
+year_stats = baskets.groupby('open_year').agg(
+    basket_count=('total_layers', 'count'),
+    max_layers=('total_layers', 'max'),
+    total_pnl=('total_pnl', 'sum')
+).reset_index()
+
+print("\n=== PERFORMANCE BY CALENDAR YEAR ===")
+print(year_stats.to_string(index=False))
 
 # Group by day of week
 day_stats = baskets.groupby(['open_day_num', 'open_day']).agg(
@@ -29,7 +40,7 @@ day_stats = baskets.groupby(['open_day_num', 'open_day']).agg(
     mean_layers=('total_layers', 'mean')
 ).reset_index().sort_values('open_day_num')
 
-print("\n=== MAX LAYERS BY DAY OF WEEK (XAGUSDc) ===")
+print("\n=== MAX LAYERS BY DAY OF WEEK ===")
 print(day_stats.to_string(index=False))
 
 # Group by hour
@@ -41,11 +52,11 @@ hour_stats = baskets.groupby('open_hour').agg(
     percentile_99=('total_layers', lambda x: x.quantile(0.99))
 ).reset_index()
 
-print("\n=== MAX LAYERS BY HOUR OF DAY (XAGUSDc - WIB) ===")
+print("\n=== MAX LAYERS BY HOUR OF DAY (WIB) ===")
 print(hour_stats.to_string(index=False))
 
 # Safe windows
-print("\n=== SAFE WINDOWS ANALYSIS (XAGUSDc) ===")
+print("\n=== SAFE WINDOWS ANALYSIS ===")
 for window_size in [4, 6, 8, 10, 12]:
     best_max_layers = 999
     best_start_hour = -1
@@ -66,11 +77,11 @@ date_stats = baskets.groupby('open_date').agg(
     max_layers=('total_layers', 'max'),
     basket_count=('total_layers', 'count')
 ).reset_index()
-top_dates = date_stats.sort_values('max_layers', ascending=False).head(10)
-print("\n=== TOP 10 PEAK VOLATILITY DATES (XAGUSDc) ===")
+top_dates = date_stats.sort_values('max_layers', ascending=False).head(15)
+print("\n=== TOP 15 PEAK VOLATILITY DATES ===")
 print(top_dates.to_string(index=False))
 
 # Save daily stats
-daily_csv = "backtest_XAGUSDc_3y_daily_max_layers.csv"
+daily_csv = "backtest_XAGUSDc_10y_daily_max_layers.csv"
 date_stats.to_csv(daily_csv, index=False)
 print(f"\nSaved daily stats to {daily_csv}")

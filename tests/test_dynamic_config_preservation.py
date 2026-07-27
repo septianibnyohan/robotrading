@@ -22,14 +22,14 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         """Verify get_risk_level correctly detects normal vs moderate vs low risk hours for BTCUSD."""
         btc_config.set_active_symbol("BTCUSDc")
         try:
-            # Case 1: 02:00 WIB -> Normal risk (between 01:00 and 05:00)
-            t_normal = datetime.datetime(2026, 6, 3, 2, 0, 0)
+            # Case 1: 23:00 WIB -> Normal risk (between 22:00 and 01:00)
+            t_normal = datetime.datetime(2026, 6, 3, 23, 0, 0)
             with patch.object(btc_config, '_get_current_time', return_value=t_normal):
                 self.assertEqual(btc_config.get_risk_level(), "normal")
                 self.assertFalse(btc_config.is_low_risk_time())
                 
-            # Case 2: 12:00 WIB -> Moderate risk (between 11:00 and 17:00)
-            t_moderate = datetime.datetime(2026, 6, 3, 12, 0, 0)
+            # Case 2: 15:00 WIB -> Moderate risk (between 12:00 and 20:00)
+            t_moderate = datetime.datetime(2026, 6, 3, 15, 0, 0)
             with patch.object(btc_config, '_get_current_time', return_value=t_moderate):
                 self.assertEqual(btc_config.get_risk_level(), "moderate")
                 self.assertFalse(btc_config.is_low_risk_time())
@@ -44,8 +44,8 @@ class TestDynamicConfigPreservation(unittest.TestCase):
 
     def test_is_low_risk_time_evaluation(self):
         """Verify is_low_risk_time correctly detects normal/moderate vs low risk hours."""
-        # Wednesday at 12:00 PM (Within moderate window -> not low risk)
-        moderate_time = datetime.datetime(2026, 6, 3, 12, 0, 0)
+        # Wednesday at 15:00 (Within moderate window -> not low risk)
+        moderate_time = datetime.datetime(2026, 6, 3, 15, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=moderate_time):
             self.assertFalse(btc_config.is_low_risk_time())
             
@@ -54,29 +54,29 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         with patch.object(btc_config, '_get_current_time', return_value=lowrisk_time):
             self.assertTrue(btc_config.is_low_risk_time())
 
-        # Wednesday at 02:00 AM (Within normal window -> not low risk)
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        # Wednesday at 23:00 PM (Within normal window -> not low risk)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
             self.assertFalse(btc_config.is_low_risk_time())
 
         # XAUUSD scheduling cases
         btc_config.set_active_symbol("XAUUSDc")
         try:
-            # 11:00 WIB (Within 10:00 - 14:00 window -> normal config)
-            time_11 = datetime.datetime(2026, 6, 3, 11, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_11):
+            # 02:00 WIB (Within 01:00 - 05:00 window -> normal config)
+            time_02 = datetime.datetime(2026, 6, 3, 2, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_02):
                 self.assertEqual(btc_config.get_risk_level(), "normal")
                 self.assertFalse(btc_config.is_low_risk_time())
 
-            # 17:00 WIB (Within 16:00 - 02:00 window -> moderate config)
-            time_17 = datetime.datetime(2026, 6, 3, 17, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_17):
+            # 23:00 WIB (Within 22:00 - 04:00 window, outside normal -> moderate config)
+            time_23 = datetime.datetime(2026, 6, 3, 23, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_23):
                 self.assertEqual(btc_config.get_risk_level(), "moderate")
                 self.assertFalse(btc_config.is_low_risk_time())
 
-            # 15:00 WIB (Outside windows -> low risk)
-            time_15 = datetime.datetime(2026, 6, 3, 15, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_15):
+            # 12:00 WIB (Outside windows -> low risk)
+            time_12 = datetime.datetime(2026, 6, 3, 12, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_12):
                 self.assertEqual(btc_config.get_risk_level(), "low")
                 self.assertTrue(btc_config.is_low_risk_time())
         finally:
@@ -85,21 +85,27 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         # XAGUSD scheduling cases
         btc_config.set_active_symbol("XAGUSDc")
         try:
-            # 01:00 WIB (Within 00:00 - 03:00 window -> normal config)
-            time_01 = datetime.datetime(2026, 6, 3, 1, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_01):
+            # 03:00 WIB (Within 02:00 - 06:00 window -> normal config)
+            time_03 = datetime.datetime(2026, 6, 3, 3, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_03):
                 self.assertEqual(btc_config.get_risk_level(), "normal")
                 self.assertFalse(btc_config.is_low_risk_time())
 
-            # 08:00 WIB (Within 04:00 - 13:00 window -> moderate config)
-            time_08 = datetime.datetime(2026, 6, 3, 8, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_08):
+            # 09:00 WIB (Within 08:00 - 12:00 window -> normal config)
+            time_09 = datetime.datetime(2026, 6, 3, 9, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_09):
+                self.assertEqual(btc_config.get_risk_level(), "normal")
+                self.assertFalse(btc_config.is_low_risk_time())
+
+            # 15:00 WIB (Within 12:00 - 18:00 window -> moderate config)
+            time_15_xag = datetime.datetime(2026, 6, 3, 15, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_15_xag):
                 self.assertEqual(btc_config.get_risk_level(), "moderate")
                 self.assertFalse(btc_config.is_low_risk_time())
 
-            # 15:00 WIB (Outside windows -> low risk)
-            time_15_xag = datetime.datetime(2026, 6, 3, 15, 0, 0)
-            with patch.object(btc_config, '_get_current_time', return_value=time_15_xag):
+            # 01:00 WIB (Outside windows -> low risk)
+            time_01_xag = datetime.datetime(2026, 6, 3, 1, 0, 0)
+            with patch.object(btc_config, '_get_current_time', return_value=time_01_xag):
                 self.assertEqual(btc_config.get_risk_level(), "low")
                 self.assertTrue(btc_config.is_low_risk_time())
         finally:
@@ -107,25 +113,36 @@ class TestDynamicConfigPreservation(unittest.TestCase):
 
     @patch('MetaTrader5.terminal_info')
     @patch('MetaTrader5.positions_get')
-    def test_low_risk_override_priority(self, mock_positions_get, mock_terminal_info):
-        """Verify low-risk takes priority over normal and moderate risk open positions."""
+    def test_oldest_position_risk_priority(self, mock_positions_get, mock_terminal_info):
+        """Verify the oldest position's risk level is prioritized."""
         mock_terminal_info.return_value = MagicMock()
         
-        # Mock 2 active trades: 1 normal (02:00 AM) and 1 low-risk (08:00 AM)
-        pos1 = MagicMock(magic=20260523, symbol="BTCUSDc")
-        pos1.time = datetime.datetime(2026, 6, 3, 2, 0, 0).timestamp()
+        # Case A: Low-risk is the oldest position
+        pos_normal = MagicMock(magic=20260523, symbol="BTCUSDc")
+        pos_normal.time = datetime.datetime(2026, 6, 3, 23, 0, 0).timestamp()
         
-        pos2 = MagicMock(magic=20260523, symbol="BTCUSDc")
-        pos2.time = datetime.datetime(2026, 6, 3, 8, 0, 0).timestamp()
+        pos_low = MagicMock(magic=20260523, symbol="BTCUSDc")
+        pos_low.time = datetime.datetime(2026, 6, 3, 8, 0, 0).timestamp()
         
-        mock_positions_get.return_value = [pos1, pos2]
+        mock_positions_get.return_value = [pos_normal, pos_low]
         
-        # Current time is normal hours (02:00 AM)
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        # Current time is normal hours (23:00)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
-            # Check lot size remains low risk override because a low-risk position is active
             import config.symbols.BTCUSDc as BTCUSDc
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOW_RISK_OVERRIDES["LOT_SIZE"])
+
+        # Case B: Normal-risk is the oldest position
+        pos_normal2 = MagicMock(magic=20260523, symbol="BTCUSDc")
+        pos_normal2.time = datetime.datetime(2026, 6, 3, 23, 0, 0).timestamp()
+        
+        pos_low2 = MagicMock(magic=20260523, symbol="BTCUSDc")
+        pos_low2.time = datetime.datetime(2026, 6, 4, 8, 0, 0).timestamp()  # Thursday 8 AM (newer)
+        
+        mock_positions_get.return_value = [pos_normal2, pos_low2]
+        
+        with patch.object(btc_config, '_get_current_time', return_value=normal_time):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOT_SIZE)
 
     @patch('MetaTrader5.terminal_info')
     @patch('MetaTrader5.positions_get')
@@ -133,13 +150,13 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         """Verify normal overrides are preserved when normal positions are open during low-risk hours."""
         mock_terminal_info.return_value = MagicMock()
         
-        # Mock 1 active trade opened during normal hours (e.g. Wednesday 02:00 AM)
+        # Mock 1 active trade opened during normal hours (e.g. Wednesday 23:00)
         pos = MagicMock(magic=20260523, symbol="BTCUSDc")
-        pos.time = datetime.datetime(2026, 6, 3, 2, 0, 0).timestamp()
+        pos.time = datetime.datetime(2026, 6, 3, 23, 0, 0).timestamp()
         mock_positions_get.return_value = [pos]
         
         # Load the normal value first by patching time as normal hours
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
             normal_lot_size = btc_config.LOT_SIZE
         
@@ -160,8 +177,8 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         pos.time = datetime.datetime(2026, 6, 3, 8, 0, 0).timestamp()
         mock_positions_get.return_value = [pos]
         
-        # Normal risk hour (02:00 AM)
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        # Normal risk hour (23:00)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
             # Check lot size remains low risk instead of normal risk
             import config.symbols.BTCUSDc as BTCUSDc
@@ -173,13 +190,13 @@ class TestDynamicConfigPreservation(unittest.TestCase):
         """Verify moderate overrides are preserved when moderate positions are open during normal-risk hours."""
         mock_terminal_info.return_value = MagicMock()
         
-        # Mock 1 active trade opened during moderate risk hours (e.g. Wednesday 12:00 PM)
+        # Mock 1 active trade opened during moderate risk hours (e.g. Wednesday 15:00)
         pos = MagicMock(magic=20260523, symbol="BTCUSDc")
-        pos.time = datetime.datetime(2026, 6, 3, 12, 0, 0).timestamp()
+        pos.time = datetime.datetime(2026, 6, 3, 15, 0, 0).timestamp()
         mock_positions_get.return_value = [pos]
         
-        # Normal risk hour (02:00 AM)
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        # Normal risk hour (23:00)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
         with patch.object(btc_config, '_get_current_time', return_value=normal_time):
             # Check lot size remains moderate risk instead of normal risk
             import config.symbols.BTCUSDc as BTCUSDc
@@ -199,6 +216,57 @@ class TestDynamicConfigPreservation(unittest.TestCase):
             import config.symbols.BTCUSDc as BTCUSDc
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOW_RISK_OVERRIDES["LOT_SIZE"])
 
+    @patch('MetaTrader5.terminal_info')
+    @patch('MetaTrader5.positions_get')
+    def test_sunday_override_applied(self, mock_positions_get, mock_terminal_info):
+        """Verify Sunday 0.01 Lot Override is active during Sunday 20:00 - 22:00 WIB and Monday 01:00 - 12:00 WIB for BTCUSD."""
+        mock_terminal_info.return_value = MagicMock()
+        mock_positions_get.return_value = []
+        
+        # Test Case A: Sunday at 21:00 WIB (Within Sunday 20:00 - 22:00 window)
+        sunday_time = datetime.datetime(2026, 6, 7, 21, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=sunday_time):
+            self.assertTrue(btc_config.is_sunday_override_time())
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
+            
+        # Test Case B: Monday at 02:00 AM WIB (Within Monday 01:00 - 12:00 window)
+        monday_time = datetime.datetime(2026, 6, 8, 2, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=monday_time):
+            self.assertTrue(btc_config.is_sunday_override_time())
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
+            
+        # Test Case C: Sunday at 15:00 WIB (Outside override window)
+        outside_time = datetime.datetime(2026, 6, 7, 15, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=outside_time):
+            self.assertFalse(btc_config.is_sunday_override_time())
+            import config.symbols.BTCUSDc as BTCUSDc
+            self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.MODERATE_RISK_OVERRIDES["LOT_SIZE"])
+
+        # Test Case D: Sunday at 23:00 WIB (Normal risk hour, outside Sunday override)
+        sunday_normal_time = datetime.datetime(2026, 6, 7, 23, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=sunday_normal_time):
+            self.assertFalse(btc_config.is_sunday_override_time())
+            self.assertEqual(btc_config.get_risk_level(), "normal")
+            import config.symbols.BTCUSDc as BTCUSDc
+            self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOT_SIZE)
+
+    @patch('MetaTrader5.terminal_info')
+    @patch('MetaTrader5.positions_get')
+    def test_sunday_override_preserved_with_open_positions(self, mock_positions_get, mock_terminal_info):
+        """Verify Sunday lot size override is preserved as long as trades opened during Sunday override are active."""
+        mock_terminal_info.return_value = MagicMock()
+        
+        # Mock 1 active trade opened during Sunday override window (e.g. Sunday 21:00 WIB)
+        pos = MagicMock(magic=20260523, symbol="BTCUSDc")
+        pos.time = datetime.datetime(2026, 6, 7, 21, 0, 0).timestamp()
+        mock_positions_get.return_value = [pos]
+        
+        # Current time is outside Sunday window (e.g. Monday 13:00 PM WIB - low risk hours)
+        monday_time = datetime.datetime(2026, 6, 8, 13, 0, 0)
+        with patch.object(btc_config, '_get_current_time', return_value=monday_time):
+            # Check lot size remains 0.01 instead of low risk overrides
+            self.assertAlmostEqual(btc_config.LOT_SIZE, 0.01)
+
 
 class TestBasketTpAdjustment(unittest.TestCase):
     def setUp(self):
@@ -214,7 +282,7 @@ class TestBasketTpAdjustment(unittest.TestCase):
         """Verify target profit is calculated as normal_tp * total_layers when only normal trades are active."""
         mock_terminal_info.return_value = MagicMock()
         
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0) # Wednesday 2 AM (normal config time)
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0) # Wednesday 11 PM (normal config time)
         
         # We have 2 normal layers
         pos1 = MagicMock(symbol="BTCUSDc", profit=10.0, commission=0.0, swap=0.0, magic=20260523)
@@ -246,24 +314,24 @@ class TestBasketTpAdjustment(unittest.TestCase):
     @patch('MetaTrader5.positions_get')
     @patch('MetaTrader5.terminal_info')
     def test_basket_tp_with_normal_and_low_risk_trades_active(self, mock_terminal_info, mock_positions_get, mock_close):
-        """Verify target profit is forced to low-risk (low_risk_tp * total_layers) if any low-risk trade is active."""
+        """Verify target profit is determined by the oldest position's risk level."""
         mock_terminal_info.return_value = MagicMock()
         
-        normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0) # Normal risk
-        low_risk_time = datetime.datetime(2026, 6, 3, 8, 0, 0) # Low risk
+        normal_time = datetime.datetime(2026, 6, 3, 23, 0, 0) # Normal risk
+        low_risk_time = datetime.datetime(2026, 6, 4, 8, 0, 0) # Low risk (newer, Thursday)
         
-        # We have 1 normal layer and 1 low risk layer
-        pos1 = MagicMock(symbol="BTCUSDc", profit=10.0, commission=0.0, swap=0.0, magic=20260523)
+        # We have 1 normal layer (oldest) and 1 low risk layer (newer)
+        pos1 = MagicMock(symbol="BTCUSDc", profit=1.0, commission=0.0, swap=0.0, magic=20260523)
         pos1.time = normal_time.timestamp()
         
-        pos2 = MagicMock(symbol="BTCUSDc", profit=10.0, commission=0.0, swap=0.0, magic=20260523)
+        pos2 = MagicMock(symbol="BTCUSDc", profit=1.0, commission=0.0, swap=0.0, magic=20260523)
         pos2.time = low_risk_time.timestamp()
         
         mock_positions_get.return_value = [pos1, pos2]
         
         import config.symbols.BTCUSDc as BTCUSDc
-        low_risk_tp = BTCUSDc.LOW_RISK_OVERRIDES["TAKE_PROFIT_PER_LAYER_USD"]
-        target = 2 * low_risk_tp
+        normal_tp = BTCUSDc.TAKE_PROFIT_PER_LAYER_USD
+        target = 2 * normal_tp
         
         state = {"total_layers": 2}
         
@@ -319,7 +387,7 @@ class TestBasketTpAdjustment(unittest.TestCase):
         """Verify target profit is calculated based on moderate risk when moderate is the highest risk."""
         mock_terminal_info.return_value = MagicMock()
         
-        moderate_time = datetime.datetime(2026, 6, 3, 12, 0, 0) # Wednesday 12 PM (moderate risk config time)
+        moderate_time = datetime.datetime(2026, 6, 3, 15, 0, 0) # Wednesday 3 PM (moderate risk config time)
         
         pos1 = MagicMock(symbol="BTCUSDc", profit=1.5, commission=0.0, swap=0.0, magic=20260523)
         pos1.time = moderate_time.timestamp()

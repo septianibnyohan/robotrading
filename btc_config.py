@@ -29,7 +29,7 @@ def set_active_symbol(symbol):
 class DynamicConfigModule(types.ModuleType):
     def __getattribute__(self, name):
         # Prevent infinite recursion for internal attributes/methods
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
             return super().__getattribute__(name)
             
         if name == 'ACTIVE_SYMBOL':
@@ -46,6 +46,8 @@ class DynamicConfigModule(types.ModuleType):
         symbol = _active_symbol_var.get()
         current_risk = self.get_risk_level()
         active_risk = current_risk
+        
+        is_sunday_override = self.is_sunday_override_time()
         
         import MetaTrader5 as mt5
         from datetime import datetime
@@ -65,19 +67,20 @@ class DynamicConfigModule(types.ModuleType):
                         matching_positions = raw_positions
                         
                     if matching_positions:
-                        pos_risks = []
-                        for pos in matching_positions:
-                            pos_time_local = datetime.fromtimestamp(pos.time)
-                            pos_risks.append(self.get_risk_level(pos_time_local))
-                            
-                        if "low" in pos_risks:
-                            active_risk = "low"
-                        elif "moderate" in pos_risks:
-                            active_risk = "moderate"
-                        else:
-                            active_risk = "normal"
+                        oldest_pos = min(matching_positions, key=lambda p: p.time)
+                        pos_time_local = datetime.fromtimestamp(oldest_pos.time)
+                        active_risk = self.get_risk_level(pos_time_local)
+                        if self.is_sunday_override_time(pos_time_local):
+                            is_sunday_override = True
         except Exception as e:
             logger.error(f"Error checking open positions in btc_config: {e}")
+            
+        # Return Sunday lot size override first if applicable
+        if "BTCUSD" in symbol and name == "LOT_SIZE" and is_sunday_override:
+            return 0.01
+
+        if "BTCUSD" in symbol and name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override:
+            return 0.20
             
         # Return overridden value if in low-risk mode
         if active_risk == "low" and hasattr(symbol_module, 'LOW_RISK_OVERRIDES') and name in symbol_module.LOW_RISK_OVERRIDES:
@@ -100,7 +103,7 @@ class DynamicConfigModule(types.ModuleType):
             )
 
     def __setattr__(self, name, value):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
             super().__setattr__(name, value)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set(value)
@@ -109,7 +112,7 @@ class DynamicConfigModule(types.ModuleType):
             setattr(symbol_module, name, value)
 
     def __delattr__(self, name):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
             super().__delattr__(name)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set("BTCUSDc")
@@ -121,6 +124,18 @@ class DynamicConfigModule(types.ModuleType):
                 if name in self.__dict__:
                     super().__delattr__(name)
 
+    def is_sunday_override_time(self, dt=None):
+        if dt is None:
+            now = self._get_current_time()
+        else:
+            now = dt
+        weekday = now.weekday()
+        hour = now.hour
+        # Sunday 20:00 - 22:00 WIB or Monday 01:00 - 12:00 WIB
+        if (weekday == 6 and 20 <= hour < 22) or (weekday == 0 and 1 <= hour < 12):
+            return True
+        return False
+
     def get_risk_level(self, dt=None):
         symbol = _active_symbol_var.get()
         if dt is None:
@@ -131,35 +146,35 @@ class DynamicConfigModule(types.ModuleType):
         
         if "BTCUSD" in symbol:
             # WIB check:
-            # normal risk : 01:00 - 05:00 WIB
-            # moderate risk: 11:00 - 17:00 WIB
+            # normal risk : 22:00 - 01:00 WIB
+            # moderate risk: 12:00 - 20:00 WIB
             # other time use low risk
             hour = now.hour
-            if 1 <= hour < 5:
+            if hour >= 22 or hour < 1:
                 return "normal"
-            elif 11 <= hour < 17:
+            elif 12 <= hour < 20:
                 return "moderate"
             else:
                 return "low"
         elif "XAUUSD" in symbol:
-            # normal risk : 10:00 - 14:00 WIB
-            # moderate risk: 16:00 - 02:00 WIB
+            # normal risk : 01:00 - 05:00 WIB
+            # moderate risk: 22:00 - 04:00 WIB
             # other time use low risk
             hour = now.hour
-            if 10 <= hour < 14:
+            if 1 <= hour < 5:
                 return "normal"
-            elif hour >= 16 or hour < 2:
+            elif hour >= 22 or hour < 4:
                 return "moderate"
             else:
                 return "low"
         elif "XAGUSD" in symbol:
-            # normal risk : 00:00 - 03:00 WIB
-            # moderate risk: 04:00 - 13:00 WIB
+            # normal risk : 02:00 - 06:00 WIB and 08:00 - 12:00 WIB
+            # moderate risk: 12:00 - 18:00 WIB
             # other time use low risk
             hour = now.hour
-            if 0 <= hour < 3:
+            if (2 <= hour < 6) or (8 <= hour < 12):
                 return "normal"
-            elif 4 <= hour < 13:
+            elif 12 <= hour < 18:
                 return "moderate"
             else:
                 return "low"
