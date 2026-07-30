@@ -93,7 +93,7 @@ def handle_layering(positions, state, step, tick):
     magic_number = btc_config.MAGIC_NUMBER
     if positions:
         pos_magic = getattr(positions[0], "magic", None)
-        if isinstance(pos_magic, (int, float)) and not 'Mock' in type(pos_magic).__name__:
+        if isinstance(pos_magic, (int, float)) and 'Mock' not in type(pos_magic).__name__:
             magic_number = int(pos_magic)
     if direction == "BUY" and tick.ask <= first_entry_price - offset:
         logger.info(f"[LAYERING] Triggering Buy Layer {total_layers + 1}. Price: {tick.ask:.2f}")
@@ -111,7 +111,7 @@ def handle_basket_tp(positions, state):
     current_symbol = btc_config.SYMBOL
     symbol_positions = [p for p in positions if p.symbol == current_symbol]
     total_profit = sum(p.profit + p.swap for p in symbol_positions)
-    total_layers = state["total_layers"]
+    state["total_layers"]
     
     # Check risk level based on the oldest position (the one that activated the trade)
     if symbol_positions:
@@ -153,7 +153,7 @@ def handle_basket_tp(positions, state):
         magic_number = btc_config.MAGIC_NUMBER
         if positions:
             pos_magic = getattr(positions[0], "magic", None)
-            if isinstance(pos_magic, (int, float)) and not 'Mock' in type(pos_magic).__name__:
+            if isinstance(pos_magic, (int, float)) and 'Mock' not in type(pos_magic).__name__:
                 magic_number = int(pos_magic)
         close_all_open_positions("BASKET_TP", symbol=current_symbol, magic=magic_number)
         return True
@@ -178,7 +178,7 @@ def check_and_trigger_entry(h1_row, m1_df, m5_df, tick):
                 "first_entry_price": price,
                 "total_layers": 1
             }
-            
+
     # Check M1 crossover entry (except XAGUSD)
     is_xagusd = "XAGUSD" in btc_config.SYMBOL
     logger.info(f"[{btc_config.SYMBOL}]Check M1, is_xagusd: {is_xagusd}")
@@ -334,6 +334,8 @@ def main():
     
     parser = argparse.ArgumentParser(description="BTC Layer Trading Bot")
     parser.add_argument("--symbol", type=str, default=default_symbol, help="Symbol(s) to trade (comma-separated or 'all')")
+    parser.add_argument("--forward-test", action="store_true", help="Run in simulated forward testing mode")
+    parser.add_argument("--starting-balance", type=float, default=10000.0, help="Starting balance for forward testing mode")
     args = parser.parse_args()
     
     # Resolve symbols list
@@ -348,6 +350,16 @@ def main():
         
     # Set the first symbol as active for MT5 initialization
     btc_config.set_active_symbol(symbols[0])
+    
+    if args.forward_test:
+        from core.simulator import ForwardTestManager, patch_all
+        manager = ForwardTestManager(initial_balance=args.starting_balance)
+        patch_all(manager)
+        logger.info("==================================================")
+        logger.info("FORWARD TESTING MODE ENABLED (NO REAL TRADES)")
+        logger.info(f"Simulated balance: {manager.balance:.2f} USD")
+        logger.info("==================================================")
+        
     initialize_mt5()
     
     # Select all other symbols in MT5

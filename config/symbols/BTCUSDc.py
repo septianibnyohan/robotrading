@@ -39,7 +39,7 @@ LOW_RISK_OVERRIDES = {
 # Daytime Window (11:00 - 17:00 WIB): Max layers encountered: 26.
 # min 21, max 50
 MODERATE_RISK_OVERRIDES = {
-    "LOT_SIZE": 0.01 * (38), # Asian Session Window (07:00 - 15:00 WIB): Max layers reached was 24
+    "LOT_SIZE": 0.01 * (41), # Asian Session Window (07:00 - 15:00 WIB): Max layers reached was 24
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (38), #25 - 100
+    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (40), #25 - 100
 }
