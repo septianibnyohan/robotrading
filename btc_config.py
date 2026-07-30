@@ -27,9 +27,30 @@ def set_active_symbol(symbol):
         )
 
 class DynamicConfigModule(types.ModuleType):
+    _gui_settings_cache = None
+    _gui_settings_mtime = 0
+
+    def _get_gui_settings(self):
+        import json
+        import os
+        settings_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config", "gui_settings.json")
+        if not os.path.exists(settings_path):
+            return {}
+        try:
+            mtime = os.path.getmtime(settings_path)
+            if self._gui_settings_cache is None or mtime > self._gui_settings_mtime:
+                with open(settings_path, 'r') as f:
+                    self._gui_settings_cache = json.load(f)
+                self._gui_settings_mtime = mtime
+        except Exception as e:
+            if self._gui_settings_cache is not None:
+                return self._gui_settings_cache
+            return {}
+        return self._gui_settings_cache
+
     def __getattribute__(self, name):
         # Prevent infinite recursion for internal attributes/methods
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time', '_get_gui_settings', '_gui_settings_cache', '_gui_settings_mtime'):
             return super().__getattribute__(name)
             
         if name == 'ACTIVE_SYMBOL':
@@ -41,9 +62,10 @@ class DynamicConfigModule(types.ModuleType):
             
         # Load active symbol module
         symbol_module = self._get_symbol_module()
+        symbol = _active_symbol_var.get()
+        gui_settings = self._get_gui_settings()
         
         # Check overrides using open positions to preserve active risk based on precedence (low > moderate > normal)
-        symbol = _active_symbol_var.get()
         current_risk = self.get_risk_level()
         active_risk = current_risk
         
@@ -56,10 +78,13 @@ class DynamicConfigModule(types.ModuleType):
                 raw_positions = mt5.positions_get(symbol=symbol)
                 if raw_positions:
                     magic_numbers = []
-                    if hasattr(symbol_module, 'MAGIC_NUMBER'):
-                        magic_numbers.append(symbol_module.MAGIC_NUMBER)
-                    if hasattr(symbol_module, 'MAGIC_NUMBER_M5'):
-                        magic_numbers.append(symbol_module.MAGIC_NUMBER_M5)
+                    gui_sym_config = gui_settings.get(symbol, {})
+                    magic_num = gui_sym_config.get('MAGIC_NUMBER', getattr(symbol_module, 'MAGIC_NUMBER', None))
+                    magic_num_m5 = gui_sym_config.get('MAGIC_NUMBER_M5', getattr(symbol_module, 'MAGIC_NUMBER_M5', None))
+                    if magic_num is not None:
+                        magic_numbers.append(magic_num)
+                    if magic_num_m5 is not None:
+                        magic_numbers.append(magic_num_m5)
                     
                     if magic_numbers:
                         matching_positions = [p for p in raw_positions if p.magic in magic_numbers]
@@ -82,13 +107,22 @@ class DynamicConfigModule(types.ModuleType):
         if "BTCUSD" in symbol and name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override:
             return 0.20
             
+        gui_sym_config = gui_settings.get(symbol, {})
         # Return overridden value if in low-risk mode
-        if active_risk == "low" and hasattr(symbol_module, 'LOW_RISK_OVERRIDES') and name in symbol_module.LOW_RISK_OVERRIDES:
-            return symbol_module.LOW_RISK_OVERRIDES[name]
+        if active_risk == "low":
+            low_risk_overrides = gui_sym_config.get('LOW_RISK_OVERRIDES', getattr(symbol_module, 'LOW_RISK_OVERRIDES', {}))
+            if name in low_risk_overrides:
+                return low_risk_overrides[name]
         # Return overridden value if in moderate-risk mode
-        elif active_risk == "moderate" and hasattr(symbol_module, 'MODERATE_RISK_OVERRIDES') and name in symbol_module.MODERATE_RISK_OVERRIDES:
-            return symbol_module.MODERATE_RISK_OVERRIDES[name]
+        elif active_risk == "moderate":
+            mod_risk_overrides = gui_sym_config.get('MODERATE_RISK_OVERRIDES', getattr(symbol_module, 'MODERATE_RISK_OVERRIDES', {}))
+            if name in mod_risk_overrides:
+                return mod_risk_overrides[name]
             
+        # Return GUI override if set
+        if name in gui_sym_config:
+            return gui_sym_config[name]
+
         # Return standard attribute
         if hasattr(symbol_module, name):
             return getattr(symbol_module, name)
@@ -103,7 +137,7 @@ class DynamicConfigModule(types.ModuleType):
             )
 
     def __setattr__(self, name, value):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time', '_get_gui_settings', '_gui_settings_cache', '_gui_settings_mtime'):
             super().__setattr__(name, value)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set(value)
@@ -112,7 +146,7 @@ class DynamicConfigModule(types.ModuleType):
             setattr(symbol_module, name, value)
 
     def __delattr__(self, name):
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time', '_get_gui_settings', '_gui_settings_cache', '_gui_settings_mtime'):
             super().__delattr__(name)
         elif name == 'ACTIVE_SYMBOL':
             _active_symbol_var.set("BTCUSDc")
@@ -131,7 +165,6 @@ class DynamicConfigModule(types.ModuleType):
             now = dt
         weekday = now.weekday()
         hour = now.hour
-        # Sunday 20:00 - 22:00 WIB or Monday 01:00 - 12:00 WIB
         if (weekday == 6 and 20 <= hour < 22) or (weekday == 0 and 1 <= hour < 12):
             return True
         return False
@@ -145,10 +178,6 @@ class DynamicConfigModule(types.ModuleType):
         is_weekend = now.weekday() >= 5
         
         if "BTCUSD" in symbol:
-            # WIB check:
-            # normal risk : 22:00 - 01:00 WIB
-            # moderate risk: 12:00 - 20:00 WIB
-            # other time use low risk
             hour = now.hour
             if hour >= 22 or hour < 1:
                 return "normal"
@@ -157,9 +186,6 @@ class DynamicConfigModule(types.ModuleType):
             else:
                 return "low"
         elif "XAUUSD" in symbol:
-            # normal risk : 01:00 - 05:00 WIB
-            # moderate risk: 22:00 - 04:00 WIB
-            # other time use low risk
             hour = now.hour
             if 1 <= hour < 5:
                 return "normal"
@@ -168,9 +194,6 @@ class DynamicConfigModule(types.ModuleType):
             else:
                 return "low"
         elif "XAGUSD" in symbol:
-            # normal risk : 02:00 - 06:00 WIB and 08:00 - 12:00 WIB
-            # moderate risk: 12:00 - 18:00 WIB
-            # other time use low risk
             hour = now.hour
             if (2 <= hour < 6) or (8 <= hour < 12):
                 return "normal"
@@ -179,7 +202,6 @@ class DynamicConfigModule(types.ModuleType):
             else:
                 return "low"
         else:
-            # Fallback for other symbols: normal config during weekday peak hours (08:00 - 15:00)
             if not is_weekend and (8 <= now.hour < 15):
                 return "normal"
             return "low"
@@ -195,7 +217,6 @@ class DynamicConfigModule(types.ModuleType):
         try:
             return importlib.import_module(f"config.symbols.{symbol}")
         except ImportError:
-            # Fallback to loading default symbol config
             return importlib.import_module("config.symbols.BTCUSDc")
 
 # Override this module's class in sys.modules to enable dynamic lookup
