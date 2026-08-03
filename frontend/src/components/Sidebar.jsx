@@ -3,7 +3,20 @@ import { DashboardIcon, BacktestIcon, SettingsIcon, LogsIcon } from './Icons';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon className="menu-icon" /> },
+    { 
+      id: 'live', 
+      label: 'Live Trading', 
+      icon: <DashboardIcon className="menu-icon" />, 
+      dotColor: 'var(--warning)',
+      glowColor: 'rgba(255, 170, 0, 0.4)'
+    },
+    { 
+      id: 'forward_test', 
+      label: 'Simulated Sandbox', 
+      icon: <DashboardIcon className="menu-icon" />, 
+      dotColor: 'var(--secondary)',
+      glowColor: 'rgba(0, 240, 255, 0.4)'
+    },
     { id: 'backtest', label: 'Historical Backtest', icon: <BacktestIcon className="menu-icon" /> },
     { id: 'settings', label: 'Configuration', icon: <SettingsIcon className="menu-icon" /> },
     { id: 'logs', label: 'System Logs', icon: <LogsIcon className="menu-icon" /> },
@@ -22,9 +35,28 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
               <button
                 className={`menu-item-btn ${activeTab === item.id ? 'active' : ''}`}
                 onClick={() => setActiveTab(item.id)}
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  paddingRight: '2rem'
+                }}
               >
                 {item.icon}
                 <span>{item.label}</span>
+                {item.dotColor && (
+                  <span className="menu-item-dot" style={{
+                    position: 'absolute',
+                    right: '1.25rem',
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: item.dotColor,
+                    boxShadow: `0 0 6px ${item.glowColor}`,
+                    display: 'inline-block'
+                  }}></span>
+                )}
               </button>
             </li>
           ))}

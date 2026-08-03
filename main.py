@@ -43,7 +43,7 @@ def trigger_audio_alert(side, symbol=""):
     # 2. Text-to-Speech via PowerShell
     try:
         import subprocess
-        asset = "Silver" if "XAG" in symbol else ("Gold" if "XAU" in symbol else "BTC")
+        asset = "Silver" if "XAG" in symbol else ("Gold" if "XAU" in symbol else ("ETH" if "ETH" in symbol else "BTC"))
         msg = f"{side.upper()} {asset} trade triggered"
         # Run PowerShell asynchronously to prevent blocking the main loop
         subprocess.Popen([

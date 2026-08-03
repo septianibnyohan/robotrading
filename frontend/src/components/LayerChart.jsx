@@ -55,7 +55,7 @@ const LayerChart = ({ activeSession, currentPrice, config }) => {
   }
 
   // Find min and max prices to scale the SVG
-  const prices = gridLevels.map(g => g.price).concat(currentPrice || first_entry_price);
+  const prices = gridLevels.map(g => g.price).concat((currentPrice && !isNaN(currentPrice)) ? [currentPrice] : [first_entry_price]);
   const maxPrice = Math.max(...prices) + (stepSize * 0.5);
   const minPrice = Math.min(...prices) - (stepSize * 0.5);
   const priceRange = maxPrice - minPrice;
@@ -78,7 +78,7 @@ const LayerChart = ({ activeSession, currentPrice, config }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <svg width="100%" height={height} className="chart-svg" style={{ background: 'rgba(0, 0, 0, 0.15)', borderRadius: '8px', border: '1px solid var(--border)' }}>
+      <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="100%" className="chart-svg" style={{ background: 'rgba(0, 0, 0, 0.15)', borderRadius: '8px', border: '1px solid var(--border)' }}>
         {/* Gradients */}
         <defs>
           <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -136,7 +136,7 @@ const LayerChart = ({ activeSession, currentPrice, config }) => {
         })}
 
         {/* Live Ticker Current Price Line */}
-        {currentPrice && (
+        {currentPrice && !isNaN(currentPrice) && currentPrice > 0 && (
           <g>
             <line
               x1={paddingX}

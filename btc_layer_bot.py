@@ -111,39 +111,12 @@ def handle_basket_tp(positions, state):
     current_symbol = btc_config.SYMBOL
     symbol_positions = [p for p in positions if p.symbol == current_symbol]
     total_profit = sum(p.profit + p.swap for p in symbol_positions)
-    state["total_layers"]
     
-    # Check risk level based on the oldest position (the one that activated the trade)
-    if symbol_positions:
-        from datetime import datetime
-        oldest_pos = min(symbol_positions, key=lambda p: p.time)
-        pos_time_local = datetime.fromtimestamp(oldest_pos.time)
-        basket_risk = btc_config.get_risk_level(pos_time_local)
-    else:
-        basket_risk = "normal"
-        
-    # Fetch base configuration values directly to prevent clock-time shifts
-    import importlib
-    try:
-        symbol_module = importlib.import_module(f"config.symbols.{current_symbol}")
-    except ImportError:
-        symbol_module = importlib.import_module("config.symbols.BTCUSDc")
-        
-    normal_tp = symbol_module.TAKE_PROFIT_PER_LAYER_USD
-    low_risk_overrides = getattr(symbol_module, 'LOW_RISK_OVERRIDES', {})
-    moderate_risk_overrides = getattr(symbol_module, 'MODERATE_RISK_OVERRIDES', {})
-    
-    if basket_risk == "normal":
-        tp_val = normal_tp
-    elif basket_risk == "moderate":
-        tp_val = moderate_risk_overrides.get('TAKE_PROFIT_PER_LAYER_USD', normal_tp)
-    else:
-        tp_val = low_risk_overrides.get('TAKE_PROFIT_PER_LAYER_USD', normal_tp)
-        
+    tp_val = btc_config.TAKE_PROFIT_PER_LAYER_USD
     target_profit = tp_val * len(symbol_positions)
     
     logger.info(
-        f"[{current_symbol} BASKET TP CHECK] Basket risk level: {basket_risk}. "
+        f"[{current_symbol} BASKET TP CHECK] "
         f"Target profit based on {len(symbol_positions)} positions: {target_profit:.2f} USD (total profit: {total_profit:.2f} USD)."
     )
         
@@ -159,13 +132,27 @@ def handle_basket_tp(positions, state):
         return True
     return False
 
-def check_and_trigger_entry(h1_row, m1_df, m5_df, tick):
+def check_and_trigger_entry(h1_row, m1_df, m5_df, m15_df, tick):
     """Checks entry conditions and opens the first position of the layer."""
     h1_signal = check_h1_signal(h1_row)
     if h1_signal is None:
         return None
         
-    # Check M5 crossover entry first (for all symbols)
+    # Check M15 crossover entry first (for all symbols)
+    m15_cross = check_timeframe_crossover(m15_df, "M15")
+    if h1_signal == m15_cross:
+        price = tick.ask if h1_signal == "BUY" else tick.bid
+        logger.info(f"[ENTRY] Trend ({h1_signal}) and M15 RSI crossover aligned. Opening Layer 1 at {price:.2f}")
+        magic_number = getattr(btc_config, "MAGIC_NUMBER_M15", 20260533)
+        ticket = open_trade(h1_signal, price, 0.0, 0.0, magic=magic_number)
+        if ticket:
+            return {
+                "direction": h1_signal,
+                "first_entry_price": price,
+                "total_layers": 1
+            }
+
+    # Check M5 crossover entry (for all symbols)
     m5_cross = check_timeframe_crossover(m5_df, "M5")
     if h1_signal == m5_cross:
         price = tick.ask if h1_signal == "BUY" else tick.bid
@@ -208,16 +195,18 @@ def handle_h1_exit_eval(h1_row, positions, state):
     return False
 
 def fetch_indicators_data():
-    """Fetches and calculates H1, M1, and M5 indicators."""
+    """Fetches and calculates H1, M1, M5, and M15 indicators."""
     h1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_H1, 0, 300)
     m1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M1, 0, 100)
     m5_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M5, 0, 100)
-    if h1_rates is None or m1_rates is None or m5_rates is None:
-        return None, None, None
+    m15_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M15, 0, 100)
+    if h1_rates is None or m1_rates is None or m5_rates is None or m15_rates is None:
+        return None, None, None, None
     h1_df = calculate_h1_layer_indicators(rates_to_df(h1_rates))
     m1_df = calculate_m1_layer_indicators(rates_to_df(m1_rates))
     m5_df = calculate_m1_layer_indicators(rates_to_df(m5_rates))
-    return h1_df, m1_df, m5_df
+    m15_df = calculate_m1_layer_indicators(rates_to_df(m15_rates))
+    return h1_df, m1_df, m5_df, m15_df
 
 def is_spread_valid(tick):
     """Checks if current spread is within allowed limits."""
@@ -227,7 +216,7 @@ def is_spread_valid(tick):
         return False
     return True
 
-def process_loop_logic(positions, state, h1_df, m1_df, m5_df, h1_row, tick, loop_state, starting_balance):
+def process_loop_logic(positions, state, h1_df, m1_df, m5_df, m15_df, h1_row, tick, loop_state, starting_balance):
     """Processes entry, layering, take profit, and exit checks for a loop iteration."""
     if positions:
         if handle_basket_tp(positions, state):
@@ -236,10 +225,20 @@ def process_loop_logic(positions, state, h1_df, m1_df, m5_df, h1_row, tick, loop
         handle_layering(positions, state, step, tick)
         
         is_m1_active = positions[0].magic == btc_config.MAGIC_NUMBER
-        active_df = m1_df if is_m1_active else m5_df
+        is_m5_active = positions[0].magic == getattr(btc_config, "MAGIC_NUMBER_M5", None)
+        
+        if is_m1_active:
+            active_df = m1_df
+            time_key = "last_m1_time"
+        elif is_m5_active:
+            active_df = m5_df
+            time_key = "last_m5_time"
+        else:
+            active_df = m15_df
+            time_key = "last_m15_time"
+            
         completed_time = active_df.iloc[-2]['time']
         
-        time_key = "last_m1_time" if is_m1_active else "last_m5_time"
         if loop_state.get(time_key) is None or completed_time > loop_state[time_key]:
             loop_state[time_key] = completed_time
             total_profit = sum(p.profit + p.swap for p in positions)
@@ -259,16 +258,20 @@ def process_loop_logic(positions, state, h1_df, m1_df, m5_df, h1_row, tick, loop
             
         completed_m1_time = m1_df.iloc[-2]['time']
         completed_m5_time = m5_df.iloc[-2]['time']
+        completed_m15_time = m15_df.iloc[-2]['time']
         
         m1_new = loop_state.get("last_m1_time") is None or completed_m1_time > loop_state["last_m1_time"]
         m5_new = loop_state.get("last_m5_time") is None or completed_m5_time > loop_state["last_m5_time"]
+        m15_new = loop_state.get("last_m15_time") is None or completed_m15_time > loop_state["last_m15_time"]
         
-        if m1_new or m5_new:
+        if m1_new or m5_new or m15_new:
             if m1_new:
                 loop_state["last_m1_time"] = completed_m1_time
             if m5_new:
                 loop_state["last_m5_time"] = completed_m5_time
-            state = check_and_trigger_entry(h1_row, m1_df, m5_df, tick)
+            if m15_new:
+                loop_state["last_m15_time"] = completed_m15_time
+            state = check_and_trigger_entry(h1_row, m1_df, m5_df, m15_df, tick)
             
     return state
 
@@ -276,7 +279,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
     """Orchestrates layering strategy checking tick data and completed candles."""
     btc_config.set_active_symbol(symbol)
     logger.info(f"[{symbol}] Entering trading loop...")
-    loop_state = {"last_h1_time": None, "last_m1_time": None}
+    loop_state = {"last_h1_time": None, "last_m1_time": None, "last_m5_time": None, "last_m15_time": None}
     state = None
     while not stop_event.is_set():
         try:
@@ -285,11 +288,16 @@ def run_trading_loop(symbol, starting_balance, stop_event):
             raw_positions = mt5.positions_get(symbol=symbol)
             m1_magic = btc_config.MAGIC_NUMBER
             m5_magic = getattr(btc_config, "MAGIC_NUMBER_M5", None)
+            m15_magic = getattr(btc_config, "MAGIC_NUMBER_M15", None)
             
             m1_positions = [p for p in raw_positions if p.magic == m1_magic] if raw_positions else []
             m5_positions = [p for p in raw_positions if p.magic == m5_magic] if raw_positions and m5_magic else []
+            m15_positions = [p for p in raw_positions if p.magic == m15_magic] if raw_positions and m15_magic else []
             
-            if m5_positions:
+            if m15_positions:
+                positions = m15_positions
+                magic_number = m15_magic
+            elif m5_positions:
                 positions = m5_positions
                 magic_number = m5_magic
             elif m1_positions:
@@ -297,8 +305,20 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                 magic_number = m1_magic
             else:
                 positions = []
-                magic_number = m5_magic if m5_magic is not None else m1_magic
+                magic_number = m15_magic if m15_magic is not None else (m5_magic if m5_magic is not None else m1_magic)
             
+            if positions:
+                oldest_pos = min(positions, key=lambda p: p.time)
+                from zoneinfo import ZoneInfo
+                from datetime import datetime, timezone
+                wib_tz = ZoneInfo("Asia/Jakarta")
+                pos_time_wib = datetime.fromtimestamp(oldest_pos.time, timezone.utc).astimezone(wib_tz).replace(tzinfo=None)
+                basket_risk = btc_config.get_risk_level(pos_time_wib)
+                is_sunday_override = btc_config.is_sunday_override_time(pos_time_wib)
+                btc_config.set_active_risk(basket_risk, is_sunday_override)
+            else:
+                btc_config.clear_active_risk()
+                
             if positions:
                 threshold = btc_config.number_of_normal_layer * btc_config.constant
                 if len(positions) > threshold:
@@ -314,10 +334,10 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                 state = recover_layer_state(positions)
             # if tick and is_spread_valid(tick):
             if tick:
-                h1_df, m1_df, m5_df = fetch_indicators_data()
-                if h1_df is not None and m1_df is not None and m5_df is not None:
+                h1_df, m1_df, m5_df, m15_df = fetch_indicators_data()
+                if h1_df is not None and m1_df is not None and m5_df is not None and m15_df is not None:
                     h1_row = h1_df.iloc[-2]
-                    state = process_loop_logic(positions, state, h1_df, m1_df, m5_df, h1_row, tick, loop_state, starting_balance)
+                    state = process_loop_logic(positions, state, h1_df, m1_df, m5_df, m15_df, h1_row, tick, loop_state, starting_balance)
         except Exception as e:
             logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
         time.sleep(20)

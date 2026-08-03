@@ -65,7 +65,7 @@ class TestDynamicConfig(unittest.TestCase):
     def test_active_symbols_list(self):
         """Verify ACTIVE_SYMBOLS list is correctly defined in btc_config."""
         import btc_config
-        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc"])
+        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc"])
 
     def test_dynamic_config_time_based_switching(self):
         """Verify dynamic configuration switches based on time and day."""
@@ -163,9 +163,8 @@ class TestDynamicConfig(unittest.TestCase):
                 "lot_size": btc_config.LOT_SIZE,
             }
 
-        # Mock time as Wednesday daytime so both symbols use their normal configuration
-        wednesday_daytime = datetime.datetime(2026, 6, 3, 10, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_daytime):
+        # Mock risk level to normal so both symbols use their normal configuration
+        with patch.object(btc_config, 'get_risk_level', return_value="normal"):
             t1 = threading.Thread(target=thread_task, args=("BTCUSDc", 0.2))
             t2 = threading.Thread(target=thread_task, args=("XAUUSDc", 0.1))
 

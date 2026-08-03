@@ -150,38 +150,40 @@ class TestLayeringStrategy(unittest.TestCase):
     @patch('btc_layer_bot.calculate_h1_layer_indicators')
     @patch('btc_layer_bot.calculate_m1_layer_indicators')
     def test_fetch_indicators_data_timeframes(self, mock_calc_m1, mock_calc_h1, mock_rates_to_df, mock_copy_rates):
-        """Verify fetch_indicators_data uses H1, M1, and M5 for all symbols."""
+        """Verify fetch_indicators_data uses H1, M1, M5, and M15 for all symbols."""
         import btc_config
         
-        mock_copy_rates.return_value = [1, 2, 3]
+        mock_copy_rates.return_value = [1, 2, 3, 4]
         mock_rates_to_df.return_value = pd.DataFrame()
         mock_calc_h1.return_value = pd.DataFrame()
         mock_calc_m1.return_value = pd.DataFrame()
 
-        # Test with BTCUSDc (should call H1, M1, and M5)
+        # Test with BTCUSDc (should call H1, M1, M5, and M15)
         with patch('btc_config.SYMBOL', 'BTCUSDc'):
             bot.fetch_indicators_data()
             calls = mock_copy_rates.call_args_list
             self.assertEqual(calls[0][0][1], mt5.TIMEFRAME_H1)
             self.assertEqual(calls[1][0][1], mt5.TIMEFRAME_M1)
             self.assertEqual(calls[2][0][1], mt5.TIMEFRAME_M5)
+            self.assertEqual(calls[3][0][1], mt5.TIMEFRAME_M15)
 
         mock_copy_rates.reset_mock()
 
-        # Test with XAGUSDc (should call H1, M1, and M5)
+        # Test with XAGUSDc (should call H1, M1, M5, and M15)
         with patch('btc_config.SYMBOL', 'XAGUSDc'):
             bot.fetch_indicators_data()
             calls = mock_copy_rates.call_args_list
             self.assertEqual(calls[0][0][1], mt5.TIMEFRAME_H1)
             self.assertEqual(calls[1][0][1], mt5.TIMEFRAME_M1)
             self.assertEqual(calls[2][0][1], mt5.TIMEFRAME_M5)
+            self.assertEqual(calls[3][0][1], mt5.TIMEFRAME_M15)
 
     @patch('MetaTrader5.positions_get')
     @patch('MetaTrader5.symbol_info_tick')
     @patch('btc_layer_bot.fetch_indicators_data')
     @patch('btc_layer_bot.process_loop_logic')
     def test_run_trading_loop_m1_m5_prioritization(self, mock_process_loop, mock_fetch_indicators, mock_tick, mock_positions_get):
-        """Verify run_trading_loop correctly prioritizes M5 over M1 positions, and uses the correct magic_number."""
+        """Verify run_trading_loop correctly prioritizes M15 over M5, and M5 over M1 positions, using the correct magic_number."""
         import btc_config
         
         # Setup mocks
@@ -197,12 +199,13 @@ class TestLayeringStrategy(unittest.TestCase):
             {'time': 1, 'rsi_14': 50.0},
             {'time': 2, 'rsi_14': 52.0}
         ])
-        mock_fetch_indicators.return_value = (mock_h1_df, mock_m1_df, mock_m1_df)
+        mock_fetch_indicators.return_value = (mock_h1_df, mock_m1_df, mock_m1_df, mock_m1_df)
         
-        # 1. When both M1 and M5 positions exist, prioritize M5
+        # 1. When M1, M5, and M15 positions exist, prioritize M15
         pos_m1 = MagicMock(magic=btc_config.MAGIC_NUMBER, ticket=101)
         pos_m5 = MagicMock(magic=getattr(btc_config, 'MAGIC_NUMBER_M5', 20260524), ticket=102)
-        mock_positions_get.return_value = [pos_m1, pos_m5]
+        pos_m15 = MagicMock(magic=getattr(btc_config, 'MAGIC_NUMBER_M15', 20260533), ticket=103)
+        mock_positions_get.return_value = [pos_m1, pos_m5, pos_m15]
         
         stop_event = MagicMock()
         stop_event.is_set.side_effect = [False, True]  # Run exactly once
@@ -213,9 +216,22 @@ class TestLayeringStrategy(unittest.TestCase):
         mock_process_loop.assert_called_once()
         passed_positions = mock_process_loop.call_args[0][0]
         self.assertEqual(len(passed_positions), 1)
+        self.assertEqual(passed_positions[0].ticket, 103)
+
+        # 2. When only M1 and M5 positions exist, prioritize M5
+        mock_process_loop.reset_mock()
+        mock_positions_get.return_value = [pos_m1, pos_m5]
+        stop_event.is_set.side_effect = [False, True]
+        
+        with patch('btc_layer_bot.is_spread_valid', return_value=True):
+            bot.run_trading_loop('BTCUSDc', 100000.0, stop_event)
+            
+        mock_process_loop.assert_called_once()
+        passed_positions = mock_process_loop.call_args[0][0]
+        self.assertEqual(len(passed_positions), 1)
         self.assertEqual(passed_positions[0].ticket, 102)
 
-        # 2. When only M1 positions exist, prioritize M1
+        # 3. When only M1 positions exist, prioritize M1
         mock_process_loop.reset_mock()
         mock_positions_get.return_value = [pos_m1]
         stop_event.is_set.side_effect = [False, True]

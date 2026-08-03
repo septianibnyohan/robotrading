@@ -1,6 +1,8 @@
 SYMBOL = "XAGUSDc"
 MAGIC_NUMBER = 20260610
 MAGIC_NUMBER_M5 = 20260611
+MAGIC_NUMBER_M15 = 20260615
+
 
 # Late-Night Window (02:00 - 06:00 WIB): Max layers encountered: 9.
 # Daytime Window (08:00 - 12:00 WIB): Max layers encountered: 9.

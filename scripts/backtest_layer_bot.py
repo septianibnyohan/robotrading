@@ -25,11 +25,12 @@ SYMBOL_SPECS = {
     "XAUUSDc": {"contract_size": 100.0, "pip_size": 0.01},
     "XAUUSDm": {"contract_size": 100.0, "pip_size": 0.01},
     "XAGUSDc": {"contract_size": 5000.0, "pip_size": 0.001},
+    "ETHUSDc": {"contract_size": 1.0, "pip_size": 1.0},
 }
 
 def load_data(symbol, use_mt5=False, limit=50000):
     """Loads historical data for backtesting."""
-    m1_df, m5_df = pd.DataFrame(), pd.DataFrame()
+    m1_df, m5_df, m15_df = pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
     
     if use_mt5:
         import MetaTrader5 as mt5
@@ -92,12 +93,37 @@ def load_data(symbol, use_mt5=False, limit=50000):
                 logger.info(f"Loaded {len(m5_df)} M5 bars from MT5.")
             else:
                 logger.warning("Failed to fetch M5 rates. Will resample from M1.")
+                
+            # Retrieve M15 rates in chunks
+            logger.info("Downloading M15 bars from MT5 in chunks...")
+            m15_limit = limit // 15
+            total_m15_downloaded = 0
+            start_pos_m15 = 0
+            m15_dfs = []
+            while total_m15_downloaded < m15_limit:
+                req_size = min(chunk_size, m15_limit - total_m15_downloaded)
+                rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M15, start_pos_m15, req_size)
+                if rates is None or len(rates) == 0:
+                    break
+                m15_dfs.append(rates_to_df(rates))
+                downloaded = len(rates)
+                total_m15_downloaded += downloaded
+                start_pos_m15 += downloaded
+                if downloaded < req_size:
+                    logger.info("Broker reached the end of M15 history.")
+                    break
+            if m15_dfs:
+                m15_df = pd.concat(m15_dfs, ignore_index=True)
+                m15_df = m15_df.drop_duplicates(subset=['time']).sort_values('time').reset_index(drop=True)
+                logger.info(f"Loaded {len(m15_df)} M15 bars from MT5.")
+            else:
+                logger.warning("Failed to fetch M15 rates. Will resample from M1.")
             
             mt5.shutdown()
         else:
             logger.warning(f"Could not connect to MT5: {mt5.last_error()}. Falling back to SQLite.")
             
-    if m1_df.empty or m5_df.empty:
+    if m1_df.empty or m5_df.empty or m15_df.empty:
         storage = DataStorage()
         logger.info(f"Loading data from local SQLite database for {symbol}...")
         m1_df = storage.load_rates(symbol, 1, limit=limit)
@@ -106,10 +132,15 @@ def load_data(symbol, use_mt5=False, limit=50000):
         except Exception:
             logger.info(f"No M5 table found for {symbol}, will resample from M1.")
             m5_df = pd.DataFrame()
+        try:
+            m15_df = storage.load_rates(symbol, 15, limit=limit)
+        except Exception:
+            logger.info(f"No M15 table found for {symbol}, will resample from M1.")
+            m15_df = pd.DataFrame()
             
     if m1_df.empty:
         logger.error("Failed to load historical M1 data.")
-        return None, None, None
+        return None, None, None, None
         
     # Localize/Standardize timezone
     m1_df['time'] = pd.to_datetime(m1_df['time'], format='mixed', utc=True).dt.tz_localize(None)
@@ -128,6 +159,19 @@ def load_data(symbol, use_mt5=False, limit=50000):
         m5_df['time'] = pd.to_datetime(m5_df['time'], format='mixed', utc=True).dt.tz_localize(None)
         m5_df = m5_df.sort_values('time').reset_index(drop=True)
         
+    if m15_df.empty:
+        logger.info("Resampling M15 from M1 data...")
+        m15_df = m1_df.set_index('time').resample('15min').agg({
+            'open': 'first',
+            'high': 'max',
+            'low': 'min',
+            'close': 'last',
+            'tick_volume': 'sum'
+        }).dropna().reset_index()
+    else:
+        m15_df['time'] = pd.to_datetime(m15_df['time'], format='mixed', utc=True).dt.tz_localize(None)
+        m15_df = m15_df.sort_values('time').reset_index(drop=True)
+        
     # Resample H1 from M5 to ensure perfectly aligned timeline
     h1_df = m5_df.set_index('time').resample('1h').agg({
         'open': 'first',
@@ -137,9 +181,9 @@ def load_data(symbol, use_mt5=False, limit=50000):
         'tick_volume': 'sum'
     }).dropna().reset_index()
     
-    return m1_df, m5_df, h1_df
+    return m1_df, m5_df, m15_df, h1_df
 
-def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
+def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0):
     """Simulates the layering strategy minute-by-minute."""
     logger.info(f"Setting active configuration symbol to {symbol}...")
     btc_config.set_active_symbol(symbol)
@@ -149,6 +193,7 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
     h1_df = calculate_h1_layer_indicators(h1_df)
     m5_df = calculate_m1_layer_indicators(m5_df)
     m1_df = calculate_m1_layer_indicators(m1_df)
+    m15_df = calculate_m1_layer_indicators(m15_df)
     
     # Extract base config values directly from raw config module to prevent live time dependency
     import importlib
@@ -174,6 +219,7 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
     # Timestamps & Data indexers
     h1_times = h1_df['time'].values
     m5_times = m5_df['time'].values
+    m15_times = m15_df['time'].values
     m1_times = m1_df['time'].values
     
     # Choose timeline: M5 for XAGUSD, M1 for all others
@@ -234,7 +280,14 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             else:
                 basket_risk = "normal"
             
-            if basket_risk == "normal":
+            is_sunday_override = oldest_pos.get('sunday_override', False)
+            
+            if is_sunday_override:
+                if "BTCUSD" in symbol:
+                    tp_val = 0.20
+                elif "ETHUSD" in symbol:
+                    tp_val = 0.02
+            elif basket_risk == "normal":
                 tp_val = normal_tp_per_layer
             elif basket_risk == "moderate":
                 tp_val = moderate_risk_overrides.get('TAKE_PROFIT_PER_LAYER_USD', normal_tp_per_layer)
@@ -321,21 +374,13 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             else:
                 step = btc_config.LAYERING_STEP_USD
                 
-            t_wib = t.tz_localize('UTC').tz_convert('Asia/Jakarta').tz_localize(None)
-            risk_level = btc_config.get_risk_level(t_wib)
-            
-            # Check Sunday Override for BTCUSD
-            weekday = t_wib.weekday()
-            hour = t_wib.hour
-            is_sunday_override = False
-            if "BTCUSD" in symbol:
-                is_sunday_override = (weekday == 6 and 20 <= hour < 22) or (weekday == 0 and 1 <= hour < 12) or any(p.get('sunday_override', False) for p in positions)
+            # is_sunday_override and basket_risk are locked to the oldest position (first layer)
                 
             if is_sunday_override:
                 current_lot_size = 0.01
-            elif risk_level == "low":
+            elif basket_risk == "low":
                 current_lot_size = low_risk_overrides.get('LOT_SIZE', normal_lot_size)
-            elif risk_level == "moderate":
+            elif basket_risk == "moderate":
                 current_lot_size = moderate_risk_overrides.get('LOT_SIZE', normal_lot_size)
             else:
                 current_lot_size = normal_lot_size
@@ -397,9 +442,10 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             # Find completed index values
             idx_h1 = np.searchsorted(h1_times, t_np - np.timedelta64(1, 'h'), side='right') - 1
             idx_m5 = np.searchsorted(m5_times, t_np - np.timedelta64(5, 'm'), side='right') - 1
+            idx_m15 = np.searchsorted(m15_times, t_np - np.timedelta64(15, 'm'), side='right') - 1
             idx_m1 = np.searchsorted(m1_times, t_np - np.timedelta64(1, 'm'), side='right') - 1
             
-            if idx_h1 < 0 or idx_m5 < 1 or (not is_xagusd and idx_m1 < 1):
+            if idx_h1 < 0 or idx_m5 < 1 or idx_m15 < 1 or (not is_xagusd and idx_m1 < 1):
                 continue
                 
             h1_row = h1_df.iloc[idx_h1]
@@ -410,6 +456,15 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             if h1_signal is None:
                 continue
                 
+            # M15 Crossover Signal
+            m15_curr = m15_df.iloc[idx_m15]
+            m15_prev = m15_df.iloc[idx_m15 - 1]
+            rsi_curr_m15 = m15_curr['rsi_14']
+            rsi_prev_m15 = m15_prev['rsi_14']
+            m15_buy = rsi_prev_m15 <= rsi_limit_down_m1 < rsi_curr_m15
+            m15_sell = rsi_prev_m15 >= rsi_limit_up_m1 > rsi_curr_m15
+            m15_signal = "BUY" if m15_buy else ("SELL" if m15_sell else None)
+            
             # M5 Crossover Signal
             m5_curr = m5_df.iloc[idx_m5]
             m5_prev = m5_df.iloc[idx_m5 - 1]
@@ -438,7 +493,7 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             weekday = t_wib.weekday()
             hour = t_wib.hour
             is_sunday_override = False
-            if "BTCUSD" in symbol:
+            if "BTCUSD" in symbol or "ETHUSD" in symbol:
                 is_sunday_override = (weekday == 6 and 20 <= hour < 22) or (weekday == 0 and 1 <= hour < 12)
                 
             if is_sunday_override:
@@ -450,8 +505,23 @@ def run_simulation(symbol, m1_df, m5_df, h1_df, initial_balance=10000.0):
             else:
                 current_lot_size = normal_lot_size
             
-            # M5 gets priority
-            if h1_signal == m5_signal:
+            # M15 gets priority
+            if h1_signal == m15_signal:
+                magic_num = getattr(btc_config, "MAGIC_NUMBER_M15", 20260533)
+                positions.append({
+                    'ticket': len(closed_trades) + 1,
+                    'type': h1_signal,
+                    'entry_time': t,
+                    'entry_price': bar['open'],
+                    'volume': current_lot_size,
+                    'risk_level': risk_level,
+                    'sunday_override': is_sunday_override,
+                    'magic': magic_num
+                })
+                basket_direction = h1_signal
+                basket_first_price = bar['open']
+                basket_magic = magic_num
+            elif h1_signal == m5_signal:
                 magic_num = getattr(btc_config, "MAGIC_NUMBER_M5", btc_config.MAGIC_NUMBER)
                 positions.append({
                     'ticket': len(closed_trades) + 1,
@@ -505,13 +575,13 @@ def main():
     args = parser.parse_args()
     
     logger.info(f"Starting backtest simulation for symbol: {args.symbol}...")
-    m1_df, m5_df, h1_df = load_data(args.symbol, use_mt5=args.use_mt5, limit=args.limit)
+    m1_df, m5_df, m15_df, h1_df = load_data(args.symbol, use_mt5=args.use_mt5, limit=args.limit)
     
     if m1_df is None or m1_df.empty:
         logger.error("Could not run backtest due to lack of historical data.")
         return
         
-    trades, equity_curve, equity_times = run_simulation(args.symbol, m1_df, m5_df, h1_df)
+    trades, equity_curve, equity_times = run_simulation(args.symbol, m1_df, m5_df, m15_df, h1_df)
     
     if not trades:
         logger.warning("Backtest completed with zero trades executed.")

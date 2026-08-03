@@ -9,9 +9,11 @@ logger = logging.getLogger(__name__)
 
 # Context-local active symbol
 _active_symbol_var = contextvars.ContextVar('active_symbol', default="BTCUSDc")
+_active_risk_var = contextvars.ContextVar('active_risk', default=None)
+_active_sunday_override_var = contextvars.ContextVar('active_sunday_override', default=None)
 
 # Configured active symbols
-ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc"]
+ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc"]
 
 def set_active_symbol(symbol):
     _active_symbol_var.set(symbol)
@@ -25,6 +27,14 @@ def set_active_symbol(symbol):
             f"Configuration module config.symbols.{symbol} not found! "
             f"Falling back to default BTCUSDc config."
         )
+
+def set_active_risk(risk, sunday_override):
+    _active_risk_var.set(risk)
+    _active_sunday_override_var.set(sunday_override)
+
+def clear_active_risk():
+    _active_risk_var.set(None)
+    _active_sunday_override_var.set(None)
 
 class DynamicConfigModule(types.ModuleType):
     _gui_settings_cache = None
@@ -48,9 +58,15 @@ class DynamicConfigModule(types.ModuleType):
             return {}
         return self._gui_settings_cache
 
+    def set_active_risk(self, risk, sunday_override):
+        set_active_risk(risk, sunday_override)
+
+    def clear_active_risk(self):
+        clear_active_risk()
+
     def __getattribute__(self, name):
         # Prevent infinite recursion for internal attributes/methods
-        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time', '_get_gui_settings', '_gui_settings_cache', '_gui_settings_mtime'):
+        if name.startswith('__') or name in ('_get_current_time', 'set_active_symbol', 'set_active_risk', 'clear_active_risk', '_get_symbol_module', 'ACTIVE_SYMBOLS', 'is_low_risk_time', 'get_risk_level', 'is_sunday_override_time', '_get_gui_settings', '_gui_settings_cache', '_gui_settings_mtime'):
             return super().__getattribute__(name)
             
         if name == 'ACTIVE_SYMBOL':
@@ -66,46 +82,62 @@ class DynamicConfigModule(types.ModuleType):
         gui_settings = self._get_gui_settings()
         
         # Check overrides using open positions to preserve active risk based on precedence (low > moderate > normal)
-        current_risk = self.get_risk_level()
-        active_risk = current_risk
+        context_risk = _active_risk_var.get()
+        context_sunday = _active_sunday_override_var.get()
         
-        is_sunday_override = self.is_sunday_override_time()
-        
-        import MetaTrader5 as mt5
-        from datetime import datetime
-        try:
-            if mt5.terminal_info() is not None:
-                raw_positions = mt5.positions_get(symbol=symbol)
-                if raw_positions:
-                    magic_numbers = []
-                    gui_sym_config = gui_settings.get(symbol, {})
-                    magic_num = gui_sym_config.get('MAGIC_NUMBER', getattr(symbol_module, 'MAGIC_NUMBER', None))
-                    magic_num_m5 = gui_sym_config.get('MAGIC_NUMBER_M5', getattr(symbol_module, 'MAGIC_NUMBER_M5', None))
-                    if magic_num is not None:
-                        magic_numbers.append(magic_num)
-                    if magic_num_m5 is not None:
-                        magic_numbers.append(magic_num_m5)
-                    
-                    if magic_numbers:
-                        matching_positions = [p for p in raw_positions if p.magic in magic_numbers]
-                    else:
-                        matching_positions = raw_positions
+        if context_risk is not None:
+            active_risk = context_risk
+            is_sunday_override = context_sunday if context_sunday is not None else False
+        else:
+            current_risk = self.get_risk_level()
+            active_risk = current_risk
+            
+            is_sunday_override = self.is_sunday_override_time()
+            
+            import MetaTrader5 as mt5
+            from datetime import datetime
+            try:
+                if mt5.terminal_info() is not None:
+                    raw_positions = mt5.positions_get(symbol=symbol)
+                    if raw_positions:
+                        magic_numbers = []
+                        gui_sym_config = gui_settings.get(symbol, {})
+                        magic_num = gui_sym_config.get('MAGIC_NUMBER', getattr(symbol_module, 'MAGIC_NUMBER', None))
+                        magic_num_m5 = gui_sym_config.get('MAGIC_NUMBER_M5', getattr(symbol_module, 'MAGIC_NUMBER_M5', None))
+                        magic_num_m15 = gui_sym_config.get('MAGIC_NUMBER_M15', getattr(symbol_module, 'MAGIC_NUMBER_M15', None))
+                        if magic_num is not None:
+                            magic_numbers.append(magic_num)
+                        if magic_num_m5 is not None:
+                            magic_numbers.append(magic_num_m5)
+                        if magic_num_m15 is not None:
+                            magic_numbers.append(magic_num_m15)
                         
-                    if matching_positions:
-                        oldest_pos = min(matching_positions, key=lambda p: p.time)
-                        pos_time_local = datetime.fromtimestamp(oldest_pos.time)
-                        active_risk = self.get_risk_level(pos_time_local)
-                        if self.is_sunday_override_time(pos_time_local):
-                            is_sunday_override = True
-        except Exception as e:
-            logger.error(f"Error checking open positions in btc_config: {e}")
+                        if magic_numbers:
+                            matching_positions = [p for p in raw_positions if p.magic in magic_numbers]
+                        else:
+                            matching_positions = raw_positions
+                            
+                        if matching_positions:
+                            oldest_pos = min(matching_positions, key=lambda p: p.time)
+                            from zoneinfo import ZoneInfo
+                            from datetime import timezone
+                            wib_tz = ZoneInfo("Asia/Jakarta")
+                            pos_time_wib = datetime.fromtimestamp(oldest_pos.time, timezone.utc).astimezone(wib_tz).replace(tzinfo=None)
+                            active_risk = self.get_risk_level(pos_time_wib)
+                            if self.is_sunday_override_time(pos_time_wib):
+                                is_sunday_override = True
+            except Exception as e:
+                logger.error(f"Error checking open positions in btc_config: {e}")
             
         # Return Sunday lot size override first if applicable
-        if "BTCUSD" in symbol and name == "LOT_SIZE" and is_sunday_override:
+        if ("BTCUSD" in symbol or "ETHUSD" in symbol) and name == "LOT_SIZE" and is_sunday_override:
             return 0.01
 
-        if "BTCUSD" in symbol and name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override:
-            return 0.20
+        if name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override:
+            if "BTCUSD" in symbol:
+                return 0.20
+            elif "ETHUSD" in symbol:
+                return 0.02
             
         gui_sym_config = gui_settings.get(symbol, {})
         # Return overridden value if in low-risk mode
@@ -177,7 +209,7 @@ class DynamicConfigModule(types.ModuleType):
             now = dt
         is_weekend = now.weekday() >= 5
         
-        if "BTCUSD" in symbol:
+        if "BTCUSD" in symbol or "ETHUSD" in symbol:
             hour = now.hour
             if hour >= 22 or hour < 1:
                 return "normal"
@@ -210,7 +242,10 @@ class DynamicConfigModule(types.ModuleType):
         return self.get_risk_level(dt) == "low"
 
     def _get_current_time(self):
-        return datetime.now()
+        from datetime import datetime, timezone
+        from zoneinfo import ZoneInfo
+        wib_tz = ZoneInfo("Asia/Jakarta")
+        return datetime.now(timezone.utc).astimezone(wib_tz).replace(tzinfo=None)
         
     def _get_symbol_module(self):
         symbol = _active_symbol_var.get()

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import EquityChart from './EquityChart';
+import { API_BASE } from '../config';
 
 const BacktestManager = ({ config }) => {
   const [selectedSymbol, setSelectedSymbol] = useState('');
@@ -23,12 +24,12 @@ const BacktestManager = ({ config }) => {
     if (status === 'running') {
       interval = setInterval(async () => {
         try {
-          const res = await fetch('http://127.0.0.1:8000/api/backtest/status');
+          const res = await fetch(`${API_BASE}/api/backtest/status`);
           const data = await res.json();
           if (data.status === 'completed') {
             setStatus('completed');
             // Fetch results
-            const resResults = await fetch('http://127.0.0.1:8000/api/backtest/results');
+            const resResults = await fetch(`${API_BASE}/api/backtest/results`);
             const dataResults = await resResults.json();
             setResults(dataResults);
             clearInterval(interval);
@@ -38,7 +39,7 @@ const BacktestManager = ({ config }) => {
             clearInterval(interval);
           }
         } catch (err) {
-          logger.error('Error polling backtest status:', err);
+          console.error('Error polling backtest status:', err);
         }
       }, 2000);
     }
@@ -54,7 +55,7 @@ const BacktestManager = ({ config }) => {
     setResults(null);
 
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/backtest/run', {
+      const res = await fetch(`${API_BASE}/api/backtest/run`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

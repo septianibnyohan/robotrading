@@ -1,27 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { API_BASE } from '../config';
 
 const LogViewer = () => {
+  const [mode, setMode] = useState('forward_test'); // 'forward_test' | 'live'
   const [logs, setLogs] = useState([]);
   const [autoScroll, setAutoScroll] = useState(true);
   const terminalRef = useRef(null);
 
   const fetchLogs = async () => {
     try {
-      const res = await fetch('http://127.0.0.1:8000/api/logs');
+      const res = await fetch(`${API_BASE}/api/logs?mode=${mode}`);
       if (res.ok) {
         const data = await res.json();
         setLogs(data.logs || []);
       }
     } catch (err) {
-      logger.error('Error fetching logs:', err);
+      console.error('Error fetching logs:', err);
     }
   };
 
   useEffect(() => {
     fetchLogs();
+  }, [mode]);
+
+  useEffect(() => {
     const interval = setInterval(fetchLogs, 2500);
     return () => clearInterval(interval);
-  }, []);
+  }, [mode]);
 
   useEffect(() => {
     if (autoScroll && terminalRef.current) {
@@ -38,14 +43,55 @@ const LogViewer = () => {
 
   return (
     <div className="terminal-card">
-      <div className="terminal-header">
+      <div className="terminal-header" style={{ flexWrap: 'wrap', gap: '12px' }}>
+        {/* Terminal Window dots & Mode Label */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--red)', boxShadow: '0 0 6px var(--red)' }}></span>
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--warning)', boxShadow: '0 0 6px var(--warning)' }}></span>
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 6px var(--green)' }}></span>
-          <span style={{ marginLeft: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--text-muted)' }}>bash - btc_layer_bot.log</span>
+          <span style={{ marginLeft: '8px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--text-muted)' }}>
+            bash - btc_layer_bot_{mode === 'live' ? 'live' : 'sim'}.log
+          </span>
         </div>
-        <div style={{ display: 'flex', gap: '10px' }}>
+
+        {/* Action button bar */}
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginLeft: 'auto' }}>
+          {/* Mode Selector */}
+          <div style={{ display: 'flex', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--border)', borderRadius: '6px', padding: '2px' }}>
+            <button
+              className={`btn`}
+              style={{
+                padding: '0.25rem 0.65rem',
+                fontSize: '0.75rem',
+                background: mode === 'forward_test' ? 'var(--secondary)' : 'transparent',
+                color: mode === 'forward_test' ? '#000' : 'var(--text-muted)',
+                fontWeight: mode === 'forward_test' ? 'bold' : 'normal',
+                boxShadow: mode === 'forward_test' ? '0 0 8px rgba(0, 240, 255, 0.3)' : 'none',
+                border: 'none',
+                borderRadius: '4px'
+              }}
+              onClick={() => setMode('forward_test')}
+            >
+              Simulated Logs
+            </button>
+            <button
+              className={`btn`}
+              style={{
+                padding: '0.25rem 0.65rem',
+                fontSize: '0.75rem',
+                background: mode === 'live' ? 'var(--warning)' : 'transparent',
+                color: mode === 'live' ? '#000' : 'var(--text-muted)',
+                fontWeight: mode === 'live' ? 'bold' : 'normal',
+                boxShadow: mode === 'live' ? '0 0 8px rgba(255, 170, 0, 0.3)' : 'none',
+                border: 'none',
+                borderRadius: '4px'
+              }}
+              onClick={() => setMode('live')}
+            >
+              Live Logs
+            </button>
+          </div>
+
           <button
             className="btn btn-secondary"
             style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem' }}
@@ -64,7 +110,9 @@ const LogViewer = () => {
       </div>
       <div className="terminal-screen" ref={terminalRef}>
         {logs.length === 0 ? (
-          <div style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>Terminal offline or waiting for logs...</div>
+          <div style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
+            Terminal offline or waiting for logs in {mode === 'live' ? 'LIVE' : 'SIMULATED'} channel...
+          </div>
         ) : (
           logs.map((line, idx) => (
             <div key={idx} className={getLogClass(line)}>

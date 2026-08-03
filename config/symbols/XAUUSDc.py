@@ -1,6 +1,8 @@
 SYMBOL = "XAUUSDc"
 MAGIC_NUMBER = 20260606
 MAGIC_NUMBER_M5 = 20260607
+MAGIC_NUMBER_M15 = 20260612
+
 
 # Late-Night Window (01:00 - 05:00 WIB): Max layers encountered: 17.
 # min 10, max = 39

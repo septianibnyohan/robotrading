@@ -1,13 +1,13 @@
-SYMBOL = "BTCUSDc"
-MAGIC_NUMBER = 20260523
-MAGIC_NUMBER_M5 = 20260524
-MAGIC_NUMBER_M15 = 20260533
+SYMBOL = "ETHUSDc"
+MAGIC_NUMBER = 20260801
+MAGIC_NUMBER_M5 = 20260802
+MAGIC_NUMBER_M15 = 20260803
 
 
 # Late-Night Window (22:00 - 01:00 WIB): Max layers encountered: 16.
 # min 56, max = 220
 LOT_SIZE = 0.01 * (100)
-MAX_SPREAD_USD = 15
+MAX_SPREAD_USD = 1.5
 SPREAD_DEDUCTION_USD = 0.15
 MAX_CONCURRENT_POSITIONS = 1
 
@@ -20,8 +20,8 @@ RSI_PERIOD_M1, RSI_LIMIT_UP_M1, RSI_LIMIT_DOWN_M1 = 7, 80, 20
 # Layering Strategy Config
 LAYERING_MODE = "USD"  # "USD" or "ATR"
 LAYERING_STEP_ATR_MULT = 1.0 * (100) # Late-Night Window (23:00 - 03:00 WIB): Max layers reached was 14.
-LAYERING_STEP_USD = 100.0
-TAKE_PROFIT_PER_LAYER_USD = 0.20 * (100)
+LAYERING_STEP_USD = 10.0
+TAKE_PROFIT_PER_LAYER_USD = (0.02) * (100)
 MAX_LAYERS = None  # None for unlimited
 EXIT_LOGIC_AND = True  # True: both RSI & close conditions; False: either condition
 number_of_normal_layer = 200
@@ -34,7 +34,7 @@ constant = 2
 LOW_RISK_OVERRIDES = {
     "LOT_SIZE": 0.01 * (12), # sunday (1), 3, other max(12)
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (12), #1
+    "TAKE_PROFIT_PER_LAYER_USD": 0.02 * (12), #1
 }
 
 # Moderate risk overrides
@@ -43,5 +43,5 @@ LOW_RISK_OVERRIDES = {
 MODERATE_RISK_OVERRIDES = {
     "LOT_SIZE": 0.01 * (41), # Asian Session Window (07:00 - 15:00 WIB): Max layers reached was 24
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (40), #25 - 100
+    "TAKE_PROFIT_PER_LAYER_USD": 0.02 * (40), #25 - 100
 }
