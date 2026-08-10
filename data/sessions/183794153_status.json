@@ -1,0 +1,47 @@
+{
+  "bot_running": true,
+  "running_symbols": [
+    "BTCUSDc",
+    "XAUUSDc",
+    "XAGUSDc"
+  ],
+  "active_sessions": [
+    {
+      "symbol": "BTCUSDc",
+      "layers": 0,
+      "direction": null,
+      "first_entry_price": 0.0,
+      "net_profit": 0.0,
+      "risk_level": "low",
+      "current_price": 64864.78
+    },
+    {
+      "symbol": "XAUUSDc",
+      "layers": 2,
+      "direction": "BUY",
+      "first_entry_price": 4342.56,
+      "net_profit": -1.2,
+      "risk_level": "low",
+      "current_price": 4339.005
+    },
+    {
+      "symbol": "XAGUSDc",
+      "layers": 0,
+      "direction": null,
+      "first_entry_price": 0.0,
+      "net_profit": 0.0,
+      "risk_level": "low",
+      "current_price": 63.733000000000004
+    }
+  ],
+  "account": {
+    "balance": 31449.44,
+    "equity": 31448.24,
+    "margin_free": 31443.9,
+    "profit": -1.2,
+    "login": 183794153,
+    "server": "Exness-MT5Real25",
+    "currency": "USC"
+  },
+  "last_updated": 1786320277.092927
+}

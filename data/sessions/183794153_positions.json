@@ -1,0 +1,28 @@
+[
+  {
+    "ticket": 3838173360,
+    "symbol": "XAUUSDc",
+    "type": "BUY",
+    "volume": 0.01,
+    "price_open": 4342.56,
+    "magic": 20260606,
+    "sl": 0.0,
+    "tp": 0.0,
+    "time": 1786318835,
+    "profit": -3.6,
+    "swap": 0.0
+  },
+  {
+    "ticket": 3838227619,
+    "symbol": "XAUUSDc",
+    "type": "BUY",
+    "volume": 0.01,
+    "price_open": 4336.64,
+    "magic": 20260606,
+    "sl": 0.0,
+    "tp": 0.0,
+    "time": 1786319814,
+    "profit": 2.4,
+    "swap": 0.0
+  }
+]

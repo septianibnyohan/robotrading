@@ -1,0 +1,8425 @@
+[
+  {
+    "time": "2026-07-11T00:04:29+00:00",
+    "balance": 24944.01,
+    "profit": 0.0,
+    "reason": "Initial",
+    "symbol": ""
+  },
+  {
+    "time": "2026-07-11T04:16:05+00:00",
+    "balance": 24977.55,
+    "profit": 33.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3353804858
+  },
+  {
+    "time": "2026-07-11T10:15:03+00:00",
+    "balance": 24996.7,
+    "profit": 19.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354030605
+  },
+  {
+    "time": "2026-07-11T12:53:11+00:00",
+    "balance": 25013.83,
+    "profit": 17.13,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354107100
+  },
+  {
+    "time": "2026-07-11T15:55:37+00:00",
+    "balance": 24998.15,
+    "profit": -15.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354275257
+  },
+  {
+    "time": "2026-07-11T15:55:37+00:00",
+    "balance": 25065.15,
+    "profit": 67.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354275280
+  },
+  {
+    "time": "2026-07-11T16:02:19+00:00",
+    "balance": 25082.72,
+    "profit": 17.57,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354284117
+  },
+  {
+    "time": "2026-07-11T16:58:49+00:00",
+    "balance": 25109.31,
+    "profit": 26.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354337052
+  },
+  {
+    "time": "2026-07-11T19:36:34+00:00",
+    "balance": 25142.35,
+    "profit": 33.04,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354397516
+  },
+  {
+    "time": "2026-07-11T22:24:42+00:00",
+    "balance": 25163.8,
+    "profit": 21.45,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354447570
+  },
+  {
+    "time": "2026-07-12T01:36:11+00:00",
+    "balance": 24973.04,
+    "profit": -190.76,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576514
+  },
+  {
+    "time": "2026-07-12T01:36:12+00:00",
+    "balance": 24864.15,
+    "profit": -108.89,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576523
+  },
+  {
+    "time": "2026-07-12T01:36:12+00:00",
+    "balance": 24839.94,
+    "profit": -24.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576531
+  },
+  {
+    "time": "2026-07-12T01:36:13+00:00",
+    "balance": 24892.97,
+    "profit": 53.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576535
+  },
+  {
+    "time": "2026-07-12T01:36:13+00:00",
+    "balance": 25026.66,
+    "profit": 133.69,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576538
+  },
+  {
+    "time": "2026-07-12T01:36:14+00:00",
+    "balance": 25265.24,
+    "profit": 238.58,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354576546
+  },
+  {
+    "time": "2026-07-12T04:41:05+00:00",
+    "balance": 25294.77,
+    "profit": 29.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354702674
+  },
+  {
+    "time": "2026-07-12T09:28:24+00:00",
+    "balance": 25316.78,
+    "profit": 22.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354952384
+  },
+  {
+    "time": "2026-07-12T09:32:25+00:00",
+    "balance": 25341.8,
+    "profit": 25.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354956251
+  },
+  {
+    "time": "2026-07-12T09:34:06+00:00",
+    "balance": 25354.88,
+    "profit": 13.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354959159
+  },
+  {
+    "time": "2026-07-12T09:40:07+00:00",
+    "balance": 25415.54,
+    "profit": 60.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3354965504
+  },
+  {
+    "time": "2026-07-12T10:55:54+00:00",
+    "balance": 25415.78,
+    "profit": 0.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355023557
+  },
+  {
+    "time": "2026-07-12T14:36:36+00:00",
+    "balance": 25415.99,
+    "profit": 0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355179660
+  },
+  {
+    "time": "2026-07-12T22:01:41+00:00",
+    "balance": 25421.19,
+    "profit": 5.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355461419
+  },
+  {
+    "time": "2026-07-12T22:01:42+00:00",
+    "balance": 25432.99,
+    "profit": 11.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355461437
+  },
+  {
+    "time": "2026-07-12T22:01:43+00:00",
+    "balance": 25452.19,
+    "profit": 19.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355461457
+  },
+  {
+    "time": "2026-07-12T22:01:45+00:00",
+    "balance": 25472.79,
+    "profit": 20.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355461659
+  },
+  {
+    "time": "2026-07-12T22:05:19+00:00",
+    "balance": 25509.89,
+    "profit": 37.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3355478264
+  },
+  {
+    "time": "2026-07-12T22:07:26+00:00",
+    "balance": 25512.09,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355491944
+  },
+  {
+    "time": "2026-07-12T22:16:07+00:00",
+    "balance": 25513.49,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355536547
+  },
+  {
+    "time": "2026-07-12T22:20:48+00:00",
+    "balance": 25515.99,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355549668
+  },
+  {
+    "time": "2026-07-12T22:30:29+00:00",
+    "balance": 25514.49,
+    "profit": -1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355574243
+  },
+  {
+    "time": "2026-07-12T22:30:29+00:00",
+    "balance": 25518.29,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355574272
+  },
+  {
+    "time": "2026-07-12T22:51:31+00:00",
+    "balance": 25519.49,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355647461
+  },
+  {
+    "time": "2026-07-12T23:45:31+00:00",
+    "balance": 25520.89,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3355844301
+  },
+  {
+    "time": "2026-07-13T00:05:31+00:00",
+    "balance": 25368.84,
+    "profit": -152.05,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355947212
+  },
+  {
+    "time": "2026-07-13T00:05:32+00:00",
+    "balance": 25348.79,
+    "profit": -20.05,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355947335
+  },
+  {
+    "time": "2026-07-13T00:05:32+00:00",
+    "balance": 25413.97,
+    "profit": 65.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355947390
+  },
+  {
+    "time": "2026-07-13T00:05:33+00:00",
+    "balance": 25604.75,
+    "profit": 190.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3355947512
+  },
+  {
+    "time": "2026-07-13T00:15:55+00:00",
+    "balance": 25603.05,
+    "profit": -1.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3356021943
+  },
+  {
+    "time": "2026-07-13T00:15:55+00:00",
+    "balance": 25607.45,
+    "profit": 4.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3356021964
+  },
+  {
+    "time": "2026-07-13T00:26:35+00:00",
+    "balance": 25612.75,
+    "profit": 5.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3356102030
+  },
+  {
+    "time": "2026-07-13T01:35:21+00:00",
+    "balance": 25614.25,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3356780121
+  },
+  {
+    "time": "2026-07-13T03:25:29+00:00",
+    "balance": 25614.48,
+    "profit": 0.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3357719676
+  },
+  {
+    "time": "2026-07-13T05:00:38+00:00",
+    "balance": 25624.48,
+    "profit": 10.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3358268913
+  },
+  {
+    "time": "2026-07-13T05:10:59+00:00",
+    "balance": 25622.62,
+    "profit": -1.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358426227
+  },
+  {
+    "time": "2026-07-13T05:11:00+00:00",
+    "balance": 25621.64,
+    "profit": -0.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358426502
+  },
+  {
+    "time": "2026-07-13T05:11:00+00:00",
+    "balance": 25621.64,
+    "profit": 0.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358426613
+  },
+  {
+    "time": "2026-07-13T05:11:01+00:00",
+    "balance": 25622.68,
+    "profit": 1.04,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358426674
+  },
+  {
+    "time": "2026-07-13T05:11:01+00:00",
+    "balance": 25624.78,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358426734
+  },
+  {
+    "time": "2026-07-13T05:14:22+00:00",
+    "balance": 25630.02,
+    "profit": 5.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3358459624
+  },
+  {
+    "time": "2026-07-13T05:15:39+00:00",
+    "balance": 25655.32,
+    "profit": 25.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3358475414
+  },
+  {
+    "time": "2026-07-13T05:20:59+00:00",
+    "balance": 25672.02,
+    "profit": 16.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3358523774
+  },
+  {
+    "time": "2026-07-13T05:21:40+00:00",
+    "balance": 25675.02,
+    "profit": 3.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3358532238
+  },
+  {
+    "time": "2026-07-13T05:26:40+00:00",
+    "balance": 25678.12,
+    "profit": 3.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3358576498
+  },
+  {
+    "time": "2026-07-13T07:31:18+00:00",
+    "balance": 25683.37,
+    "profit": 5.25,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3359764382
+  },
+  {
+    "time": "2026-07-13T08:38:44+00:00",
+    "balance": 25677.81,
+    "profit": -5.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3360348738
+  },
+  {
+    "time": "2026-07-13T08:38:45+00:00",
+    "balance": 25696.22,
+    "profit": 18.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3360348815
+  },
+  {
+    "time": "2026-07-13T08:55:07+00:00",
+    "balance": 25699.68,
+    "profit": 3.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3360433423
+  },
+  {
+    "time": "2026-07-13T09:15:27+00:00",
+    "balance": 25706.18,
+    "profit": 6.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3360509708
+  },
+  {
+    "time": "2026-07-13T09:34:27+00:00",
+    "balance": 25699.98,
+    "profit": -6.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3360615772
+  },
+  {
+    "time": "2026-07-13T09:34:27+00:00",
+    "balance": 25698.58,
+    "profit": -1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3360615907
+  },
+  {
+    "time": "2026-07-13T09:34:28+00:00",
+    "balance": 25704.68,
+    "profit": 6.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3360615955
+  },
+  {
+    "time": "2026-07-13T09:34:28+00:00",
+    "balance": 25713.48,
+    "profit": 8.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3360615998
+  },
+  {
+    "time": "2026-07-13T10:41:40+00:00",
+    "balance": 25714.21,
+    "profit": 0.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3360963479
+  },
+  {
+    "time": "2026-07-13T11:11:00+00:00",
+    "balance": 25716.21,
+    "profit": 2.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3361311103
+  },
+  {
+    "time": "2026-07-13T11:16:25+00:00",
+    "balance": 25716.43,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3361336991
+  },
+  {
+    "time": "2026-07-13T13:37:05+00:00",
+    "balance": 25716.69,
+    "profit": 0.26,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3362415013
+  },
+  {
+    "time": "2026-07-13T15:04:38+00:00",
+    "balance": 25717.15,
+    "profit": 0.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3363927252
+  },
+  {
+    "time": "2026-07-13T17:24:10+00:00",
+    "balance": 25719.45,
+    "profit": 2.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3364978138
+  },
+  {
+    "time": "2026-07-13T20:10:14+00:00",
+    "balance": 25720.55,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3365599335
+  },
+  {
+    "time": "2026-07-13T20:15:21+00:00",
+    "balance": 25745.2,
+    "profit": 24.65,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3365621776
+  },
+  {
+    "time": "2026-07-13T22:02:49+00:00",
+    "balance": 25746.2,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3365727817
+  },
+  {
+    "time": "2026-07-13T22:39:22+00:00",
+    "balance": 25745.96,
+    "profit": -0.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3365763365
+  },
+  {
+    "time": "2026-07-13T22:39:23+00:00",
+    "balance": 25746.74,
+    "profit": 0.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3365763368
+  },
+  {
+    "time": "2026-07-13T23:30:31+00:00",
+    "balance": 25746.39,
+    "profit": -0.35,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3365850201
+  },
+  {
+    "time": "2026-07-13T23:30:31+00:00",
+    "balance": 25747.19,
+    "profit": 0.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3365850212
+  },
+  {
+    "time": "2026-07-14T00:02:34+00:00",
+    "balance": 25748.69,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3365991405
+  },
+  {
+    "time": "2026-07-14T00:07:37+00:00",
+    "balance": 25748.95,
+    "profit": 0.26,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3366055945
+  },
+  {
+    "time": "2026-07-14T00:20:20+00:00",
+    "balance": 25748.58,
+    "profit": -0.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3366176880
+  },
+  {
+    "time": "2026-07-14T00:20:20+00:00",
+    "balance": 25749.79,
+    "profit": 1.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3366176941
+  },
+  {
+    "time": "2026-07-14T00:41:58+00:00",
+    "balance": 25751.79,
+    "profit": 2.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3366339496
+  },
+  {
+    "time": "2026-07-14T00:42:43+00:00",
+    "balance": 25751.99,
+    "profit": 0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3366343994
+  },
+  {
+    "time": "2026-07-14T01:01:25+00:00",
+    "balance": 25752.35,
+    "profit": 0.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3366496857
+  },
+  {
+    "time": "2026-07-14T02:00:44+00:00",
+    "balance": 25753.45,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3367017976
+  },
+  {
+    "time": "2026-07-14T02:17:46+00:00",
+    "balance": 25754.65,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3367170517
+  },
+  {
+    "time": "2026-07-14T02:39:08+00:00",
+    "balance": 25755.75,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3367302599
+  },
+  {
+    "time": "2026-07-14T02:50:55+00:00",
+    "balance": 25755.97,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3367376955
+  },
+  {
+    "time": "2026-07-14T02:51:30+00:00",
+    "balance": 25779.07,
+    "profit": 23.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3367378189
+  },
+  {
+    "time": "2026-07-14T04:44:44+00:00",
+    "balance": 25790.47,
+    "profit": 11.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3367922295
+  },
+  {
+    "time": "2026-07-14T05:51:51+00:00",
+    "balance": 25778.17,
+    "profit": -12.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3368365963
+  },
+  {
+    "time": "2026-07-14T05:51:51+00:00",
+    "balance": 25821.87,
+    "profit": 43.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3368365968
+  },
+  {
+    "time": "2026-07-14T06:08:53+00:00",
+    "balance": 25820.61,
+    "profit": -1.26,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3368439324
+  },
+  {
+    "time": "2026-07-14T06:08:54+00:00",
+    "balance": 25820.39,
+    "profit": -0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3368439336
+  },
+  {
+    "time": "2026-07-14T06:08:54+00:00",
+    "balance": 25821.22,
+    "profit": 0.83,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3368439352
+  },
+  {
+    "time": "2026-07-14T06:08:54+00:00",
+    "balance": 25823.04,
+    "profit": 1.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3368439375
+  },
+  {
+    "time": "2026-07-14T06:19:53+00:00",
+    "balance": 25837.34,
+    "profit": 14.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3368492691
+  },
+  {
+    "time": "2026-07-14T07:42:58+00:00",
+    "balance": 25804.44,
+    "profit": -32.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3369016213
+  },
+  {
+    "time": "2026-07-14T07:42:58+00:00",
+    "balance": 25890.94,
+    "profit": 86.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3369016239
+  },
+  {
+    "time": "2026-07-14T08:48:13+00:00",
+    "balance": 25896.81,
+    "profit": 5.87,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3369465463
+  },
+  {
+    "time": "2026-07-14T09:53:58+00:00",
+    "balance": 25899.21,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3369881946
+  },
+  {
+    "time": "2026-07-14T10:57:09+00:00",
+    "balance": 25898.91,
+    "profit": -0.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3370151142
+  },
+  {
+    "time": "2026-07-14T10:57:09+00:00",
+    "balance": 25899.71,
+    "profit": 0.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3370151146
+  },
+  {
+    "time": "2026-07-14T11:28:10+00:00",
+    "balance": 25903.21,
+    "profit": 3.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3370340341
+  },
+  {
+    "time": "2026-07-14T12:07:55+00:00",
+    "balance": 25906.81,
+    "profit": 3.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3370539582
+  },
+  {
+    "time": "2026-07-14T12:28:42+00:00",
+    "balance": 25906.89,
+    "profit": 0.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3370666947
+  },
+  {
+    "time": "2026-07-14T12:28:42+00:00",
+    "balance": 25908.12,
+    "profit": 1.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3370666986
+  },
+  {
+    "time": "2026-07-14T12:32:23+00:00",
+    "balance": 25908.4,
+    "profit": 0.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3370872034
+  },
+  {
+    "time": "2026-07-14T12:37:39+00:00",
+    "balance": 25917.9,
+    "profit": 9.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371000259
+  },
+  {
+    "time": "2026-07-14T12:41:14+00:00",
+    "balance": 25925.6,
+    "profit": 7.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3371064757
+  },
+  {
+    "time": "2026-07-14T12:41:25+00:00",
+    "balance": 25925.79,
+    "profit": 0.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371066940
+  },
+  {
+    "time": "2026-07-14T12:46:36+00:00",
+    "balance": 25932.49,
+    "profit": 6.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3371153508
+  },
+  {
+    "time": "2026-07-14T12:50:43+00:00",
+    "balance": 25935.79,
+    "profit": 3.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371205424
+  },
+  {
+    "time": "2026-07-14T12:51:44+00:00",
+    "balance": 25937.99,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371226055
+  },
+  {
+    "time": "2026-07-14T12:52:45+00:00",
+    "balance": 25942.49,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371239215
+  },
+  {
+    "time": "2026-07-14T12:53:25+00:00",
+    "balance": 25944.59,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371246813
+  },
+  {
+    "time": "2026-07-14T12:55:06+00:00",
+    "balance": 25947.89,
+    "profit": 3.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3371271914
+  },
+  {
+    "time": "2026-07-14T13:43:15+00:00",
+    "balance": 25944.38,
+    "profit": -3.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371837889
+  },
+  {
+    "time": "2026-07-14T13:43:16+00:00",
+    "balance": 25942.28,
+    "profit": -2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371837959
+  },
+  {
+    "time": "2026-07-14T13:43:16+00:00",
+    "balance": 25941.2,
+    "profit": -1.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838057
+  },
+  {
+    "time": "2026-07-14T13:43:17+00:00",
+    "balance": 25940.74,
+    "profit": -0.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838177
+  },
+  {
+    "time": "2026-07-14T13:43:17+00:00",
+    "balance": 25941.4,
+    "profit": 0.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838218
+  },
+  {
+    "time": "2026-07-14T13:43:17+00:00",
+    "balance": 25942.89,
+    "profit": 1.49,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838263
+  },
+  {
+    "time": "2026-07-14T13:43:18+00:00",
+    "balance": 25945.43,
+    "profit": 2.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838296
+  },
+  {
+    "time": "2026-07-14T13:43:18+00:00",
+    "balance": 25949.19,
+    "profit": 3.76,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3371838330
+  },
+  {
+    "time": "2026-07-14T15:38:54+00:00",
+    "balance": 25951.29,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3373084605
+  },
+  {
+    "time": "2026-07-14T15:44:35+00:00",
+    "balance": 25953.89,
+    "profit": 2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3373182884
+  },
+  {
+    "time": "2026-07-14T17:14:37+00:00",
+    "balance": 25952.87,
+    "profit": -1.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3373720342
+  },
+  {
+    "time": "2026-07-14T17:14:37+00:00",
+    "balance": 25953.08,
+    "profit": 0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3373720377
+  },
+  {
+    "time": "2026-07-14T17:14:38+00:00",
+    "balance": 25955.08,
+    "profit": 2.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3373720422
+  },
+  {
+    "time": "2026-07-14T17:37:57+00:00",
+    "balance": 25957.28,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3373829467
+  },
+  {
+    "time": "2026-07-14T18:12:11+00:00",
+    "balance": 25981.48,
+    "profit": 24.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3373913949
+  },
+  {
+    "time": "2026-07-14T22:15:12+00:00",
+    "balance": 25981.69,
+    "profit": 0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3374366463
+  },
+  {
+    "time": "2026-07-14T23:03:57+00:00",
+    "balance": 25981.92,
+    "profit": 0.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3374430884
+  },
+  {
+    "time": "2026-07-15T00:00:06+00:00",
+    "balance": 25983.52,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3374547963
+  },
+  {
+    "time": "2026-07-15T00:35:31+00:00",
+    "balance": 25984.62,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3374700244
+  },
+  {
+    "time": "2026-07-15T01:03:15+00:00",
+    "balance": 25985.62,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3374844470
+  },
+  {
+    "time": "2026-07-15T02:48:47+00:00",
+    "balance": 25986.82,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3375676664
+  },
+  {
+    "time": "2026-07-15T03:12:31+00:00",
+    "balance": 25985.9,
+    "profit": -0.92,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3375836589
+  },
+  {
+    "time": "2026-07-15T03:12:32+00:00",
+    "balance": 25986.15,
+    "profit": 0.25,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3375836603
+  },
+  {
+    "time": "2026-07-15T03:12:33+00:00",
+    "balance": 25987.42,
+    "profit": 1.27,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3375836631
+  },
+  {
+    "time": "2026-07-15T05:44:51+00:00",
+    "balance": 26005.92,
+    "profit": 18.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3376818094
+  },
+  {
+    "time": "2026-07-15T07:10:31+00:00",
+    "balance": 26010.87,
+    "profit": 4.95,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3377438018
+  },
+  {
+    "time": "2026-07-15T07:30:55+00:00",
+    "balance": 26018.31,
+    "profit": 7.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3377604625
+  },
+  {
+    "time": "2026-07-15T09:13:28+00:00",
+    "balance": 26019.61,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3378323980
+  },
+  {
+    "time": "2026-07-15T10:04:42+00:00",
+    "balance": 26032.59,
+    "profit": 12.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3378576667
+  },
+  {
+    "time": "2026-07-15T11:06:12+00:00",
+    "balance": 26032.78,
+    "profit": 0.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3378926744
+  },
+  {
+    "time": "2026-07-15T11:36:39+00:00",
+    "balance": 26033.0,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3379045589
+  },
+  {
+    "time": "2026-07-15T11:46:36+00:00",
+    "balance": 26035.4,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3379125667
+  },
+  {
+    "time": "2026-07-15T12:09:46+00:00",
+    "balance": 26035.65,
+    "profit": 0.25,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3379267212
+  },
+  {
+    "time": "2026-07-15T13:27:37+00:00",
+    "balance": 26000.75,
+    "profit": -34.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380284584
+  },
+  {
+    "time": "2026-07-15T13:27:38+00:00",
+    "balance": 25984.65,
+    "profit": -16.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380284713
+  },
+  {
+    "time": "2026-07-15T13:27:39+00:00",
+    "balance": 25969.85,
+    "profit": -14.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380285159
+  },
+  {
+    "time": "2026-07-15T13:27:40+00:00",
+    "balance": 25964.95,
+    "profit": -4.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380285470
+  },
+  {
+    "time": "2026-07-15T13:27:41+00:00",
+    "balance": 25968.75,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380285811
+  },
+  {
+    "time": "2026-07-15T13:27:43+00:00",
+    "balance": 25984.25,
+    "profit": 15.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380286067
+  },
+  {
+    "time": "2026-07-15T13:27:43+00:00",
+    "balance": 26011.95,
+    "profit": 27.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380286170
+  },
+  {
+    "time": "2026-07-15T13:27:44+00:00",
+    "balance": 26047.45,
+    "profit": 35.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3380286241
+  },
+  {
+    "time": "2026-07-15T13:56:11+00:00",
+    "balance": 26047.56,
+    "profit": 0.11,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3380565905
+  },
+  {
+    "time": "2026-07-15T15:05:17+00:00",
+    "balance": 26047.93,
+    "profit": 0.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3381185644
+  },
+  {
+    "time": "2026-07-15T17:46:56+00:00",
+    "balance": 26046.62,
+    "profit": -1.31,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3382575964
+  },
+  {
+    "time": "2026-07-15T17:46:57+00:00",
+    "balance": 26046.33,
+    "profit": -0.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3382576011
+  },
+  {
+    "time": "2026-07-15T17:46:58+00:00",
+    "balance": 26047.06,
+    "profit": 0.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3382576041
+  },
+  {
+    "time": "2026-07-15T17:46:59+00:00",
+    "balance": 26048.86,
+    "profit": 1.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3382576101
+  },
+  {
+    "time": "2026-07-15T18:46:08+00:00",
+    "balance": 26030.46,
+    "profit": -18.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3382891121
+  },
+  {
+    "time": "2026-07-15T18:46:08+00:00",
+    "balance": 26021.96,
+    "profit": -8.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3382891124
+  },
+  {
+    "time": "2026-07-15T18:46:08+00:00",
+    "balance": 26024.76,
+    "profit": 2.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3382891126
+  },
+  {
+    "time": "2026-07-15T18:46:08+00:00",
+    "balance": 26036.36,
+    "profit": 11.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3382891130
+  },
+  {
+    "time": "2026-07-15T18:46:08+00:00",
+    "balance": 26059.76,
+    "profit": 23.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3382891136
+  },
+  {
+    "time": "2026-07-15T18:58:29+00:00",
+    "balance": 25868.66,
+    "profit": -191.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3382964235
+  },
+  {
+    "time": "2026-07-15T18:58:29+00:00",
+    "balance": 25915.56,
+    "profit": 46.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3382964240
+  },
+  {
+    "time": "2026-07-15T18:58:29+00:00",
+    "balance": 26195.56,
+    "profit": 280.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3382964245
+  },
+  {
+    "time": "2026-07-15T19:31:13+00:00",
+    "balance": 26104.91,
+    "profit": -90.65,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383074994
+  },
+  {
+    "time": "2026-07-15T19:31:13+00:00",
+    "balance": 26127.53,
+    "profit": 22.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383074997
+  },
+  {
+    "time": "2026-07-15T19:31:13+00:00",
+    "balance": 26264.36,
+    "profit": 136.83,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383075070
+  },
+  {
+    "time": "2026-07-15T22:02:55+00:00",
+    "balance": 26296.56,
+    "profit": 32.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383261066
+  },
+  {
+    "time": "2026-07-15T23:52:20+00:00",
+    "balance": 26296.97,
+    "profit": 0.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383434911
+  },
+  {
+    "time": "2026-07-16T00:10:02+00:00",
+    "balance": 26297.18,
+    "profit": 0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383482713
+  },
+  {
+    "time": "2026-07-16T00:52:29+00:00",
+    "balance": 26296.81,
+    "profit": -0.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383656235
+  },
+  {
+    "time": "2026-07-16T00:52:29+00:00",
+    "balance": 26297.78,
+    "profit": 0.97,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383656267
+  },
+  {
+    "time": "2026-07-16T01:23:54+00:00",
+    "balance": 26298.24,
+    "profit": 0.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3383969894
+  },
+  {
+    "time": "2026-07-16T03:55:08+00:00",
+    "balance": 26298.45,
+    "profit": 0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3384919656
+  },
+  {
+    "time": "2026-07-16T06:41:04+00:00",
+    "balance": 26310.78,
+    "profit": 12.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3385940142
+  },
+  {
+    "time": "2026-07-16T06:48:06+00:00",
+    "balance": 26323.84,
+    "profit": 13.06,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3385970262
+  },
+  {
+    "time": "2026-07-16T07:00:42+00:00",
+    "balance": 26337.44,
+    "profit": 13.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3386036996
+  },
+  {
+    "time": "2026-07-16T07:52:29+00:00",
+    "balance": 26338.94,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3386340035
+  },
+  {
+    "time": "2026-07-16T08:34:34+00:00",
+    "balance": 26340.14,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3386657146
+  },
+  {
+    "time": "2026-07-16T10:46:11+00:00",
+    "balance": 26342.54,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3387280731
+  },
+  {
+    "time": "2026-07-16T11:50:00+00:00",
+    "balance": 26349.34,
+    "profit": 6.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3387772266
+  },
+  {
+    "time": "2026-07-16T11:50:00+00:00",
+    "balance": 26369.34,
+    "profit": 20.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3387772875
+  },
+  {
+    "time": "2026-07-16T11:50:41+00:00",
+    "balance": 26372.74,
+    "profit": 3.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3387806609
+  },
+  {
+    "time": "2026-07-16T13:32:18+00:00",
+    "balance": 26375.34,
+    "profit": 2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3389429720
+  },
+  {
+    "time": "2026-07-16T13:36:27+00:00",
+    "balance": 26249.54,
+    "profit": -125.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389527560
+  },
+  {
+    "time": "2026-07-16T13:36:28+00:00",
+    "balance": 26164.56,
+    "profit": -84.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389527719
+  },
+  {
+    "time": "2026-07-16T13:36:28+00:00",
+    "balance": 26109.17,
+    "profit": -55.39,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389527835
+  },
+  {
+    "time": "2026-07-16T13:36:29+00:00",
+    "balance": 26099.58,
+    "profit": -9.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389528094
+  },
+  {
+    "time": "2026-07-16T13:36:30+00:00",
+    "balance": 26140.22,
+    "profit": 40.64,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389528395
+  },
+  {
+    "time": "2026-07-16T13:36:31+00:00",
+    "balance": 26210.31,
+    "profit": 70.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389528601
+  },
+  {
+    "time": "2026-07-16T13:36:31+00:00",
+    "balance": 26300.32,
+    "profit": 90.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389528843
+  },
+  {
+    "time": "2026-07-16T13:36:32+00:00",
+    "balance": 26420.0,
+    "profit": 119.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389529049
+  },
+  {
+    "time": "2026-07-16T13:36:33+00:00",
+    "balance": 26575.01,
+    "profit": 155.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3389529341
+  },
+  {
+    "time": "2026-07-16T14:57:49+00:00",
+    "balance": 26575.34,
+    "profit": 0.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3390375499
+  },
+  {
+    "time": "2026-07-16T15:30:20+00:00",
+    "balance": 26579.54,
+    "profit": 4.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3390718081
+  },
+  {
+    "time": "2026-07-16T17:08:56+00:00",
+    "balance": 26579.76,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3391420543
+  },
+  {
+    "time": "2026-07-16T17:19:40+00:00",
+    "balance": 26579.99,
+    "profit": 0.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3391477008
+  },
+  {
+    "time": "2026-07-16T18:00:30+00:00",
+    "balance": 26579.79,
+    "profit": -0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3391659010
+  },
+  {
+    "time": "2026-07-16T18:00:30+00:00",
+    "balance": 26580.52,
+    "profit": 0.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3391659019
+  },
+  {
+    "time": "2026-07-16T22:06:22+00:00",
+    "balance": 26581.82,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3392229857
+  },
+  {
+    "time": "2026-07-16T23:32:38+00:00",
+    "balance": 26583.22,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3392372934
+  },
+  {
+    "time": "2026-07-17T00:06:24+00:00",
+    "balance": 26584.22,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3392493615
+  },
+  {
+    "time": "2026-07-17T01:02:26+00:00",
+    "balance": 26582.58,
+    "profit": -1.64,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392803754
+  },
+  {
+    "time": "2026-07-17T01:02:27+00:00",
+    "balance": 26582.08,
+    "profit": -0.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392803819
+  },
+  {
+    "time": "2026-07-17T01:02:27+00:00",
+    "balance": 26582.45,
+    "profit": 0.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392803852
+  },
+  {
+    "time": "2026-07-17T01:02:27+00:00",
+    "balance": 26583.79,
+    "profit": 1.34,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392803894
+  },
+  {
+    "time": "2026-07-17T01:02:28+00:00",
+    "balance": 26586.3,
+    "profit": 2.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392804071
+  },
+  {
+    "time": "2026-07-17T01:02:49+00:00",
+    "balance": 26588.7,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3392810150
+  },
+  {
+    "time": "2026-07-17T01:23:30+00:00",
+    "balance": 26588.92,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3392959519
+  },
+  {
+    "time": "2026-07-17T02:13:17+00:00",
+    "balance": 26588.08,
+    "profit": -0.84,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3393361962
+  },
+  {
+    "time": "2026-07-17T02:13:18+00:00",
+    "balance": 26588.38,
+    "profit": 0.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3393361989
+  },
+  {
+    "time": "2026-07-17T02:13:18+00:00",
+    "balance": 26589.84,
+    "profit": 1.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3393362008
+  },
+  {
+    "time": "2026-07-17T03:12:26+00:00",
+    "balance": 26590.06,
+    "profit": 0.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3393890705
+  },
+  {
+    "time": "2026-07-17T03:49:07+00:00",
+    "balance": 26526.16,
+    "profit": -63.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3394250131
+  },
+  {
+    "time": "2026-07-17T03:49:07+00:00",
+    "balance": 26513.76,
+    "profit": -12.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3394250216
+  },
+  {
+    "time": "2026-07-17T03:49:07+00:00",
+    "balance": 26554.06,
+    "profit": 40.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3394250421
+  },
+  {
+    "time": "2026-07-17T03:49:07+00:00",
+    "balance": 26643.26,
+    "profit": 89.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3394250592
+  },
+  {
+    "time": "2026-07-17T06:38:29+00:00",
+    "balance": 26637.26,
+    "profit": -6.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3395634382
+  },
+  {
+    "time": "2026-07-17T06:38:29+00:00",
+    "balance": 26681.36,
+    "profit": 44.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3395634472
+  },
+  {
+    "time": "2026-07-17T08:51:48+00:00",
+    "balance": 26682.56,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3396556856
+  },
+  {
+    "time": "2026-07-17T09:19:34+00:00",
+    "balance": 26671.16,
+    "profit": -11.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3396701804
+  },
+  {
+    "time": "2026-07-17T09:19:35+00:00",
+    "balance": 26698.09,
+    "profit": 26.93,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3396701817
+  },
+  {
+    "time": "2026-07-17T09:27:34+00:00",
+    "balance": 26700.29,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3396763640
+  },
+  {
+    "time": "2026-07-17T09:49:20+00:00",
+    "balance": 26718.15,
+    "profit": 17.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3396880528
+  },
+  {
+    "time": "2026-07-17T10:09:45+00:00",
+    "balance": 26718.48,
+    "profit": 0.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3396951877
+  },
+  {
+    "time": "2026-07-17T11:23:54+00:00",
+    "balance": 26721.58,
+    "profit": 3.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3397265058
+  },
+  {
+    "time": "2026-07-17T11:57:41+00:00",
+    "balance": 26724.08,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3397426605
+  },
+  {
+    "time": "2026-07-17T12:13:44+00:00",
+    "balance": 26724.28,
+    "profit": 0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3397533659
+  },
+  {
+    "time": "2026-07-17T13:42:27+00:00",
+    "balance": 26726.88,
+    "profit": 2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3398731158
+  },
+  {
+    "time": "2026-07-17T14:02:33+00:00",
+    "balance": 26727.3,
+    "profit": 0.42,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3398961407
+  },
+  {
+    "time": "2026-07-17T14:11:57+00:00",
+    "balance": 26727.09,
+    "profit": -0.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3399059561
+  },
+  {
+    "time": "2026-07-17T14:11:58+00:00",
+    "balance": 26727.92,
+    "profit": 0.83,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3399059595
+  },
+  {
+    "time": "2026-07-17T14:12:39+00:00",
+    "balance": 26728.25,
+    "profit": 0.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3399064758
+  },
+  {
+    "time": "2026-07-17T15:06:39+00:00",
+    "balance": 26730.15,
+    "profit": 1.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3399581014
+  },
+  {
+    "time": "2026-07-17T15:46:41+00:00",
+    "balance": 26728.6,
+    "profit": -1.55,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3399880253
+  },
+  {
+    "time": "2026-07-17T15:46:42+00:00",
+    "balance": 26733.94,
+    "profit": 5.34,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3399880321
+  },
+  {
+    "time": "2026-07-17T15:57:25+00:00",
+    "balance": 26735.64,
+    "profit": 1.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3399960890
+  },
+  {
+    "time": "2026-07-17T16:15:30+00:00",
+    "balance": 26732.66,
+    "profit": -2.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400077267
+  },
+  {
+    "time": "2026-07-17T16:15:31+00:00",
+    "balance": 26738.81,
+    "profit": 6.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400077286
+  },
+  {
+    "time": "2026-07-17T17:15:07+00:00",
+    "balance": 26741.96,
+    "profit": 3.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400326020
+  },
+  {
+    "time": "2026-07-17T17:55:55+00:00",
+    "balance": 26735.45,
+    "profit": -6.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400425852
+  },
+  {
+    "time": "2026-07-17T17:55:56+00:00",
+    "balance": 26736.13,
+    "profit": 0.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400425862
+  },
+  {
+    "time": "2026-07-17T17:55:57+00:00",
+    "balance": 26745.18,
+    "profit": 9.05,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400425871
+  },
+  {
+    "time": "2026-07-17T19:30:23+00:00",
+    "balance": 26762.38,
+    "profit": 17.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400601759
+  },
+  {
+    "time": "2026-07-17T20:18:14+00:00",
+    "balance": 26760.78,
+    "profit": -1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3400669352
+  },
+  {
+    "time": "2026-07-17T20:18:15+00:00",
+    "balance": 26764.58,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3400669369
+  },
+  {
+    "time": "2026-07-17T20:44:57+00:00",
+    "balance": 26813.6,
+    "profit": 49.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400693150
+  },
+  {
+    "time": "2026-07-17T23:33:32+00:00",
+    "balance": 26810.09,
+    "profit": -3.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400746022
+  },
+  {
+    "time": "2026-07-17T23:33:33+00:00",
+    "balance": 26818.76,
+    "profit": 8.67,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3400746028
+  },
+  {
+    "time": "2026-07-18T13:23:14+00:00",
+    "balance": 26821.39,
+    "profit": 2.63,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401130610
+  },
+  {
+    "time": "2026-07-18T15:50:44+00:00",
+    "balance": 26823.96,
+    "profit": 2.57,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401237166
+  },
+  {
+    "time": "2026-07-18T21:52:08+00:00",
+    "balance": 26826.49,
+    "profit": 2.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401461265
+  },
+  {
+    "time": "2026-07-19T02:03:47+00:00",
+    "balance": 26829.36,
+    "profit": 2.87,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401547656
+  },
+  {
+    "time": "2026-07-19T04:36:03+00:00",
+    "balance": 26827.3,
+    "profit": -2.06,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401635090
+  },
+  {
+    "time": "2026-07-19T04:36:04+00:00",
+    "balance": 26837.71,
+    "profit": 10.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401635121
+  },
+  {
+    "time": "2026-07-19T05:50:11+00:00",
+    "balance": 26846.68,
+    "profit": 8.97,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401673854
+  },
+  {
+    "time": "2026-07-19T08:49:26+00:00",
+    "balance": 26856.28,
+    "profit": 9.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401740488
+  },
+  {
+    "time": "2026-07-19T10:24:16+00:00",
+    "balance": 26864.3,
+    "profit": 8.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401819170
+  },
+  {
+    "time": "2026-07-19T11:06:02+00:00",
+    "balance": 26871.63,
+    "profit": 7.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401855625
+  },
+  {
+    "time": "2026-07-19T13:33:19+00:00",
+    "balance": 26859.69,
+    "profit": -11.94,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401987082
+  },
+  {
+    "time": "2026-07-19T13:33:20+00:00",
+    "balance": 26889.72,
+    "profit": 30.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3401987110
+  },
+  {
+    "time": "2026-07-19T17:04:48+00:00",
+    "balance": 26921.18,
+    "profit": 31.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3402130761
+  },
+  {
+    "time": "2026-07-19T20:02:11+00:00",
+    "balance": 26922.55,
+    "profit": 1.37,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3402238554
+  },
+  {
+    "time": "2026-07-19T20:02:11+00:00",
+    "balance": 26829.87,
+    "profit": -92.68,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3402238555
+  },
+  {
+    "time": "2026-07-19T20:02:11+00:00",
+    "balance": 26919.78,
+    "profit": 89.91,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3402238558
+  },
+  {
+    "time": "2026-07-19T20:02:11+00:00",
+    "balance": 27015.85,
+    "profit": 96.07,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3402238561
+  },
+  {
+    "time": "2026-07-19T20:02:11+00:00",
+    "balance": 27015.95,
+    "profit": 0.1,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3402238563
+  },
+  {
+    "time": "2026-07-19T22:01:32+00:00",
+    "balance": 27031.25,
+    "profit": 15.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3402274784
+  },
+  {
+    "time": "2026-07-19T22:15:20+00:00",
+    "balance": 27033.9,
+    "profit": 2.65,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3402323492
+  },
+  {
+    "time": "2026-07-20T00:10:29+00:00",
+    "balance": 27036.3,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3402753315
+  },
+  {
+    "time": "2026-07-20T01:06:19+00:00",
+    "balance": 27038.4,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3403216507
+  },
+  {
+    "time": "2026-07-20T01:08:15+00:00",
+    "balance": 27040.9,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3403230476
+  },
+  {
+    "time": "2026-07-20T01:18:40+00:00",
+    "balance": 27043.4,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3403361385
+  },
+  {
+    "time": "2026-07-20T01:19:45+00:00",
+    "balance": 27011.5,
+    "profit": -31.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3403377214
+  },
+  {
+    "time": "2026-07-20T01:19:45+00:00",
+    "balance": 27087.4,
+    "profit": 75.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3403377250
+  },
+  {
+    "time": "2026-07-20T01:20:20+00:00",
+    "balance": 27088.8,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3403385119
+  },
+  {
+    "time": "2026-07-20T02:03:01+00:00",
+    "balance": 27092.09,
+    "profit": 3.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3403723203
+  },
+  {
+    "time": "2026-07-20T03:06:56+00:00",
+    "balance": 27114.19,
+    "profit": 22.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3404234520
+  },
+  {
+    "time": "2026-07-20T03:39:32+00:00",
+    "balance": 27115.33,
+    "profit": 1.14,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3404455069
+  },
+  {
+    "time": "2026-07-20T04:43:40+00:00",
+    "balance": 27115.63,
+    "profit": 0.3,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3404724402
+  },
+  {
+    "time": "2026-07-20T05:10:24+00:00",
+    "balance": 27106.23,
+    "profit": -9.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3404884752
+  },
+  {
+    "time": "2026-07-20T05:10:24+00:00",
+    "balance": 27102.03,
+    "profit": -4.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3404884821
+  },
+  {
+    "time": "2026-07-20T05:10:24+00:00",
+    "balance": 27102.83,
+    "profit": 0.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3404884848
+  },
+  {
+    "time": "2026-07-20T05:10:24+00:00",
+    "balance": 27108.73,
+    "profit": 5.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3404884917
+  },
+  {
+    "time": "2026-07-20T05:10:24+00:00",
+    "balance": 27121.23,
+    "profit": 12.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3404885036
+  },
+  {
+    "time": "2026-07-20T08:30:53+00:00",
+    "balance": 27115.23,
+    "profit": -6.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3406468154
+  },
+  {
+    "time": "2026-07-20T08:30:54+00:00",
+    "balance": 27114.63,
+    "profit": -0.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3406468919
+  },
+  {
+    "time": "2026-07-20T08:30:54+00:00",
+    "balance": 27119.43,
+    "profit": 4.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3406469297
+  },
+  {
+    "time": "2026-07-20T08:30:55+00:00",
+    "balance": 27128.53,
+    "profit": 9.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3406469650
+  },
+  {
+    "time": "2026-07-20T08:45:41+00:00",
+    "balance": 27119.93,
+    "profit": -8.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3406568995
+  },
+  {
+    "time": "2026-07-20T08:45:42+00:00",
+    "balance": 27141.43,
+    "profit": 21.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3406569274
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27141.83,
+    "profit": 0.4,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847039
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27138.2,
+    "profit": -3.63,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847041
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27140.72,
+    "profit": 2.52,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847043
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27143.21,
+    "profit": 2.49,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847049
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27143.71,
+    "profit": 0.5,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847050
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27147.11,
+    "profit": 3.4,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847052
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27144.59,
+    "profit": -2.52,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847059
+  },
+  {
+    "time": "2026-07-20T09:32:35+00:00",
+    "balance": 27143.29,
+    "profit": -1.3,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3406847062
+  },
+  {
+    "time": "2026-07-20T09:37:52+00:00",
+    "balance": 27153.16,
+    "profit": 9.87,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3406888110
+  },
+  {
+    "time": "2026-07-20T11:42:52+00:00",
+    "balance": 27156.26,
+    "profit": 3.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3407687315
+  },
+  {
+    "time": "2026-07-20T11:43:53+00:00",
+    "balance": 27158.36,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3407694135
+  },
+  {
+    "time": "2026-07-20T11:45:33+00:00",
+    "balance": 27160.36,
+    "profit": 2.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3407707743
+  },
+  {
+    "time": "2026-07-20T11:50:09+00:00",
+    "balance": 27167.66,
+    "profit": 7.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3407747443
+  },
+  {
+    "time": "2026-07-20T13:30:52+00:00",
+    "balance": 27172.18,
+    "profit": 4.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3408575136
+  },
+  {
+    "time": "2026-07-20T13:59:21+00:00",
+    "balance": 27175.71,
+    "profit": 3.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3408875962
+  },
+  {
+    "time": "2026-07-20T15:11:25+00:00",
+    "balance": 27179.71,
+    "profit": 4.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3409660705
+  },
+  {
+    "time": "2026-07-20T16:12:12+00:00",
+    "balance": 27182.11,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3410053978
+  },
+  {
+    "time": "2026-07-20T23:17:07+00:00",
+    "balance": 27173.92,
+    "profit": -8.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3411289471
+  },
+  {
+    "time": "2026-07-20T23:17:08+00:00",
+    "balance": 27178.59,
+    "profit": 4.67,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3411289491
+  },
+  {
+    "time": "2026-07-20T23:17:08+00:00",
+    "balance": 27194.75,
+    "profit": 16.16,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3411289510
+  },
+  {
+    "time": "2026-07-21T01:35:03+00:00",
+    "balance": 27199.34,
+    "profit": 4.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3412259613
+  },
+  {
+    "time": "2026-07-21T02:04:31+00:00",
+    "balance": 27224.94,
+    "profit": 25.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3412481333
+  },
+  {
+    "time": "2026-07-21T02:47:54+00:00",
+    "balance": 27250.14,
+    "profit": 25.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3412885052
+  },
+  {
+    "time": "2026-07-21T02:51:54+00:00",
+    "balance": 27272.84,
+    "profit": 22.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3412914842
+  },
+  {
+    "time": "2026-07-21T10:52:42+00:00",
+    "balance": 27282.7,
+    "profit": 9.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3416370157
+  },
+  {
+    "time": "2026-07-21T11:12:22+00:00",
+    "balance": 27289.4,
+    "profit": 6.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3416514768
+  },
+  {
+    "time": "2026-07-21T11:14:43+00:00",
+    "balance": 27296.4,
+    "profit": 7.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3416524746
+  },
+  {
+    "time": "2026-07-21T11:17:05+00:00",
+    "balance": 27304.51,
+    "profit": 8.11,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3416534671
+  },
+  {
+    "time": "2026-07-21T11:36:48+00:00",
+    "balance": 27312.36,
+    "profit": 7.85,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3416608593
+  },
+  {
+    "time": "2026-07-21T16:49:21+00:00",
+    "balance": 27338.53,
+    "profit": 26.17,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419204399
+  },
+  {
+    "time": "2026-07-21T17:26:46+00:00",
+    "balance": 27359.37,
+    "profit": 20.84,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419304348
+  },
+  {
+    "time": "2026-07-21T17:48:49+00:00",
+    "balance": 27383.15,
+    "profit": 23.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419377869
+  },
+  {
+    "time": "2026-07-21T18:05:51+00:00",
+    "balance": 27389.62,
+    "profit": 6.47,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419414867
+  },
+  {
+    "time": "2026-07-21T18:06:52+00:00",
+    "balance": 27392.23,
+    "profit": 2.61,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419416833
+  },
+  {
+    "time": "2026-07-21T18:25:05+00:00",
+    "balance": 27450.33,
+    "profit": 58.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3419505508
+  },
+  {
+    "time": "2026-07-21T18:38:56+00:00",
+    "balance": 27447.05,
+    "profit": -3.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419571068
+  },
+  {
+    "time": "2026-07-21T18:38:56+00:00",
+    "balance": 27456.27,
+    "profit": 9.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419571071
+  },
+  {
+    "time": "2026-07-21T20:03:27+00:00",
+    "balance": 27459.07,
+    "profit": 2.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419725843
+  },
+  {
+    "time": "2026-07-21T21:08:16+00:00",
+    "balance": 27461.69,
+    "profit": 2.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419796583
+  },
+  {
+    "time": "2026-07-21T22:31:27+00:00",
+    "balance": 27465.75,
+    "profit": 4.06,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419858327
+  },
+  {
+    "time": "2026-07-21T22:35:08+00:00",
+    "balance": 27468.31,
+    "profit": 2.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3419865920
+  },
+  {
+    "time": "2026-07-22T01:46:28+00:00",
+    "balance": 27459.12,
+    "profit": -9.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3420977528
+  },
+  {
+    "time": "2026-07-22T01:46:28+00:00",
+    "balance": 27462.39,
+    "profit": 3.27,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3420977972
+  },
+  {
+    "time": "2026-07-22T01:46:28+00:00",
+    "balance": 27478.28,
+    "profit": 15.89,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3420978194
+  },
+  {
+    "time": "2026-07-22T03:21:37+00:00",
+    "balance": 27482.78,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3421712636
+  },
+  {
+    "time": "2026-07-22T03:46:39+00:00",
+    "balance": 27486.66,
+    "profit": 3.88,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3421872318
+  },
+  {
+    "time": "2026-07-22T08:19:43+00:00",
+    "balance": 27397.29,
+    "profit": -89.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423628987
+  },
+  {
+    "time": "2026-07-22T08:19:44+00:00",
+    "balance": 27358.11,
+    "profit": -39.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423628992
+  },
+  {
+    "time": "2026-07-22T08:19:44+00:00",
+    "balance": 27344.13,
+    "profit": -13.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423629063
+  },
+  {
+    "time": "2026-07-22T08:19:44+00:00",
+    "balance": 27369.41,
+    "profit": 25.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423629074
+  },
+  {
+    "time": "2026-07-22T08:19:45+00:00",
+    "balance": 27434.71,
+    "profit": 65.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423629082
+  },
+  {
+    "time": "2026-07-22T08:19:45+00:00",
+    "balance": 27544.5,
+    "profit": 109.79,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3423629086
+  },
+  {
+    "time": "2026-07-22T09:42:14+00:00",
+    "balance": 27553.2,
+    "profit": 8.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3424077394
+  },
+  {
+    "time": "2026-07-22T17:31:33+00:00",
+    "balance": 27516.29,
+    "profit": -36.91,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3427489400
+  },
+  {
+    "time": "2026-07-22T17:31:34+00:00",
+    "balance": 27587.28,
+    "profit": 70.99,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3427489439
+  },
+  {
+    "time": "2026-07-22T17:32:33+00:00",
+    "balance": 27643.28,
+    "profit": 56.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3427494883
+  },
+  {
+    "time": "2026-07-22T18:47:42+00:00",
+    "balance": 27646.95,
+    "profit": 3.67,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3427774954
+  },
+  {
+    "time": "2026-07-22T19:15:26+00:00",
+    "balance": 27650.54,
+    "profit": 3.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3427832936
+  },
+  {
+    "time": "2026-07-22T20:11:54+00:00",
+    "balance": 27654.6,
+    "profit": 4.06,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3427955028
+  },
+  {
+    "time": "2026-07-22T23:14:12+00:00",
+    "balance": 27675.9,
+    "profit": 21.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3428263869
+  },
+  {
+    "time": "2026-07-22T23:20:57+00:00",
+    "balance": 27678.49,
+    "profit": 2.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3428280876
+  },
+  {
+    "time": "2026-07-23T01:21:48+00:00",
+    "balance": 27681.65,
+    "profit": 3.16,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3428830072
+  },
+  {
+    "time": "2026-07-23T02:34:14+00:00",
+    "balance": 27672.56,
+    "profit": -9.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3429375857
+  },
+  {
+    "time": "2026-07-23T02:34:15+00:00",
+    "balance": 27676.0,
+    "profit": 3.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3429375953
+  },
+  {
+    "time": "2026-07-23T02:34:15+00:00",
+    "balance": 27694.18,
+    "profit": 18.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3429376050
+  },
+  {
+    "time": "2026-07-23T04:25:44+00:00",
+    "balance": 27689.81,
+    "profit": -4.37,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3429964280
+  },
+  {
+    "time": "2026-07-23T04:25:45+00:00",
+    "balance": 27699.21,
+    "profit": 9.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3429964305
+  },
+  {
+    "time": "2026-07-23T06:00:52+00:00",
+    "balance": 27712.61,
+    "profit": 13.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3430486688
+  },
+  {
+    "time": "2026-07-23T07:27:36+00:00",
+    "balance": 27719.41,
+    "profit": 6.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3431191396
+  },
+  {
+    "time": "2026-07-23T08:20:25+00:00",
+    "balance": 27661.28,
+    "profit": -58.13,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3431764124
+  },
+  {
+    "time": "2026-07-23T08:20:26+00:00",
+    "balance": 27651.19,
+    "profit": -10.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3431764136
+  },
+  {
+    "time": "2026-07-23T08:20:26+00:00",
+    "balance": 27698.17,
+    "profit": 46.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3431764152
+  },
+  {
+    "time": "2026-07-23T08:20:26+00:00",
+    "balance": 27760.7,
+    "profit": 62.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3431764177
+  },
+  {
+    "time": "2026-07-23T10:03:57+00:00",
+    "balance": 27768.55,
+    "profit": 7.85,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3432372187
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27692.45,
+    "profit": -76.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943434
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27622.25,
+    "profit": -70.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943507
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27556.95,
+    "profit": -65.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943530
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27496.45,
+    "profit": -60.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943541
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27441.15,
+    "profit": -55.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943551
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27390.55,
+    "profit": -50.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943583
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27346.75,
+    "profit": -43.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943596
+  },
+  {
+    "time": "2026-07-23T11:40:34+00:00",
+    "balance": 27307.15,
+    "profit": -39.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943616
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27270.85,
+    "profit": -36.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943939
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27240.85,
+    "profit": -30.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432943966
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27216.85,
+    "profit": -24.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944013
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27203.25,
+    "profit": -13.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944059
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27188.95,
+    "profit": -14.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944107
+  },
+  {
+    "time": "2026-07-23T11:40:35+00:00",
+    "balance": 27176.25,
+    "profit": -12.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944139
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27165.45,
+    "profit": -10.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944173
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27159.45,
+    "profit": -6.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944195
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27161.05,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944225
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27165.55,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944241
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27176.95,
+    "profit": 11.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944332
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27190.45,
+    "profit": 13.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944373
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27209.75,
+    "profit": 19.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944396
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27234.95,
+    "profit": 25.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944463
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27265.05,
+    "profit": 30.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944498
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27299.35,
+    "profit": 34.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944532
+  },
+  {
+    "time": "2026-07-23T11:40:36+00:00",
+    "balance": 27338.35,
+    "profit": 39.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944560
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27381.65,
+    "profit": 43.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944638
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27431.05,
+    "profit": 49.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944674
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27485.05,
+    "profit": 54.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944720
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27544.65,
+    "profit": 59.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944748
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27619.35,
+    "profit": 74.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944779
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27694.05,
+    "profit": 74.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944836
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27773.25,
+    "profit": 79.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944899
+  },
+  {
+    "time": "2026-07-23T11:40:37+00:00",
+    "balance": 27857.05,
+    "profit": 83.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3432944919
+  },
+  {
+    "time": "2026-07-23T11:51:19+00:00",
+    "balance": 27858.45,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3433057229
+  },
+  {
+    "time": "2026-07-23T11:52:59+00:00",
+    "balance": 27859.75,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3433079853
+  },
+  {
+    "time": "2026-07-23T11:53:00+00:00",
+    "balance": 27868.05,
+    "profit": 8.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3433080329
+  },
+  {
+    "time": "2026-07-23T12:22:28+00:00",
+    "balance": 27880.35,
+    "profit": 12.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3433254635
+  },
+  {
+    "time": "2026-07-23T12:51:13+00:00",
+    "balance": 27854.4,
+    "profit": -25.95,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3433612776
+  },
+  {
+    "time": "2026-07-23T12:51:13+00:00",
+    "balance": 27869.19,
+    "profit": 14.79,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3433612810
+  },
+  {
+    "time": "2026-07-23T12:51:13+00:00",
+    "balance": 27924.97,
+    "profit": 55.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3433612847
+  },
+  {
+    "time": "2026-07-23T13:32:58+00:00",
+    "balance": 27895.61,
+    "profit": -29.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3434258186
+  },
+  {
+    "time": "2026-07-23T13:32:58+00:00",
+    "balance": 27903.36,
+    "profit": 7.75,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3434258289
+  },
+  {
+    "time": "2026-07-23T13:32:58+00:00",
+    "balance": 27951.43,
+    "profit": 48.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3434258401
+  },
+  {
+    "time": "2026-07-23T13:42:53+00:00",
+    "balance": 27896.93,
+    "profit": -54.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3434377567
+  },
+  {
+    "time": "2026-07-23T13:42:53+00:00",
+    "balance": 27873.33,
+    "profit": -23.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3434377772
+  },
+  {
+    "time": "2026-07-23T13:42:53+00:00",
+    "balance": 27880.33,
+    "profit": 7.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3434377858
+  },
+  {
+    "time": "2026-07-23T13:42:53+00:00",
+    "balance": 27917.43,
+    "profit": 37.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3434377954
+  },
+  {
+    "time": "2026-07-23T13:42:53+00:00",
+    "balance": 27985.13,
+    "profit": 67.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3434377984
+  },
+  {
+    "time": "2026-07-23T14:29:08+00:00",
+    "balance": 27988.57,
+    "profit": 3.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3434894294
+  },
+  {
+    "time": "2026-07-23T18:38:48+00:00",
+    "balance": 27991.32,
+    "profit": 2.75,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436044545
+  },
+  {
+    "time": "2026-07-23T18:54:52+00:00",
+    "balance": 27994.6,
+    "profit": 3.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436073802
+  },
+  {
+    "time": "2026-07-23T19:35:40+00:00",
+    "balance": 27997.16,
+    "profit": 2.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436168226
+  },
+  {
+    "time": "2026-07-23T20:40:51+00:00",
+    "balance": 27999.62,
+    "profit": 2.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436248943
+  },
+  {
+    "time": "2026-07-23T21:26:39+00:00",
+    "balance": 28002.92,
+    "profit": 3.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436270511
+  },
+  {
+    "time": "2026-07-24T00:59:43+00:00",
+    "balance": 27987.68,
+    "profit": -15.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436570630
+  },
+  {
+    "time": "2026-07-24T00:59:43+00:00",
+    "balance": 27986.84,
+    "profit": -0.84,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436570640
+  },
+  {
+    "time": "2026-07-24T00:59:44+00:00",
+    "balance": 27995.91,
+    "profit": 9.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436570649
+  },
+  {
+    "time": "2026-07-24T00:59:44+00:00",
+    "balance": 28017.26,
+    "profit": 21.35,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436570656
+  },
+  {
+    "time": "2026-07-24T01:12:26+00:00",
+    "balance": 28019.83,
+    "profit": 2.57,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3436677651
+  },
+  {
+    "time": "2026-07-24T02:40:13+00:00",
+    "balance": 28024.18,
+    "profit": 4.35,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3437107697
+  },
+  {
+    "time": "2026-07-24T07:48:12+00:00",
+    "balance": 28031.18,
+    "profit": 7.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3438975597
+  },
+  {
+    "time": "2026-07-24T07:49:38+00:00",
+    "balance": 28039.35,
+    "profit": 8.17,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3438981351
+  },
+  {
+    "time": "2026-07-24T08:29:23+00:00",
+    "balance": 28048.47,
+    "profit": 9.12,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3439136881
+  },
+  {
+    "time": "2026-07-24T08:59:28+00:00",
+    "balance": 28020.57,
+    "profit": -27.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439320749
+  },
+  {
+    "time": "2026-07-24T08:59:29+00:00",
+    "balance": 28002.77,
+    "profit": -17.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439320985
+  },
+  {
+    "time": "2026-07-24T08:59:30+00:00",
+    "balance": 27982.67,
+    "profit": -20.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439321216
+  },
+  {
+    "time": "2026-07-24T08:59:30+00:00",
+    "balance": 27965.57,
+    "profit": -17.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439322480
+  },
+  {
+    "time": "2026-07-24T08:59:31+00:00",
+    "balance": 27953.97,
+    "profit": -11.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439322947
+  },
+  {
+    "time": "2026-07-24T08:59:32+00:00",
+    "balance": 27946.77,
+    "profit": -7.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439323912
+  },
+  {
+    "time": "2026-07-24T08:59:32+00:00",
+    "balance": 27947.77,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439324141
+  },
+  {
+    "time": "2026-07-24T08:59:33+00:00",
+    "balance": 27950.77,
+    "profit": 3.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439324383
+  },
+  {
+    "time": "2026-07-24T08:59:34+00:00",
+    "balance": 27958.57,
+    "profit": 7.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439324605
+  },
+  {
+    "time": "2026-07-24T08:59:34+00:00",
+    "balance": 27971.17,
+    "profit": 12.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439324750
+  },
+  {
+    "time": "2026-07-24T08:59:35+00:00",
+    "balance": 27988.57,
+    "profit": 17.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439324996
+  },
+  {
+    "time": "2026-07-24T08:59:36+00:00",
+    "balance": 28012.07,
+    "profit": 23.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439325254
+  },
+  {
+    "time": "2026-07-24T08:59:37+00:00",
+    "balance": 28039.17,
+    "profit": 27.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439325357
+  },
+  {
+    "time": "2026-07-24T08:59:38+00:00",
+    "balance": 28072.17,
+    "profit": 33.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439325521
+  },
+  {
+    "time": "2026-07-24T09:05:40+00:00",
+    "balance": 28073.07,
+    "profit": 0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439389400
+  },
+  {
+    "time": "2026-07-24T10:15:08+00:00",
+    "balance": 28073.97,
+    "profit": 0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3439667322
+  },
+  {
+    "time": "2026-07-24T13:37:51+00:00",
+    "balance": 28080.77,
+    "profit": 6.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3440751391
+  },
+  {
+    "time": "2026-07-24T13:48:52+00:00",
+    "balance": 28095.57,
+    "profit": 14.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3440851671
+  },
+  {
+    "time": "2026-07-24T13:51:57+00:00",
+    "balance": 28097.17,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3440877111
+  },
+  {
+    "time": "2026-07-24T15:19:51+00:00",
+    "balance": 28104.47,
+    "profit": 7.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3441661430
+  },
+  {
+    "time": "2026-07-24T15:43:53+00:00",
+    "balance": 28110.57,
+    "profit": 6.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3441817923
+  },
+  {
+    "time": "2026-07-26T03:13:51+00:00",
+    "balance": 27814.24,
+    "profit": -296.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145725
+  },
+  {
+    "time": "2026-07-26T03:13:51+00:00",
+    "balance": 27559.23,
+    "profit": -255.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145757
+  },
+  {
+    "time": "2026-07-26T03:13:52+00:00",
+    "balance": 27344.92,
+    "profit": -214.31,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145779
+  },
+  {
+    "time": "2026-07-26T03:13:52+00:00",
+    "balance": 27168.1,
+    "profit": -176.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145790
+  },
+  {
+    "time": "2026-07-26T03:13:52+00:00",
+    "balance": 27028.12,
+    "profit": -139.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145801
+  },
+  {
+    "time": "2026-07-26T03:13:53+00:00",
+    "balance": 26926.33,
+    "profit": -101.79,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145809
+  },
+  {
+    "time": "2026-07-26T03:13:53+00:00",
+    "balance": 26861.47,
+    "profit": -64.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145819
+  },
+  {
+    "time": "2026-07-26T03:13:53+00:00",
+    "balance": 26845.74,
+    "profit": -15.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145836
+  },
+  {
+    "time": "2026-07-26T03:13:54+00:00",
+    "balance": 26852.77,
+    "profit": 7.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145845
+  },
+  {
+    "time": "2026-07-26T03:13:54+00:00",
+    "balance": 26916.33,
+    "profit": 63.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145891
+  },
+  {
+    "time": "2026-07-26T03:13:55+00:00",
+    "balance": 27004.96,
+    "profit": 88.63,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145906
+  },
+  {
+    "time": "2026-07-26T03:13:55+00:00",
+    "balance": 27133.32,
+    "profit": 128.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145937
+  },
+  {
+    "time": "2026-07-26T03:13:56+00:00",
+    "balance": 27304.39,
+    "profit": 171.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443145950
+  },
+  {
+    "time": "2026-07-26T03:13:56+00:00",
+    "balance": 27524.17,
+    "profit": 219.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443146019
+  },
+  {
+    "time": "2026-07-26T03:13:56+00:00",
+    "balance": 27762.72,
+    "profit": 238.55,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443146081
+  },
+  {
+    "time": "2026-07-26T03:13:57+00:00",
+    "balance": 28044.85,
+    "profit": 282.13,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443146095
+  },
+  {
+    "time": "2026-07-26T03:13:57+00:00",
+    "balance": 28362.47,
+    "profit": 317.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443146110
+  },
+  {
+    "time": "2026-07-26T04:08:42+00:00",
+    "balance": 28366.13,
+    "profit": 3.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443166935
+  },
+  {
+    "time": "2026-07-26T07:21:20+00:00",
+    "balance": 28355.32,
+    "profit": -10.81,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443262518
+  },
+  {
+    "time": "2026-07-26T07:21:20+00:00",
+    "balance": 28383.35,
+    "profit": 28.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443262521
+  },
+  {
+    "time": "2026-07-26T12:45:46+00:00",
+    "balance": 28344.65,
+    "profit": -38.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443406150
+  },
+  {
+    "time": "2026-07-26T12:45:47+00:00",
+    "balance": 28351.14,
+    "profit": 6.49,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443406212
+  },
+  {
+    "time": "2026-07-26T12:45:47+00:00",
+    "balance": 28415.68,
+    "profit": 64.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3443406273
+  },
+  {
+    "time": "2026-07-26T20:05:14+00:00",
+    "balance": 28413.58,
+    "profit": -2.1,
+    "reason": "Reason 0",
+    "symbol": "BTCUSDc",
+    "ticket": 3443637662
+  },
+  {
+    "time": "2026-07-26T20:05:15+00:00",
+    "balance": 28412.52,
+    "profit": -1.06,
+    "reason": "Reason 0",
+    "symbol": "BTCUSDc",
+    "ticket": 3443637673
+  },
+  {
+    "time": "2026-07-26T20:05:16+00:00",
+    "balance": 28412.84,
+    "profit": 0.32,
+    "reason": "Reason 0",
+    "symbol": "BTCUSDc",
+    "ticket": 3443637674
+  },
+  {
+    "time": "2026-07-26T20:05:18+00:00",
+    "balance": 28413.96,
+    "profit": 1.12,
+    "reason": "Reason 0",
+    "symbol": "BTCUSDc",
+    "ticket": 3443637675
+  },
+  {
+    "time": "2026-07-26T20:05:19+00:00",
+    "balance": 28416.23,
+    "profit": 2.27,
+    "reason": "Reason 0",
+    "symbol": "BTCUSDc",
+    "ticket": 3443637676
+  },
+  {
+    "time": "2026-07-26T22:01:39+00:00",
+    "balance": 28492.43,
+    "profit": 76.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443692896
+  },
+  {
+    "time": "2026-07-26T22:01:39+00:00",
+    "balance": 28591.13,
+    "profit": 98.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443692938
+  },
+  {
+    "time": "2026-07-26T22:01:39+00:00",
+    "balance": 28707.43,
+    "profit": 116.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443693000
+  },
+  {
+    "time": "2026-07-26T22:01:39+00:00",
+    "balance": 28843.63,
+    "profit": 136.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443693170
+  },
+  {
+    "time": "2026-07-26T22:01:39+00:00",
+    "balance": 29001.03,
+    "profit": 157.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443693187
+  },
+  {
+    "time": "2026-07-26T22:05:21+00:00",
+    "balance": 29840.33,
+    "profit": 839.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3443717720
+  },
+  {
+    "time": "2026-07-26T22:09:40+00:00",
+    "balance": 29841.53,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443730076
+  },
+  {
+    "time": "2026-07-26T22:38:45+00:00",
+    "balance": 29842.93,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443804901
+  },
+  {
+    "time": "2026-07-26T22:56:08+00:00",
+    "balance": 29844.03,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3443840830
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29844.12,
+    "profit": 0.09,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789957
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29848.5,
+    "profit": 4.38,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789960
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29846.89,
+    "profit": -1.61,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789962
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29848.49,
+    "profit": 1.6,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789963
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29848.87,
+    "profit": 0.38,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789964
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29851.78,
+    "profit": 2.91,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789968
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29848.13,
+    "profit": -3.65,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789972
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29845.51,
+    "profit": -2.62,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789973
+  },
+  {
+    "time": "2026-07-27T01:16:46+00:00",
+    "balance": 29848.95,
+    "profit": 3.44,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3444789974
+  },
+  {
+    "time": "2026-07-27T07:45:07+00:00",
+    "balance": 29850.35,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3447095801
+  },
+  {
+    "time": "2026-07-27T08:13:48+00:00",
+    "balance": 29856.65,
+    "profit": 6.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3447315788
+  },
+  {
+    "time": "2026-07-27T08:25:51+00:00",
+    "balance": 29855.05,
+    "profit": -1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3447366771
+  },
+  {
+    "time": "2026-07-27T08:25:51+00:00",
+    "balance": 29858.75,
+    "profit": 3.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3447366781
+  },
+  {
+    "time": "2026-07-27T08:41:50+00:00",
+    "balance": 29865.25,
+    "profit": 6.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3447445280
+  },
+  {
+    "time": "2026-07-27T09:35:57+00:00",
+    "balance": 29817.39,
+    "profit": -47.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3447781461
+  },
+  {
+    "time": "2026-07-27T09:35:57+00:00",
+    "balance": 29814.63,
+    "profit": -2.76,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3447781482
+  },
+  {
+    "time": "2026-07-27T09:35:58+00:00",
+    "balance": 29848.46,
+    "profit": 33.83,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3447781509
+  },
+  {
+    "time": "2026-07-27T09:35:58+00:00",
+    "balance": 29916.86,
+    "profit": 68.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3447781688
+  },
+  {
+    "time": "2026-07-27T10:14:42+00:00",
+    "balance": 29918.06,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3448050469
+  },
+  {
+    "time": "2026-07-27T12:07:15+00:00",
+    "balance": 29887.49,
+    "profit": -30.57,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448626244
+  },
+  {
+    "time": "2026-07-27T12:07:15+00:00",
+    "balance": 29898.45,
+    "profit": 10.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448626249
+  },
+  {
+    "time": "2026-07-27T12:07:15+00:00",
+    "balance": 29944.99,
+    "profit": 46.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448626276
+  },
+  {
+    "time": "2026-07-27T12:26:17+00:00",
+    "balance": 29943.59,
+    "profit": -1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3448808956
+  },
+  {
+    "time": "2026-07-27T12:26:17+00:00",
+    "balance": 29947.19,
+    "profit": 3.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3448808973
+  },
+  {
+    "time": "2026-07-27T12:27:52+00:00",
+    "balance": 29953.39,
+    "profit": 6.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3448823189
+  },
+  {
+    "time": "2026-07-27T12:38:00+00:00",
+    "balance": 29971.35,
+    "profit": 17.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448898618
+  },
+  {
+    "time": "2026-07-27T12:42:01+00:00",
+    "balance": 29991.9,
+    "profit": 20.55,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448917891
+  },
+  {
+    "time": "2026-07-27T12:45:22+00:00",
+    "balance": 30008.72,
+    "profit": 16.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3448935854
+  },
+  {
+    "time": "2026-07-27T12:45:35+00:00",
+    "balance": 30017.42,
+    "profit": 8.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3448939819
+  },
+  {
+    "time": "2026-07-27T13:00:21+00:00",
+    "balance": 30016.82,
+    "profit": -0.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449056493
+  },
+  {
+    "time": "2026-07-27T13:00:22+00:00",
+    "balance": 30022.02,
+    "profit": 5.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449056697
+  },
+  {
+    "time": "2026-07-27T13:36:26+00:00",
+    "balance": 30023.52,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449399631
+  },
+  {
+    "time": "2026-07-27T13:38:47+00:00",
+    "balance": 30025.32,
+    "profit": 1.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449430051
+  },
+  {
+    "time": "2026-07-27T13:41:47+00:00",
+    "balance": 30027.22,
+    "profit": 1.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449484224
+  },
+  {
+    "time": "2026-07-27T14:00:30+00:00",
+    "balance": 30029.42,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3449734018
+  },
+  {
+    "time": "2026-07-27T14:45:16+00:00",
+    "balance": 30030.72,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3450207013
+  },
+  {
+    "time": "2026-07-27T16:30:51+00:00",
+    "balance": 29995.12,
+    "profit": -35.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887460
+  },
+  {
+    "time": "2026-07-27T16:30:52+00:00",
+    "balance": 29974.6,
+    "profit": -20.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887573
+  },
+  {
+    "time": "2026-07-27T16:30:52+00:00",
+    "balance": 29966.89,
+    "profit": -7.71,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887632
+  },
+  {
+    "time": "2026-07-27T16:30:52+00:00",
+    "balance": 29979.13,
+    "profit": 12.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887679
+  },
+  {
+    "time": "2026-07-27T16:30:53+00:00",
+    "balance": 29997.82,
+    "profit": 18.69,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887737
+  },
+  {
+    "time": "2026-07-27T16:30:53+00:00",
+    "balance": 30030.36,
+    "profit": 32.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887782
+  },
+  {
+    "time": "2026-07-27T16:30:54+00:00",
+    "balance": 30068.09,
+    "profit": 37.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3450887818
+  },
+  {
+    "time": "2026-07-27T16:51:18+00:00",
+    "balance": 30089.37,
+    "profit": 21.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3451047196
+  },
+  {
+    "time": "2026-07-27T18:17:36+00:00",
+    "balance": 30092.55,
+    "profit": 3.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3451391521
+  },
+  {
+    "time": "2026-07-27T18:24:58+00:00",
+    "balance": 30095.17,
+    "profit": 2.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3451405133
+  },
+  {
+    "time": "2026-07-27T18:42:02+00:00",
+    "balance": 30099.25,
+    "profit": 4.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3451455562
+  },
+  {
+    "time": "2026-07-27T19:00:45+00:00",
+    "balance": 30100.56,
+    "profit": 1.31,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3451497004
+  },
+  {
+    "time": "2026-07-27T19:08:15+00:00",
+    "balance": 30082.76,
+    "profit": -17.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3451516584
+  },
+  {
+    "time": "2026-07-27T19:08:15+00:00",
+    "balance": 30087.96,
+    "profit": 5.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3451516591
+  },
+  {
+    "time": "2026-07-27T19:08:15+00:00",
+    "balance": 30112.86,
+    "profit": 24.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3451516593
+  },
+  {
+    "time": "2026-07-28T18:06:18+00:00",
+    "balance": 30115.06,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3458948132
+  },
+  {
+    "time": "2026-07-28T19:39:28+00:00",
+    "balance": 30119.02,
+    "profit": 3.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459121647
+  },
+  {
+    "time": "2026-07-28T20:24:13+00:00",
+    "balance": 30113.58,
+    "profit": -5.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459182742
+  },
+  {
+    "time": "2026-07-28T20:24:14+00:00",
+    "balance": 30120.96,
+    "profit": 7.38,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459182750
+  },
+  {
+    "time": "2026-07-28T22:00:24+00:00",
+    "balance": 30124.73,
+    "profit": 3.77,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459225628
+  },
+  {
+    "time": "2026-07-29T00:32:26+00:00",
+    "balance": 30109.49,
+    "profit": -15.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459743652
+  },
+  {
+    "time": "2026-07-29T00:32:27+00:00",
+    "balance": 30105.95,
+    "profit": -3.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459743989
+  },
+  {
+    "time": "2026-07-29T00:32:27+00:00",
+    "balance": 30114.04,
+    "profit": 8.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459744039
+  },
+  {
+    "time": "2026-07-29T00:32:27+00:00",
+    "balance": 30139.54,
+    "profit": 25.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3459744059
+  },
+  {
+    "time": "2026-07-29T02:22:34+00:00",
+    "balance": 30112.74,
+    "profit": -26.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460563282
+  },
+  {
+    "time": "2026-07-29T02:22:34+00:00",
+    "balance": 30105.84,
+    "profit": -6.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460563332
+  },
+  {
+    "time": "2026-07-29T02:22:34+00:00",
+    "balance": 30111.14,
+    "profit": 5.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460563366
+  },
+  {
+    "time": "2026-07-29T02:22:34+00:00",
+    "balance": 30129.54,
+    "profit": 18.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460563499
+  },
+  {
+    "time": "2026-07-29T02:22:34+00:00",
+    "balance": 30163.04,
+    "profit": 33.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460563507
+  },
+  {
+    "time": "2026-07-29T02:25:28+00:00",
+    "balance": 30190.24,
+    "profit": 27.2,
+    "reason": "Reason 0",
+    "symbol": "XAGUSDc",
+    "ticket": 3460602496
+  },
+  {
+    "time": "2026-07-29T02:33:42+00:00",
+    "balance": 30193.84,
+    "profit": 3.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3460679224
+  },
+  {
+    "time": "2026-07-29T02:55:17+00:00",
+    "balance": 30232.34,
+    "profit": 38.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3460807950
+  },
+  {
+    "time": "2026-07-29T04:44:34+00:00",
+    "balance": 30235.08,
+    "profit": 2.74,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3461339983
+  },
+  {
+    "time": "2026-07-29T05:05:37+00:00",
+    "balance": 30255.03,
+    "profit": 19.95,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3461447476
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29875.93,
+    "profit": -379.1,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239929
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29547.23,
+    "profit": -328.7,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239930
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29273.33,
+    "profit": -273.9,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239933
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29076.43,
+    "profit": -196.9,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239934
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 28902.63,
+    "profit": -173.8,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239938
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 28777.33,
+    "profit": -125.3,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239939
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 28764.43,
+    "profit": -12.9,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239941
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 28749.73,
+    "profit": -14.7,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239942
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 28782.63,
+    "profit": 32.9,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239945
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29017.63,
+    "profit": 235.0,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239946
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29254.73,
+    "profit": 237.1,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239948
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29491.53,
+    "profit": 236.8,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239949
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29728.33,
+    "profit": 236.8,
+    "reason": "Reason 0",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239952
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29741.53,
+    "profit": 13.2,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239953
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29760.13,
+    "profit": 18.6,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239956
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29782.43,
+    "profit": 22.3,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239957
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29857.23,
+    "profit": 74.8,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239959
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 29979.73,
+    "profit": 122.5,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239960
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 30152.63,
+    "profit": 172.9,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239962
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 30373.73,
+    "profit": 221.1,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239964
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 30642.23,
+    "profit": 268.5,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239965
+  },
+  {
+    "time": "2026-07-29T07:11:12+00:00",
+    "balance": 30968.23,
+    "profit": 326.0,
+    "reason": "XAUUSDc entry",
+    "symbol": "XAUUSDc",
+    "ticket": 3462239966
+  },
+  {
+    "time": "2026-07-29T08:09:33+00:00",
+    "balance": 30954.79,
+    "profit": -13.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3462480863
+  },
+  {
+    "time": "2026-07-29T08:09:33+00:00",
+    "balance": 30987.3,
+    "profit": 32.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3462480906
+  },
+  {
+    "time": "2026-07-29T08:12:21+00:00",
+    "balance": 30927.0,
+    "profit": -60.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3462511184
+  },
+  {
+    "time": "2026-07-29T08:12:22+00:00",
+    "balance": 30962.7,
+    "profit": 35.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3462511235
+  },
+  {
+    "time": "2026-07-29T08:12:22+00:00",
+    "balance": 31054.9,
+    "profit": 92.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3462511267
+  },
+  {
+    "time": "2026-07-29T08:43:37+00:00",
+    "balance": 31054.36,
+    "profit": -0.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3462679009
+  },
+  {
+    "time": "2026-07-29T08:43:37+00:00",
+    "balance": 31095.75,
+    "profit": 41.39,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3462679026
+  },
+  {
+    "time": "2026-07-29T09:43:46+00:00",
+    "balance": 31104.63,
+    "profit": 8.88,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3462927671
+  },
+  {
+    "time": "2026-07-29T10:39:32+00:00",
+    "balance": 31097.19,
+    "profit": -7.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3463164175
+  },
+  {
+    "time": "2026-07-29T10:39:33+00:00",
+    "balance": 31129.99,
+    "profit": 32.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3463164252
+  },
+  {
+    "time": "2026-07-29T11:01:17+00:00",
+    "balance": 31139.93,
+    "profit": 9.94,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3463278777
+  },
+  {
+    "time": "2026-07-29T11:32:35+00:00",
+    "balance": 31141.23,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3463448785
+  },
+  {
+    "time": "2026-07-29T11:54:38+00:00",
+    "balance": 31142.33,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3463553229
+  },
+  {
+    "time": "2026-07-29T12:27:50+00:00",
+    "balance": 31150.69,
+    "profit": 8.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3463867440
+  },
+  {
+    "time": "2026-07-29T13:52:43+00:00",
+    "balance": 31156.1,
+    "profit": 5.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464675034
+  },
+  {
+    "time": "2026-07-29T13:55:24+00:00",
+    "balance": 31158.8,
+    "profit": 2.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464706230
+  },
+  {
+    "time": "2026-07-29T13:56:45+00:00",
+    "balance": 31163.16,
+    "profit": 4.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464718272
+  },
+  {
+    "time": "2026-07-29T14:10:09+00:00",
+    "balance": 31147.42,
+    "profit": -15.74,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464912360
+  },
+  {
+    "time": "2026-07-29T14:10:10+00:00",
+    "balance": 31143.81,
+    "profit": -3.61,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464912502
+  },
+  {
+    "time": "2026-07-29T14:10:10+00:00",
+    "balance": 31152.91,
+    "profit": 9.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464912607
+  },
+  {
+    "time": "2026-07-29T14:10:11+00:00",
+    "balance": 31183.29,
+    "profit": 30.38,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3464912782
+  },
+  {
+    "time": "2026-07-29T14:16:53+00:00",
+    "balance": 31185.7,
+    "profit": 2.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3465001933
+  },
+  {
+    "time": "2026-07-29T15:39:00+00:00",
+    "balance": 31195.1,
+    "profit": 9.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3465590945
+  },
+  {
+    "time": "2026-07-29T16:27:51+00:00",
+    "balance": 31216.06,
+    "profit": 20.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3465863609
+  },
+  {
+    "time": "2026-07-29T16:59:07+00:00",
+    "balance": 31222.76,
+    "profit": 6.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466090845
+  },
+  {
+    "time": "2026-07-29T17:10:10+00:00",
+    "balance": 31228.56,
+    "profit": 5.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466186689
+  },
+  {
+    "time": "2026-07-29T17:24:11+00:00",
+    "balance": 31225.96,
+    "profit": -2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3466314663
+  },
+  {
+    "time": "2026-07-29T17:24:11+00:00",
+    "balance": 31238.66,
+    "profit": 12.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3466314688
+  },
+  {
+    "time": "2026-07-29T17:27:12+00:00",
+    "balance": 31241.66,
+    "profit": 3.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3466329896
+  },
+  {
+    "time": "2026-07-29T17:27:12+00:00",
+    "balance": 31235.56,
+    "profit": -6.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466329963
+  },
+  {
+    "time": "2026-07-29T17:27:12+00:00",
+    "balance": 31250.56,
+    "profit": 15.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466329965
+  },
+  {
+    "time": "2026-07-29T17:35:54+00:00",
+    "balance": 31258.66,
+    "profit": 8.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466384913
+  },
+  {
+    "time": "2026-07-29T17:36:13+00:00",
+    "balance": 31262.46,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3466388379
+  },
+  {
+    "time": "2026-07-29T18:03:21+00:00",
+    "balance": 31292.46,
+    "profit": 30.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466723722
+  },
+  {
+    "time": "2026-07-29T18:05:37+00:00",
+    "balance": 31074.75,
+    "profit": -217.71,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466770850
+  },
+  {
+    "time": "2026-07-29T18:05:37+00:00",
+    "balance": 31216.85,
+    "profit": 142.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466770898
+  },
+  {
+    "time": "2026-07-29T18:05:38+00:00",
+    "balance": 31288.39,
+    "profit": 71.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466770974
+  },
+  {
+    "time": "2026-07-29T18:05:38+00:00",
+    "balance": 31427.86,
+    "profit": 139.47,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466771033
+  },
+  {
+    "time": "2026-07-29T18:05:39+00:00",
+    "balance": 31648.88,
+    "profit": 221.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466771085
+  },
+  {
+    "time": "2026-07-29T18:17:02+00:00",
+    "balance": 31652.87,
+    "profit": 3.99,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466932336
+  },
+  {
+    "time": "2026-07-29T18:18:23+00:00",
+    "balance": 31659.4,
+    "profit": 6.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466946542
+  },
+  {
+    "time": "2026-07-29T18:19:04+00:00",
+    "balance": 31663.27,
+    "profit": 3.87,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466951995
+  },
+  {
+    "time": "2026-07-29T18:20:46+00:00",
+    "balance": 31678.47,
+    "profit": 15.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466969211
+  },
+  {
+    "time": "2026-07-29T18:23:46+00:00",
+    "balance": 31687.87,
+    "profit": 9.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3466994440
+  },
+  {
+    "time": "2026-07-29T18:23:46+00:00",
+    "balance": 31704.57,
+    "profit": 16.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3466994588
+  },
+  {
+    "time": "2026-07-29T18:25:45+00:00",
+    "balance": 31707.77,
+    "profit": 3.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3467014932
+  },
+  {
+    "time": "2026-07-29T18:25:47+00:00",
+    "balance": 31721.17,
+    "profit": 13.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467015162
+  },
+  {
+    "time": "2026-07-29T18:48:14+00:00",
+    "balance": 31725.67,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467389419
+  },
+  {
+    "time": "2026-07-29T18:48:14+00:00",
+    "balance": 31781.57,
+    "profit": 55.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467389430
+  },
+  {
+    "time": "2026-07-29T18:56:15+00:00",
+    "balance": 31779.16,
+    "profit": -2.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3467514569
+  },
+  {
+    "time": "2026-07-29T18:56:16+00:00",
+    "balance": 31789.35,
+    "profit": 10.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3467514635
+  },
+  {
+    "time": "2026-07-29T19:04:36+00:00",
+    "balance": 31724.45,
+    "profit": -64.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467617249
+  },
+  {
+    "time": "2026-07-29T19:04:37+00:00",
+    "balance": 31728.85,
+    "profit": 4.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467617332
+  },
+  {
+    "time": "2026-07-29T19:04:37+00:00",
+    "balance": 31776.65,
+    "profit": 47.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467617351
+  },
+  {
+    "time": "2026-07-29T19:04:37+00:00",
+    "balance": 31876.35,
+    "profit": 99.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467617379
+  },
+  {
+    "time": "2026-07-29T19:12:01+00:00",
+    "balance": 31884.65,
+    "profit": 8.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3467704788
+  },
+  {
+    "time": "2026-07-29T19:30:28+00:00",
+    "balance": 31888.17,
+    "profit": 3.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3467860945
+  },
+  {
+    "time": "2026-07-29T19:37:09+00:00",
+    "balance": 31872.17,
+    "profit": -16.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467941829
+  },
+  {
+    "time": "2026-07-29T19:37:09+00:00",
+    "balance": 31905.17,
+    "profit": 33.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3467941860
+  },
+  {
+    "time": "2026-07-29T19:49:56+00:00",
+    "balance": 31908.03,
+    "profit": 2.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468014053
+  },
+  {
+    "time": "2026-07-29T22:07:21+00:00",
+    "balance": 31848.83,
+    "profit": -59.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3468397095
+  },
+  {
+    "time": "2026-07-29T22:07:21+00:00",
+    "balance": 31841.33,
+    "profit": -7.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3468397108
+  },
+  {
+    "time": "2026-07-29T22:07:21+00:00",
+    "balance": 31888.03,
+    "profit": 46.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3468397158
+  },
+  {
+    "time": "2026-07-29T22:07:21+00:00",
+    "balance": 31975.53,
+    "profit": 87.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3468397178
+  },
+  {
+    "time": "2026-07-29T22:07:36+00:00",
+    "balance": 31972.3,
+    "profit": -3.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468397956
+  },
+  {
+    "time": "2026-07-29T22:07:37+00:00",
+    "balance": 31983.89,
+    "profit": 11.59,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468397961
+  },
+  {
+    "time": "2026-07-29T22:09:58+00:00",
+    "balance": 31987.99,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468402839
+  },
+  {
+    "time": "2026-07-29T22:30:45+00:00",
+    "balance": 31990.91,
+    "profit": 2.92,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468439452
+  },
+  {
+    "time": "2026-07-29T23:25:12+00:00",
+    "balance": 31994.56,
+    "profit": 3.65,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3468618782
+  },
+  {
+    "time": "2026-07-30T00:01:53+00:00",
+    "balance": 31954.46,
+    "profit": -40.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3468727952
+  },
+  {
+    "time": "2026-07-30T00:01:53+00:00",
+    "balance": 32079.86,
+    "profit": 125.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3468727957
+  },
+  {
+    "time": "2026-07-30T01:01:46+00:00",
+    "balance": 32083.96,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3469094371
+  },
+  {
+    "time": "2026-07-30T01:02:26+00:00",
+    "balance": 32078.06,
+    "profit": -5.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3469115233
+  },
+  {
+    "time": "2026-07-30T01:02:26+00:00",
+    "balance": 32077.76,
+    "profit": -0.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3469115262
+  },
+  {
+    "time": "2026-07-30T01:02:26+00:00",
+    "balance": 32081.56,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3469115281
+  },
+  {
+    "time": "2026-07-30T01:02:26+00:00",
+    "balance": 32089.96,
+    "profit": 8.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3469115323
+  },
+  {
+    "time": "2026-07-30T01:10:27+00:00",
+    "balance": 32087.71,
+    "profit": -2.25,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469239053
+  },
+  {
+    "time": "2026-07-30T01:10:27+00:00",
+    "balance": 32098.87,
+    "profit": 11.16,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469239076
+  },
+  {
+    "time": "2026-07-30T01:39:17+00:00",
+    "balance": 32102.36,
+    "profit": 3.49,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469499105
+  },
+  {
+    "time": "2026-07-30T02:19:45+00:00",
+    "balance": 32103.56,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3469766894
+  },
+  {
+    "time": "2026-07-30T02:36:24+00:00",
+    "balance": 32100.27,
+    "profit": -3.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469866586
+  },
+  {
+    "time": "2026-07-30T02:36:25+00:00",
+    "balance": 32109.98,
+    "profit": 9.71,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469866660
+  },
+  {
+    "time": "2026-07-30T02:51:29+00:00",
+    "balance": 32144.08,
+    "profit": 34.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3469952791
+  },
+  {
+    "time": "2026-07-30T02:56:48+00:00",
+    "balance": 32147.74,
+    "profit": 3.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3469993937
+  },
+  {
+    "time": "2026-07-30T03:03:11+00:00",
+    "balance": 32149.24,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3470079534
+  },
+  {
+    "time": "2026-07-30T05:40:15+00:00",
+    "balance": 32157.92,
+    "profit": 8.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3471238837
+  },
+  {
+    "time": "2026-07-30T06:34:25+00:00",
+    "balance": 32169.09,
+    "profit": 11.17,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3471664238
+  },
+  {
+    "time": "2026-07-30T07:08:12+00:00",
+    "balance": 32178.43,
+    "profit": 9.34,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3471875793
+  },
+  {
+    "time": "2026-07-30T08:07:45+00:00",
+    "balance": 32161.73,
+    "profit": -16.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472423244
+  },
+  {
+    "time": "2026-07-30T08:07:46+00:00",
+    "balance": 32150.53,
+    "profit": -11.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472423377
+  },
+  {
+    "time": "2026-07-30T08:07:46+00:00",
+    "balance": 32146.13,
+    "profit": -4.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472423511
+  },
+  {
+    "time": "2026-07-30T08:07:47+00:00",
+    "balance": 32145.43,
+    "profit": -0.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472423648
+  },
+  {
+    "time": "2026-07-30T08:07:48+00:00",
+    "balance": 32148.23,
+    "profit": 2.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472423893
+  },
+  {
+    "time": "2026-07-30T08:07:48+00:00",
+    "balance": 32157.73,
+    "profit": 9.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472424030
+  },
+  {
+    "time": "2026-07-30T08:07:49+00:00",
+    "balance": 32171.93,
+    "profit": 14.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472424297
+  },
+  {
+    "time": "2026-07-30T08:07:50+00:00",
+    "balance": 32190.53,
+    "profit": 18.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472424684
+  },
+  {
+    "time": "2026-07-30T08:09:51+00:00",
+    "balance": 32191.53,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472444857
+  },
+  {
+    "time": "2026-07-30T08:15:12+00:00",
+    "balance": 32192.53,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472505364
+  },
+  {
+    "time": "2026-07-30T08:24:03+00:00",
+    "balance": 32017.63,
+    "profit": -174.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3472614135
+  },
+  {
+    "time": "2026-07-30T08:24:03+00:00",
+    "balance": 32016.53,
+    "profit": -1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3472614233
+  },
+  {
+    "time": "2026-07-30T08:24:03+00:00",
+    "balance": 32174.43,
+    "profit": 157.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3472614252
+  },
+  {
+    "time": "2026-07-30T08:24:03+00:00",
+    "balance": 32492.93,
+    "profit": 318.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3472614338
+  },
+  {
+    "time": "2026-07-30T08:35:28+00:00",
+    "balance": 32502.14,
+    "profit": 9.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3472788121
+  },
+  {
+    "time": "2026-07-30T08:52:37+00:00",
+    "balance": 32499.14,
+    "profit": -3.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472938965
+  },
+  {
+    "time": "2026-07-30T08:52:38+00:00",
+    "balance": 32501.34,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472939081
+  },
+  {
+    "time": "2026-07-30T08:52:38+00:00",
+    "balance": 32509.44,
+    "profit": 8.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3472939180
+  },
+  {
+    "time": "2026-07-30T14:18:26+00:00",
+    "balance": 32338.34,
+    "profit": -171.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475856805
+  },
+  {
+    "time": "2026-07-30T14:18:26+00:00",
+    "balance": 32207.93,
+    "profit": -130.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475857304
+  },
+  {
+    "time": "2026-07-30T14:18:27+00:00",
+    "balance": 32128.93,
+    "profit": -79.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475857936
+  },
+  {
+    "time": "2026-07-30T14:18:27+00:00",
+    "balance": 32091.4,
+    "profit": -37.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475858216
+  },
+  {
+    "time": "2026-07-30T14:18:28+00:00",
+    "balance": 32080.84,
+    "profit": -10.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475859278
+  },
+  {
+    "time": "2026-07-30T14:18:28+00:00",
+    "balance": 32140.96,
+    "profit": 60.12,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475859610
+  },
+  {
+    "time": "2026-07-30T14:18:28+00:00",
+    "balance": 32210.95,
+    "profit": 69.99,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475859958
+  },
+  {
+    "time": "2026-07-30T14:18:29+00:00",
+    "balance": 32329.06,
+    "profit": 118.11,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475860455
+  },
+  {
+    "time": "2026-07-30T14:18:29+00:00",
+    "balance": 32480.21,
+    "profit": 151.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475860690
+  },
+  {
+    "time": "2026-07-30T14:18:30+00:00",
+    "balance": 32671.23,
+    "profit": 191.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3475861116
+  },
+  {
+    "time": "2026-07-30T17:36:40+00:00",
+    "balance": 32675.53,
+    "profit": 4.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3477376605
+  },
+  {
+    "time": "2026-07-30T18:27:12+00:00",
+    "balance": 32678.24,
+    "profit": 2.71,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3477552685
+  },
+  {
+    "time": "2026-07-30T19:02:47+00:00",
+    "balance": 32695.74,
+    "profit": 17.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3477633478
+  },
+  {
+    "time": "2026-07-30T19:03:20+00:00",
+    "balance": 32698.49,
+    "profit": 2.75,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3477636251
+  },
+  {
+    "time": "2026-07-30T19:51:37+00:00",
+    "balance": 32701.83,
+    "profit": 3.34,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3477759434
+  },
+  {
+    "time": "2026-07-30T22:02:09+00:00",
+    "balance": 32752.43,
+    "profit": 50.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3477929634
+  },
+  {
+    "time": "2026-07-30T22:14:52+00:00",
+    "balance": 32739.03,
+    "profit": -13.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3477944966
+  },
+  {
+    "time": "2026-07-30T22:14:52+00:00",
+    "balance": 32781.23,
+    "profit": 42.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3477944967
+  },
+  {
+    "time": "2026-07-30T23:36:04+00:00",
+    "balance": 32769.63,
+    "profit": -11.6,
+    "reason": "Reason 1",
+    "symbol": "ETHUSDc",
+    "ticket": 3478062336
+  },
+  {
+    "time": "2026-07-30T23:45:23+00:00",
+    "balance": 32770.93,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478093570
+  },
+  {
+    "time": "2026-07-30T23:47:38+00:00",
+    "balance": 32773.61,
+    "profit": 2.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3478103357
+  },
+  {
+    "time": "2026-07-31T00:52:32+00:00",
+    "balance": 32774.61,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478361690
+  },
+  {
+    "time": "2026-07-31T00:55:52+00:00",
+    "balance": 32775.81,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478372292
+  },
+  {
+    "time": "2026-07-31T00:59:33+00:00",
+    "balance": 32777.21,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478385285
+  },
+  {
+    "time": "2026-07-31T01:00:13+00:00",
+    "balance": 32779.81,
+    "profit": 2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478397232
+  },
+  {
+    "time": "2026-07-31T01:17:35+00:00",
+    "balance": 32780.81,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478591168
+  },
+  {
+    "time": "2026-07-31T01:46:39+00:00",
+    "balance": 32782.21,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3478766900
+  },
+  {
+    "time": "2026-07-31T03:39:12+00:00",
+    "balance": 32784.31,
+    "profit": 2.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3479373732
+  },
+  {
+    "time": "2026-07-31T04:28:30+00:00",
+    "balance": 32827.21,
+    "profit": 42.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3479554471
+  },
+  {
+    "time": "2026-07-31T04:53:02+00:00",
+    "balance": 32828.21,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3479664979
+  },
+  {
+    "time": "2026-07-31T06:05:43+00:00",
+    "balance": 32842.71,
+    "profit": 14.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3480042940
+  },
+  {
+    "time": "2026-07-31T07:40:16+00:00",
+    "balance": 32858.01,
+    "profit": 15.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3480685255
+  },
+  {
+    "time": "2026-07-31T07:41:05+00:00",
+    "balance": 32859.11,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3480690952
+  },
+  {
+    "time": "2026-07-31T14:53:12+00:00",
+    "balance": 32833.91,
+    "profit": -25.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483965627
+  },
+  {
+    "time": "2026-07-31T14:53:12+00:00",
+    "balance": 32814.11,
+    "profit": -19.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483965826
+  },
+  {
+    "time": "2026-07-31T14:53:12+00:00",
+    "balance": 32798.91,
+    "profit": -15.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483965883
+  },
+  {
+    "time": "2026-07-31T14:53:12+00:00",
+    "balance": 32789.51,
+    "profit": -9.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483965992
+  },
+  {
+    "time": "2026-07-31T14:53:12+00:00",
+    "balance": 32784.81,
+    "profit": -4.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966136
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32785.11,
+    "profit": 0.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966194
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32790.31,
+    "profit": 5.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966354
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32800.81,
+    "profit": 10.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966506
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32822.71,
+    "profit": 21.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966573
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32845.51,
+    "profit": 22.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966610
+  },
+  {
+    "time": "2026-07-31T14:53:13+00:00",
+    "balance": 32871.61,
+    "profit": 26.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3483966640
+  },
+  {
+    "time": "2026-07-31T15:05:14+00:00",
+    "balance": 32872.91,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3484084721
+  },
+  {
+    "time": "2026-07-31T15:06:55+00:00",
+    "balance": 32878.21,
+    "profit": 5.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3484093801
+  },
+  {
+    "time": "2026-07-31T15:11:35+00:00",
+    "balance": 32882.51,
+    "profit": 4.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3484123763
+  },
+  {
+    "time": "2026-07-31T17:34:40+00:00",
+    "balance": 32886.91,
+    "profit": 4.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3484754430
+  },
+  {
+    "time": "2026-07-31T19:51:21+00:00",
+    "balance": 32900.81,
+    "profit": 13.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3484985753
+  },
+  {
+    "time": "2026-07-31T20:07:03+00:00",
+    "balance": 32904.11,
+    "profit": 3.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3485008891
+  },
+  {
+    "time": "2026-07-31T20:53:11+00:00",
+    "balance": 32941.41,
+    "profit": 37.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3485052338
+  },
+  {
+    "time": "2026-08-02T05:01:29+00:00",
+    "balance": 32784.61,
+    "profit": -156.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908153
+  },
+  {
+    "time": "2026-08-02T05:01:30+00:00",
+    "balance": 32639.29,
+    "profit": -145.32,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908167
+  },
+  {
+    "time": "2026-08-02T05:01:30+00:00",
+    "balance": 32509.48,
+    "profit": -129.81,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908175
+  },
+  {
+    "time": "2026-08-02T05:01:30+00:00",
+    "balance": 32387.02,
+    "profit": -122.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908185
+  },
+  {
+    "time": "2026-08-02T05:01:31+00:00",
+    "balance": 32277.78,
+    "profit": -109.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908195
+  },
+  {
+    "time": "2026-08-02T05:01:31+00:00",
+    "balance": 32179.56,
+    "profit": -98.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908209
+  },
+  {
+    "time": "2026-08-02T05:01:32+00:00",
+    "balance": 32094.87,
+    "profit": -84.69,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908215
+  },
+  {
+    "time": "2026-08-02T05:01:32+00:00",
+    "balance": 32023.07,
+    "profit": -71.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908229
+  },
+  {
+    "time": "2026-08-02T05:01:32+00:00",
+    "balance": 31961.6,
+    "profit": -61.47,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908242
+  },
+  {
+    "time": "2026-08-02T05:01:33+00:00",
+    "balance": 31911.5,
+    "profit": -50.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908262
+  },
+  {
+    "time": "2026-08-02T05:01:33+00:00",
+    "balance": 31879.5,
+    "profit": -32.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908293
+  },
+  {
+    "time": "2026-08-02T05:01:34+00:00",
+    "balance": 31853.29,
+    "profit": -26.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908310
+  },
+  {
+    "time": "2026-08-02T05:01:34+00:00",
+    "balance": 31839.21,
+    "profit": -14.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908335
+  },
+  {
+    "time": "2026-08-02T05:01:35+00:00",
+    "balance": 31837.79,
+    "profit": -1.42,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908356
+  },
+  {
+    "time": "2026-08-02T05:01:35+00:00",
+    "balance": 31877.45,
+    "profit": 39.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908366
+  },
+  {
+    "time": "2026-08-02T05:01:36+00:00",
+    "balance": 31918.93,
+    "profit": 41.48,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908400
+  },
+  {
+    "time": "2026-08-02T05:01:36+00:00",
+    "balance": 31959.65,
+    "profit": 40.72,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908408
+  },
+  {
+    "time": "2026-08-02T05:01:36+00:00",
+    "balance": 32006.17,
+    "profit": 46.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908417
+  },
+  {
+    "time": "2026-08-02T05:01:37+00:00",
+    "balance": 32067.06,
+    "profit": 60.89,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908428
+  },
+  {
+    "time": "2026-08-02T05:01:37+00:00",
+    "balance": 32143.13,
+    "profit": 76.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908439
+  },
+  {
+    "time": "2026-08-02T05:01:38+00:00",
+    "balance": 32228.25,
+    "profit": 85.12,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908449
+  },
+  {
+    "time": "2026-08-02T05:01:38+00:00",
+    "balance": 32326.88,
+    "profit": 98.63,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908453
+  },
+  {
+    "time": "2026-08-02T05:01:38+00:00",
+    "balance": 32446.52,
+    "profit": 119.64,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908458
+  },
+  {
+    "time": "2026-08-02T05:01:39+00:00",
+    "balance": 32566.27,
+    "profit": 119.75,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908463
+  },
+  {
+    "time": "2026-08-02T05:01:39+00:00",
+    "balance": 32698.43,
+    "profit": 132.16,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908469
+  },
+  {
+    "time": "2026-08-02T05:01:39+00:00",
+    "balance": 32847.39,
+    "profit": 148.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908474
+  },
+  {
+    "time": "2026-08-02T05:01:40+00:00",
+    "balance": 33004.72,
+    "profit": 157.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485908485
+  },
+  {
+    "time": "2026-08-02T08:27:01+00:00",
+    "balance": 33013.24,
+    "profit": 8.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3485993677
+  },
+  {
+    "time": "2026-08-02T15:56:03+00:00",
+    "balance": 33036.22,
+    "profit": 22.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3486320254
+  },
+  {
+    "time": "2026-08-02T16:45:15+00:00",
+    "balance": 33067.46,
+    "profit": 31.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3486349418
+  },
+  {
+    "time": "2026-08-02T19:39:13+00:00",
+    "balance": 33069.81,
+    "profit": 2.35,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486434309
+  },
+  {
+    "time": "2026-08-02T19:39:13+00:00",
+    "balance": 33071.16,
+    "profit": 1.35,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486434310
+  },
+  {
+    "time": "2026-08-02T19:39:13+00:00",
+    "balance": 32968.23,
+    "profit": -102.93,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486434311
+  },
+  {
+    "time": "2026-08-02T19:39:13+00:00",
+    "balance": 32968.4,
+    "profit": 0.17,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486434312
+  },
+  {
+    "time": "2026-08-02T19:39:14+00:00",
+    "balance": 32972.57,
+    "profit": 4.17,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486434313
+  },
+  {
+    "time": "2026-08-02T22:08:30+00:00",
+    "balance": 32973.77,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3486544124
+  },
+  {
+    "time": "2026-08-02T22:22:15+00:00",
+    "balance": 32974.97,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3486591811
+  },
+  {
+    "time": "2026-08-02T22:23:55+00:00",
+    "balance": 32976.17,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3486595835
+  },
+  {
+    "time": "2026-08-02T22:24:36+00:00",
+    "balance": 32977.37,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3486598535
+  },
+  {
+    "time": "2026-08-02T22:51:10+00:00",
+    "balance": 32978.7,
+    "profit": 1.33,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486663747
+  },
+  {
+    "time": "2026-08-02T22:51:10+00:00",
+    "balance": 32982.03,
+    "profit": 3.33,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486663748
+  },
+  {
+    "time": "2026-08-02T22:51:10+00:00",
+    "balance": 32984.83,
+    "profit": 2.8,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486663753
+  },
+  {
+    "time": "2026-08-02T22:51:10+00:00",
+    "balance": 32985.2,
+    "profit": 0.37,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486663756
+  },
+  {
+    "time": "2026-08-02T22:51:10+00:00",
+    "balance": 32984.52,
+    "profit": -0.68,
+    "reason": "Reason 1",
+    "symbol": "BTCUSDc",
+    "ticket": 3486663763
+  },
+  {
+    "time": "2026-08-02T23:40:30+00:00",
+    "balance": 32984.12,
+    "profit": -0.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3486820558
+  },
+  {
+    "time": "2026-08-02T23:40:31+00:00",
+    "balance": 32984.95,
+    "profit": 0.83,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3486820561
+  },
+  {
+    "time": "2026-08-03T00:30:21+00:00",
+    "balance": 32983.95,
+    "profit": -1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3487141313
+  },
+  {
+    "time": "2026-08-03T00:30:22+00:00",
+    "balance": 32988.35,
+    "profit": 4.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3487141340
+  },
+  {
+    "time": "2026-08-03T00:52:26+00:00",
+    "balance": 32989.85,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3487314605
+  },
+  {
+    "time": "2026-08-03T02:08:04+00:00",
+    "balance": 32991.05,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3488005354
+  },
+  {
+    "time": "2026-08-03T02:23:51+00:00",
+    "balance": 32991.28,
+    "profit": 0.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3488147779
+  },
+  {
+    "time": "2026-08-03T02:55:53+00:00",
+    "balance": 32992.18,
+    "profit": 0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3488422191
+  },
+  {
+    "time": "2026-08-03T03:50:06+00:00",
+    "balance": 32993.18,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3488755247
+  },
+  {
+    "time": "2026-08-03T05:26:49+00:00",
+    "balance": 32989.78,
+    "profit": -3.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3489402258
+  },
+  {
+    "time": "2026-08-03T05:26:50+00:00",
+    "balance": 32992.18,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3489403043
+  },
+  {
+    "time": "2026-08-03T05:26:51+00:00",
+    "balance": 32999.98,
+    "profit": 7.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3489407569
+  },
+  {
+    "time": "2026-08-03T05:41:52+00:00",
+    "balance": 32998.58,
+    "profit": -1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3489543263
+  },
+  {
+    "time": "2026-08-03T05:41:52+00:00",
+    "balance": 33002.28,
+    "profit": 3.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3489543285
+  },
+  {
+    "time": "2026-08-03T05:57:29+00:00",
+    "balance": 33020.28,
+    "profit": 18.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3489693761
+  },
+  {
+    "time": "2026-08-03T06:39:24+00:00",
+    "balance": 33021.58,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3490044151
+  },
+  {
+    "time": "2026-08-03T07:26:34+00:00",
+    "balance": 33022.58,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3490413470
+  },
+  {
+    "time": "2026-08-03T09:44:18+00:00",
+    "balance": 33021.38,
+    "profit": -1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3491347729
+  },
+  {
+    "time": "2026-08-03T09:44:18+00:00",
+    "balance": 33025.28,
+    "profit": 3.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3491347734
+  },
+  {
+    "time": "2026-08-03T09:48:18+00:00",
+    "balance": 33026.28,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3491382976
+  },
+  {
+    "time": "2026-08-03T11:08:41+00:00",
+    "balance": 32974.96,
+    "profit": -51.32,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3491849264
+  },
+  {
+    "time": "2026-08-03T11:08:41+00:00",
+    "balance": 32967.03,
+    "profit": -7.93,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3491849282
+  },
+  {
+    "time": "2026-08-03T11:08:42+00:00",
+    "balance": 32996.44,
+    "profit": 29.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3491849325
+  },
+  {
+    "time": "2026-08-03T11:08:42+00:00",
+    "balance": 33073.63,
+    "profit": 77.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3491849344
+  },
+  {
+    "time": "2026-08-03T12:14:45+00:00",
+    "balance": 33072.33,
+    "profit": -1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3492316518
+  },
+  {
+    "time": "2026-08-03T12:14:45+00:00",
+    "balance": 33076.63,
+    "profit": 4.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3492316526
+  },
+  {
+    "time": "2026-08-03T12:34:48+00:00",
+    "balance": 33075.53,
+    "profit": -1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3492515341
+  },
+  {
+    "time": "2026-08-03T12:34:49+00:00",
+    "balance": 33079.73,
+    "profit": 4.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3492515544
+  },
+  {
+    "time": "2026-08-03T12:50:25+00:00",
+    "balance": 33088.08,
+    "profit": 8.35,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3492671373
+  },
+  {
+    "time": "2026-08-03T13:23:55+00:00",
+    "balance": 33090.58,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493089852
+  },
+  {
+    "time": "2026-08-03T13:25:36+00:00",
+    "balance": 33093.59,
+    "profit": 3.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493107397
+  },
+  {
+    "time": "2026-08-03T13:27:58+00:00",
+    "balance": 33096.08,
+    "profit": 2.49,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493133871
+  },
+  {
+    "time": "2026-08-03T13:29:00+00:00",
+    "balance": 33100.27,
+    "profit": 4.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493141379
+  },
+  {
+    "time": "2026-08-03T13:30:22+00:00",
+    "balance": 33102.93,
+    "profit": 2.66,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493151412
+  },
+  {
+    "time": "2026-08-03T14:01:12+00:00",
+    "balance": 33100.78,
+    "profit": -2.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493575444
+  },
+  {
+    "time": "2026-08-03T14:01:13+00:00",
+    "balance": 33108.99,
+    "profit": 8.21,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493575554
+  },
+  {
+    "time": "2026-08-03T14:02:14+00:00",
+    "balance": 33111.49,
+    "profit": 2.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493592650
+  },
+  {
+    "time": "2026-08-03T14:06:57+00:00",
+    "balance": 33114.58,
+    "profit": 3.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493669158
+  },
+  {
+    "time": "2026-08-03T14:20:00+00:00",
+    "balance": 33105.49,
+    "profit": -9.09,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493805486
+  },
+  {
+    "time": "2026-08-03T14:20:01+00:00",
+    "balance": 33113.11,
+    "profit": 7.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493805688
+  },
+  {
+    "time": "2026-08-03T14:20:02+00:00",
+    "balance": 33131.14,
+    "profit": 18.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493805819
+  },
+  {
+    "time": "2026-08-03T14:35:28+00:00",
+    "balance": 33126.0,
+    "profit": -5.14,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493938447
+  },
+  {
+    "time": "2026-08-03T14:35:29+00:00",
+    "balance": 33138.13,
+    "profit": 12.13,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3493938494
+  },
+  {
+    "time": "2026-08-03T15:06:57+00:00",
+    "balance": 33126.71,
+    "profit": -11.42,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3494208475
+  },
+  {
+    "time": "2026-08-03T15:06:58+00:00",
+    "balance": 33130.04,
+    "profit": 3.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3494208512
+  },
+  {
+    "time": "2026-08-03T15:06:59+00:00",
+    "balance": 33143.27,
+    "profit": 13.23,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3494208563
+  },
+  {
+    "time": "2026-08-03T17:03:06+00:00",
+    "balance": 33146.27,
+    "profit": 3.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAGUSDc",
+    "ticket": 3494828209
+  },
+  {
+    "time": "2026-08-03T17:28:54+00:00",
+    "balance": 33171.34,
+    "profit": 25.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3494925106
+  },
+  {
+    "time": "2026-08-03T17:31:17+00:00",
+    "balance": 33175.54,
+    "profit": 4.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3494932759
+  },
+  {
+    "time": "2026-08-03T18:14:36+00:00",
+    "balance": 33186.74,
+    "profit": 11.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495091823
+  },
+  {
+    "time": "2026-08-03T18:31:47+00:00",
+    "balance": 33190.27,
+    "profit": 3.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3495132918
+  },
+  {
+    "time": "2026-08-03T18:48:16+00:00",
+    "balance": 33201.17,
+    "profit": 10.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495179873
+  },
+  {
+    "time": "2026-08-03T19:09:25+00:00",
+    "balance": 33212.47,
+    "profit": 11.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495268556
+  },
+  {
+    "time": "2026-08-03T22:06:23+00:00",
+    "balance": 33171.67,
+    "profit": -40.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495557978
+  },
+  {
+    "time": "2026-08-03T22:06:24+00:00",
+    "balance": 33183.67,
+    "profit": 12.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495558105
+  },
+  {
+    "time": "2026-08-03T22:06:25+00:00",
+    "balance": 33249.67,
+    "profit": 66.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495558249
+  },
+  {
+    "time": "2026-08-03T23:10:11+00:00",
+    "balance": 33249.27,
+    "profit": -0.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495658324
+  },
+  {
+    "time": "2026-08-03T23:10:11+00:00",
+    "balance": 33253.87,
+    "profit": 4.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495658338
+  },
+  {
+    "time": "2026-08-04T00:23:58+00:00",
+    "balance": 33247.57,
+    "profit": -6.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495950290
+  },
+  {
+    "time": "2026-08-04T00:23:58+00:00",
+    "balance": 33247.07,
+    "profit": -0.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495950384
+  },
+  {
+    "time": "2026-08-04T00:23:59+00:00",
+    "balance": 33251.17,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495950499
+  },
+  {
+    "time": "2026-08-04T00:24:00+00:00",
+    "balance": 33260.27,
+    "profit": 9.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495950655
+  },
+  {
+    "time": "2026-08-04T00:38:03+00:00",
+    "balance": 33260.87,
+    "profit": 0.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3495996723
+  },
+  {
+    "time": "2026-08-04T00:39:25+00:00",
+    "balance": 33261.87,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3496005748
+  },
+  {
+    "time": "2026-08-04T00:41:07+00:00",
+    "balance": 33263.47,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3496014805
+  },
+  {
+    "time": "2026-08-04T00:52:51+00:00",
+    "balance": 33264.37,
+    "profit": 0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3496072806
+  },
+  {
+    "time": "2026-08-04T01:34:32+00:00",
+    "balance": 33247.86,
+    "profit": -16.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496455706
+  },
+  {
+    "time": "2026-08-04T01:34:33+00:00",
+    "balance": 33243.76,
+    "profit": -4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496455790
+  },
+  {
+    "time": "2026-08-04T01:34:34+00:00",
+    "balance": 33250.74,
+    "profit": 6.98,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496455821
+  },
+  {
+    "time": "2026-08-04T01:34:35+00:00",
+    "balance": 33271.52,
+    "profit": 20.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496455945
+  },
+  {
+    "time": "2026-08-04T01:34:36+00:00",
+    "balance": 33305.54,
+    "profit": 34.02,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496456087
+  },
+  {
+    "time": "2026-08-04T01:43:19+00:00",
+    "balance": 33308.9,
+    "profit": 3.36,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3496564393
+  },
+  {
+    "time": "2026-08-04T02:05:44+00:00",
+    "balance": 33310.1,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3496739933
+  },
+  {
+    "time": "2026-08-04T03:27:03+00:00",
+    "balance": 33313.17,
+    "profit": 3.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3497169382
+  },
+  {
+    "time": "2026-08-04T03:52:31+00:00",
+    "balance": 33314.37,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3497312503
+  },
+  {
+    "time": "2026-08-04T05:13:43+00:00",
+    "balance": 33312.97,
+    "profit": -1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3497792584
+  },
+  {
+    "time": "2026-08-04T05:13:43+00:00",
+    "balance": 33316.77,
+    "profit": 3.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3497792613
+  },
+  {
+    "time": "2026-08-04T05:18:45+00:00",
+    "balance": 33317.77,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3497827286
+  },
+  {
+    "time": "2026-08-04T06:20:19+00:00",
+    "balance": 33305.0,
+    "profit": -12.77,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498258454
+  },
+  {
+    "time": "2026-08-04T06:20:19+00:00",
+    "balance": 33335.46,
+    "profit": 30.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498258495
+  },
+  {
+    "time": "2026-08-04T06:43:08+00:00",
+    "balance": 33336.86,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3498399658
+  },
+  {
+    "time": "2026-08-04T07:32:30+00:00",
+    "balance": 33310.9,
+    "profit": -25.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498725921
+  },
+  {
+    "time": "2026-08-04T07:32:30+00:00",
+    "balance": 33327.46,
+    "profit": 16.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498725944
+  },
+  {
+    "time": "2026-08-04T07:32:30+00:00",
+    "balance": 33385.92,
+    "profit": 58.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498726031
+  },
+  {
+    "time": "2026-08-04T07:36:33+00:00",
+    "balance": 33397.81,
+    "profit": 11.89,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3498764337
+  },
+  {
+    "time": "2026-08-04T08:30:43+00:00",
+    "balance": 33398.91,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3499183037
+  },
+  {
+    "time": "2026-08-04T10:44:44+00:00",
+    "balance": 33397.21,
+    "profit": -1.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3500033627
+  },
+  {
+    "time": "2026-08-04T10:44:45+00:00",
+    "balance": 33400.41,
+    "profit": 3.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3500034379
+  },
+  {
+    "time": "2026-08-04T10:50:28+00:00",
+    "balance": 33402.61,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3500202785
+  },
+  {
+    "time": "2026-08-04T10:54:41+00:00",
+    "balance": 33411.35,
+    "profit": 8.74,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3500250825
+  },
+  {
+    "time": "2026-08-04T11:37:26+00:00",
+    "balance": 33412.45,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3500520954
+  },
+  {
+    "time": "2026-08-04T11:54:54+00:00",
+    "balance": 33413.65,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3500826311
+  },
+  {
+    "time": "2026-08-04T12:18:52+00:00",
+    "balance": 33383.53,
+    "profit": -30.12,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3501114168
+  },
+  {
+    "time": "2026-08-04T12:18:53+00:00",
+    "balance": 33390.85,
+    "profit": 7.32,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3501114228
+  },
+  {
+    "time": "2026-08-04T12:18:54+00:00",
+    "balance": 33444.27,
+    "profit": 53.42,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3501114370
+  },
+  {
+    "time": "2026-08-04T13:21:03+00:00",
+    "balance": 33445.77,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3501772870
+  },
+  {
+    "time": "2026-08-04T13:21:03+00:00",
+    "balance": 33454.17,
+    "profit": 8.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3501772941
+  },
+  {
+    "time": "2026-08-04T13:58:35+00:00",
+    "balance": 33458.63,
+    "profit": 4.46,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3502386857
+  },
+  {
+    "time": "2026-08-04T14:27:49+00:00",
+    "balance": 33459.73,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3502648102
+  },
+  {
+    "time": "2026-08-04T14:43:35+00:00",
+    "balance": 33462.21,
+    "profit": 2.48,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3502862726
+  },
+  {
+    "time": "2026-08-04T15:38:48+00:00",
+    "balance": 33553.53,
+    "profit": 91.32,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3503235925
+  },
+  {
+    "time": "2026-08-04T16:10:22+00:00",
+    "balance": 33562.79,
+    "profit": 9.26,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3503414090
+  },
+  {
+    "time": "2026-08-04T17:37:01+00:00",
+    "balance": 33567.29,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3503957446
+  },
+  {
+    "time": "2026-08-04T18:00:30+00:00",
+    "balance": 33591.01,
+    "profit": 23.72,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504063778
+  },
+  {
+    "time": "2026-08-04T20:24:33+00:00",
+    "balance": 33583.24,
+    "profit": -7.77,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504436770
+  },
+  {
+    "time": "2026-08-04T20:24:34+00:00",
+    "balance": 33596.06,
+    "profit": 12.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504436774
+  },
+  {
+    "time": "2026-08-04T21:24:01+00:00",
+    "balance": 33599.47,
+    "profit": 3.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504467659
+  },
+  {
+    "time": "2026-08-04T22:40:18+00:00",
+    "balance": 33582.87,
+    "profit": -16.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3504541409
+  },
+  {
+    "time": "2026-08-04T22:40:18+00:00",
+    "balance": 33588.97,
+    "profit": 6.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3504541421
+  },
+  {
+    "time": "2026-08-04T22:40:18+00:00",
+    "balance": 33613.87,
+    "profit": 24.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3504541431
+  },
+  {
+    "time": "2026-08-04T23:10:35+00:00",
+    "balance": 33615.07,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3504673509
+  },
+  {
+    "time": "2026-08-04T23:31:39+00:00",
+    "balance": 33616.57,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3504761713
+  },
+  {
+    "time": "2026-08-04T23:31:42+00:00",
+    "balance": 33619.37,
+    "profit": 2.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504762607
+  },
+  {
+    "time": "2026-08-05T00:32:41+00:00",
+    "balance": 33623.93,
+    "profit": 4.56,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3504962057
+  },
+  {
+    "time": "2026-08-05T03:51:15+00:00",
+    "balance": 33626.48,
+    "profit": 2.55,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3506733813
+  },
+  {
+    "time": "2026-08-05T07:29:03+00:00",
+    "balance": 33629.0,
+    "profit": 2.52,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3508636374
+  },
+  {
+    "time": "2026-08-05T07:45:12+00:00",
+    "balance": 33628.1,
+    "profit": -0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3508716834
+  },
+  {
+    "time": "2026-08-05T07:45:12+00:00",
+    "balance": 33632.2,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3508716856
+  },
+  {
+    "time": "2026-08-05T07:57:28+00:00",
+    "balance": 33640.87,
+    "profit": 8.67,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3508786560
+  },
+  {
+    "time": "2026-08-05T08:49:21+00:00",
+    "balance": 33649.86,
+    "profit": 8.99,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3509067690
+  },
+  {
+    "time": "2026-08-05T10:20:21+00:00",
+    "balance": 33649.26,
+    "profit": -0.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3509618610
+  },
+  {
+    "time": "2026-08-05T10:20:21+00:00",
+    "balance": 33653.76,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3509618649
+  },
+  {
+    "time": "2026-08-05T10:56:05+00:00",
+    "balance": 33655.06,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3509763231
+  },
+  {
+    "time": "2026-08-05T11:05:31+00:00",
+    "balance": 33666.35,
+    "profit": 11.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3509832029
+  },
+  {
+    "time": "2026-08-05T13:00:21+00:00",
+    "balance": 33669.75,
+    "profit": 3.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3511078208
+  },
+  {
+    "time": "2026-08-05T13:39:57+00:00",
+    "balance": 33611.47,
+    "profit": -58.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511434542
+  },
+  {
+    "time": "2026-08-05T13:39:57+00:00",
+    "balance": 33607.18,
+    "profit": -4.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511434790
+  },
+  {
+    "time": "2026-08-05T13:39:58+00:00",
+    "balance": 33642.71,
+    "profit": 35.53,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511435045
+  },
+  {
+    "time": "2026-08-05T13:39:58+00:00",
+    "balance": 33734.84,
+    "profit": 92.13,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511435354
+  },
+  {
+    "time": "2026-08-05T13:39:59+00:00",
+    "balance": 33843.83,
+    "profit": 108.99,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511435754
+  },
+  {
+    "time": "2026-08-05T13:40:40+00:00",
+    "balance": 33846.55,
+    "profit": 2.72,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511451405
+  },
+  {
+    "time": "2026-08-05T13:48:22+00:00",
+    "balance": 33844.25,
+    "profit": -2.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511502915
+  },
+  {
+    "time": "2026-08-05T13:48:22+00:00",
+    "balance": 33854.98,
+    "profit": 10.73,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3511502923
+  },
+  {
+    "time": "2026-08-05T16:05:47+00:00",
+    "balance": 33877.2,
+    "profit": 22.22,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3513080587
+  },
+  {
+    "time": "2026-08-05T16:09:58+00:00",
+    "balance": 33851.3,
+    "profit": -25.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513119845
+  },
+  {
+    "time": "2026-08-05T16:09:58+00:00",
+    "balance": 33851.1,
+    "profit": -0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513119861
+  },
+  {
+    "time": "2026-08-05T16:09:58+00:00",
+    "balance": 33871.0,
+    "profit": 19.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513119898
+  },
+  {
+    "time": "2026-08-05T16:09:58+00:00",
+    "balance": 33907.0,
+    "profit": 36.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513119942
+  },
+  {
+    "time": "2026-08-05T19:23:07+00:00",
+    "balance": 33925.1,
+    "profit": 18.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513831731
+  },
+  {
+    "time": "2026-08-05T20:57:39+00:00",
+    "balance": 33940.1,
+    "profit": 15.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3513943862
+  },
+  {
+    "time": "2026-08-05T22:33:03+00:00",
+    "balance": 33936.48,
+    "profit": -3.62,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3513976073
+  },
+  {
+    "time": "2026-08-05T22:33:04+00:00",
+    "balance": 33945.34,
+    "profit": 8.86,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3513976077
+  },
+  {
+    "time": "2026-08-05T23:08:17+00:00",
+    "balance": 33948.12,
+    "profit": 2.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3514011512
+  },
+  {
+    "time": "2026-08-06T01:27:00+00:00",
+    "balance": 33949.12,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3514872461
+  },
+  {
+    "time": "2026-08-06T02:23:42+00:00",
+    "balance": 33952.61,
+    "profit": 3.49,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3515255078
+  },
+  {
+    "time": "2026-08-06T02:38:51+00:00",
+    "balance": 33953.91,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3515326906
+  },
+  {
+    "time": "2026-08-06T03:29:59+00:00",
+    "balance": 33952.61,
+    "profit": -1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3515601395
+  },
+  {
+    "time": "2026-08-06T03:29:59+00:00",
+    "balance": 33956.61,
+    "profit": 4.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3515601400
+  },
+  {
+    "time": "2026-08-06T04:36:11+00:00",
+    "balance": 33958.41,
+    "profit": 1.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3515898430
+  },
+  {
+    "time": "2026-08-06T04:50:33+00:00",
+    "balance": 33960.41,
+    "profit": 2.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3515943442
+  },
+  {
+    "time": "2026-08-06T05:14:59+00:00",
+    "balance": 33961.41,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516060404
+  },
+  {
+    "time": "2026-08-06T05:34:26+00:00",
+    "balance": 33962.61,
+    "profit": 1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516189957
+  },
+  {
+    "time": "2026-08-06T06:20:00+00:00",
+    "balance": 33961.41,
+    "profit": -1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516505439
+  },
+  {
+    "time": "2026-08-06T06:20:00+00:00",
+    "balance": 33965.91,
+    "profit": 4.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516505467
+  },
+  {
+    "time": "2026-08-06T06:26:12+00:00",
+    "balance": 33976.15,
+    "profit": 10.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3516536769
+  },
+  {
+    "time": "2026-08-06T06:42:49+00:00",
+    "balance": 33977.75,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516626276
+  },
+  {
+    "time": "2026-08-06T07:48:25+00:00",
+    "balance": 33979.05,
+    "profit": 1.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3516961442
+  },
+  {
+    "time": "2026-08-06T07:50:12+00:00",
+    "balance": 33988.79,
+    "profit": 9.74,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3516969873
+  },
+  {
+    "time": "2026-08-06T11:28:01+00:00",
+    "balance": 33990.29,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518131636
+  },
+  {
+    "time": "2026-08-06T11:56:28+00:00",
+    "balance": 33991.79,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518295922
+  },
+  {
+    "time": "2026-08-06T11:56:28+00:00",
+    "balance": 33998.39,
+    "profit": 6.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518295947
+  },
+  {
+    "time": "2026-08-06T13:01:06+00:00",
+    "balance": 34000.59,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518752934
+  },
+  {
+    "time": "2026-08-06T13:12:49+00:00",
+    "balance": 34001.99,
+    "profit": 1.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518929613
+  },
+  {
+    "time": "2026-08-06T13:16:10+00:00",
+    "balance": 34003.49,
+    "profit": 1.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518956658
+  },
+  {
+    "time": "2026-08-06T13:19:32+00:00",
+    "balance": 34006.09,
+    "profit": 2.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3518978983
+  },
+  {
+    "time": "2026-08-06T13:20:34+00:00",
+    "balance": 34008.49,
+    "profit": 2.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3519002167
+  },
+  {
+    "time": "2026-08-06T14:11:43+00:00",
+    "balance": 33894.05,
+    "profit": -114.44,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519566927
+  },
+  {
+    "time": "2026-08-06T14:11:44+00:00",
+    "balance": 33826.26,
+    "profit": -67.79,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519567259
+  },
+  {
+    "time": "2026-08-06T14:11:45+00:00",
+    "balance": 33797.44,
+    "profit": -28.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519567904
+  },
+  {
+    "time": "2026-08-06T14:11:46+00:00",
+    "balance": 33809.39,
+    "profit": 11.95,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519568252
+  },
+  {
+    "time": "2026-08-06T14:11:47+00:00",
+    "balance": 33864.9,
+    "profit": 55.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519568501
+  },
+  {
+    "time": "2026-08-06T14:11:47+00:00",
+    "balance": 33963.18,
+    "profit": 98.28,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519568828
+  },
+  {
+    "time": "2026-08-06T14:11:48+00:00",
+    "balance": 34101.47,
+    "profit": 138.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3519569018
+  },
+  {
+    "time": "2026-08-06T15:26:38+00:00",
+    "balance": 34108.77,
+    "profit": 7.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520165511
+  },
+  {
+    "time": "2026-08-06T15:37:42+00:00",
+    "balance": 34113.97,
+    "profit": 5.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520246347
+  },
+  {
+    "time": "2026-08-06T16:05:32+00:00",
+    "balance": 34125.07,
+    "profit": 11.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520506457
+  },
+  {
+    "time": "2026-08-06T16:08:32+00:00",
+    "balance": 34130.17,
+    "profit": 5.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520533295
+  },
+  {
+    "time": "2026-08-06T16:10:09+00:00",
+    "balance": 34154.44,
+    "profit": 24.27,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3520540863
+  },
+  {
+    "time": "2026-08-06T16:38:15+00:00",
+    "balance": 34125.94,
+    "profit": -28.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520743626
+  },
+  {
+    "time": "2026-08-06T16:38:15+00:00",
+    "balance": 34117.84,
+    "profit": -8.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520743639
+  },
+  {
+    "time": "2026-08-06T16:38:15+00:00",
+    "balance": 34130.04,
+    "profit": 12.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520743653
+  },
+  {
+    "time": "2026-08-06T16:38:16+00:00",
+    "balance": 34168.24,
+    "profit": 38.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3520743666
+  },
+  {
+    "time": "2026-08-06T18:48:08+00:00",
+    "balance": 34180.94,
+    "profit": 12.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521139467
+  },
+  {
+    "time": "2026-08-06T19:51:47+00:00",
+    "balance": 34163.14,
+    "profit": -17.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521290876
+  },
+  {
+    "time": "2026-08-06T19:51:47+00:00",
+    "balance": 34209.04,
+    "profit": 45.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521290879
+  },
+  {
+    "time": "2026-08-06T20:36:04+00:00",
+    "balance": 34219.94,
+    "profit": 10.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521375706
+  },
+  {
+    "time": "2026-08-06T20:51:09+00:00",
+    "balance": 34230.04,
+    "profit": 10.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521397944
+  },
+  {
+    "time": "2026-08-07T00:29:58+00:00",
+    "balance": 34228.14,
+    "profit": -1.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521702393
+  },
+  {
+    "time": "2026-08-07T00:29:58+00:00",
+    "balance": 34232.24,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521702396
+  },
+  {
+    "time": "2026-08-07T00:45:20+00:00",
+    "balance": 34234.44,
+    "profit": 2.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3521796630
+  },
+  {
+    "time": "2026-08-07T01:03:48+00:00",
+    "balance": 34051.99,
+    "profit": -182.45,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3521905470
+  },
+  {
+    "time": "2026-08-07T01:03:49+00:00",
+    "balance": 33962.7,
+    "profit": -89.29,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3521905507
+  },
+  {
+    "time": "2026-08-07T01:03:49+00:00",
+    "balance": 33971.71,
+    "profit": 9.01,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3521905557
+  },
+  {
+    "time": "2026-08-07T01:03:49+00:00",
+    "balance": 34093.79,
+    "profit": 122.08,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3521905603
+  },
+  {
+    "time": "2026-08-07T01:03:50+00:00",
+    "balance": 34314.24,
+    "profit": 220.45,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3521905640
+  },
+  {
+    "time": "2026-08-07T02:14:04+00:00",
+    "balance": 34316.39,
+    "profit": 2.15,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3522315943
+  },
+  {
+    "time": "2026-08-07T02:49:03+00:00",
+    "balance": 34314.59,
+    "profit": -1.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3522489203
+  },
+  {
+    "time": "2026-08-07T02:49:03+00:00",
+    "balance": 34318.69,
+    "profit": 4.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3522489206
+  },
+  {
+    "time": "2026-08-07T03:06:55+00:00",
+    "balance": 34322.47,
+    "profit": 3.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3522597938
+  },
+  {
+    "time": "2026-08-07T05:44:02+00:00",
+    "balance": 34325.66,
+    "profit": 3.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3523361320
+  },
+  {
+    "time": "2026-08-07T06:36:55+00:00",
+    "balance": 34339.61,
+    "profit": 13.95,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3523775386
+  },
+  {
+    "time": "2026-08-07T07:35:46+00:00",
+    "balance": 34341.21,
+    "profit": 1.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3524144165
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 34032.81,
+    "profit": -308.4,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177346
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 33740.91,
+    "profit": -291.9,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177348
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 33462.91,
+    "profit": -278.0,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177349
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 33201.01,
+    "profit": -261.9,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177350
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 32953.31,
+    "profit": -247.7,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177351
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 32723.91,
+    "profit": -229.4,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177352
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 32526.71,
+    "profit": -197.2,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177353
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 32313.91,
+    "profit": -212.8,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177354
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 32125.91,
+    "profit": -188.0,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177355
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31953.71,
+    "profit": -172.2,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177356
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31797.01,
+    "profit": -156.7,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177357
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31670.81,
+    "profit": -126.2,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177358
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31558.61,
+    "profit": -112.2,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177359
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31461.51,
+    "profit": -97.1,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177360
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31381.41,
+    "profit": -80.1,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177361
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31239.61,
+    "profit": -141.8,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177362
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31174.31,
+    "profit": -65.3,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177363
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31136.31,
+    "profit": -38.0,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177364
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31083.31,
+    "profit": -53.0,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177365
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31060.31,
+    "profit": -23.0,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177366
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31056.11,
+    "profit": -4.2,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177367
+  },
+  {
+    "time": "2026-08-07T07:43:21+00:00",
+    "balance": 31064.21,
+    "profit": 8.1,
+    "reason": "Reason 1",
+    "symbol": "XAGUSDc",
+    "ticket": 3524177368
+  },
+  {
+    "time": "2026-08-07T08:06:01+00:00",
+    "balance": 31072.64,
+    "profit": 8.43,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3524308862
+  },
+  {
+    "time": "2026-08-07T12:36:08+00:00",
+    "balance": 31073.54,
+    "profit": 0.9,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526216266
+  },
+  {
+    "time": "2026-08-07T12:39:09+00:00",
+    "balance": 31073.34,
+    "profit": -0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526270417
+  },
+  {
+    "time": "2026-08-07T12:39:09+00:00",
+    "balance": 31079.74,
+    "profit": 6.4,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526270492
+  },
+  {
+    "time": "2026-08-07T12:40:29+00:00",
+    "balance": 31080.34,
+    "profit": 0.6,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526303589
+  },
+  {
+    "time": "2026-08-07T13:06:39+00:00",
+    "balance": 31083.84,
+    "profit": 3.5,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526647556
+  },
+  {
+    "time": "2026-08-07T13:21:24+00:00",
+    "balance": 31086.14,
+    "profit": 2.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3526792821
+  },
+  {
+    "time": "2026-08-07T14:00:39+00:00",
+    "balance": 31087.24,
+    "profit": 1.1,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3527182328
+  },
+  {
+    "time": "2026-08-07T14:07:02+00:00",
+    "balance": 31088.94,
+    "profit": 1.7,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3527284292
+  },
+  {
+    "time": "2026-08-07T14:15:21+00:00",
+    "balance": 31092.97,
+    "profit": 4.03,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3527394339
+  },
+  {
+    "time": "2026-08-07T14:17:42+00:00",
+    "balance": 31097.15,
+    "profit": 4.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3527422779
+  },
+  {
+    "time": "2026-08-07T14:18:44+00:00",
+    "balance": 31100.69,
+    "profit": 3.54,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3527437350
+  },
+  {
+    "time": "2026-08-07T14:19:25+00:00",
+    "balance": 31103.37,
+    "profit": 2.68,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3527448525
+  },
+  {
+    "time": "2026-08-07T15:56:46+00:00",
+    "balance": 31109.67,
+    "profit": 6.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3528136145
+  },
+  {
+    "time": "2026-08-07T17:01:32+00:00",
+    "balance": 31115.97,
+    "profit": 6.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3528494037
+  },
+  {
+    "time": "2026-08-07T17:04:53+00:00",
+    "balance": 31121.97,
+    "profit": 6.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3528509110
+  },
+  {
+    "time": "2026-08-07T17:08:17+00:00",
+    "balance": 31086.64,
+    "profit": -35.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528525669
+  },
+  {
+    "time": "2026-08-07T17:08:17+00:00",
+    "balance": 31169.42,
+    "profit": 82.78,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528525685
+  },
+  {
+    "time": "2026-08-07T17:45:25+00:00",
+    "balance": 31091.6,
+    "profit": -77.82,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528648459
+  },
+  {
+    "time": "2026-08-07T17:45:25+00:00",
+    "balance": 31123.56,
+    "profit": 31.96,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528648493
+  },
+  {
+    "time": "2026-08-07T17:45:26+00:00",
+    "balance": 31260.91,
+    "profit": 137.35,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528648534
+  },
+  {
+    "time": "2026-08-07T18:36:47+00:00",
+    "balance": 31272.21,
+    "profit": 11.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3528765760
+  },
+  {
+    "time": "2026-08-07T19:58:29+00:00",
+    "balance": 31284.41,
+    "profit": 12.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3528911790
+  },
+  {
+    "time": "2026-08-07T22:17:16+00:00",
+    "balance": 31287.2,
+    "profit": 2.79,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528982121
+  },
+  {
+    "time": "2026-08-07T22:48:28+00:00",
+    "balance": 31289.63,
+    "profit": 2.43,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528985384
+  },
+  {
+    "time": "2026-08-08T00:30:47+00:00",
+    "balance": 31291.93,
+    "profit": 2.3,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3528998049
+  },
+  {
+    "time": "2026-08-08T08:35:04+00:00",
+    "balance": 31299.41,
+    "profit": 7.48,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529147891
+  },
+  {
+    "time": "2026-08-08T12:14:41+00:00",
+    "balance": 31310.82,
+    "profit": 11.41,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529204035
+  },
+  {
+    "time": "2026-08-08T12:16:23+00:00",
+    "balance": 31320.57,
+    "profit": 9.75,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529208914
+  },
+  {
+    "time": "2026-08-08T14:19:32+00:00",
+    "balance": 31328.0,
+    "profit": 7.43,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529241896
+  },
+  {
+    "time": "2026-08-08T16:08:23+00:00",
+    "balance": 31351.45,
+    "profit": 23.45,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529310869
+  },
+  {
+    "time": "2026-08-09T10:31:19+00:00",
+    "balance": 31335.94,
+    "profit": -15.51,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529653761
+  },
+  {
+    "time": "2026-08-09T10:31:20+00:00",
+    "balance": 31332.61,
+    "profit": -3.33,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529653762
+  },
+  {
+    "time": "2026-08-09T10:31:20+00:00",
+    "balance": 31340.79,
+    "profit": 8.18,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529653763
+  },
+  {
+    "time": "2026-08-09T10:31:20+00:00",
+    "balance": 31361.86,
+    "profit": 21.07,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529653764
+  },
+  {
+    "time": "2026-08-09T14:55:14+00:00",
+    "balance": 31362.13,
+    "profit": 0.27,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529794379
+  },
+  {
+    "time": "2026-08-09T16:31:09+00:00",
+    "balance": 31387.32,
+    "profit": 25.19,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529831454
+  },
+  {
+    "time": "2026-08-09T21:36:21+00:00",
+    "balance": 31367.45,
+    "profit": -19.87,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529880062
+  },
+  {
+    "time": "2026-08-09T21:36:21+00:00",
+    "balance": 31448.0,
+    "profit": 80.55,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3529880079
+  },
+  {
+    "time": "2026-08-09T22:55:01+00:00",
+    "balance": 31448.24,
+    "profit": 0.24,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3530026382
+  },
+  {
+    "time": "2026-08-09T23:35:47+00:00",
+    "balance": 31448.44,
+    "profit": 0.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "BTCUSDc",
+    "ticket": 3530157410
+  },
+  {
+    "time": "2026-08-09T23:40:12+00:00",
+    "balance": 31449.44,
+    "profit": 1.0,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3530172562
+  }
+]

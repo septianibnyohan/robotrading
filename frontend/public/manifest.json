@@ -1,0 +1,18 @@
+{
+  "name": "RoboBTC Layer Trading SaaS",
+  "short_name": "RoboBTC SaaS",
+  "description": "Progressive Web Application dashboard for live layer trading and simulated sandbox operations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07070F",
+  "theme_color": "#07070F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

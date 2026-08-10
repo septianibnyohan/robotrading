@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Standard Cent",
+    "login": 183794153,
+    "password": "ExnessOnline01#",
+    "server": "Exness-MT5Real25",
+    "path": "C:\\Program Files\\MetaTrader 5\\terminal64.exe",
+    "symbols": [
+      "BTCUSDc",
+      "XAUUSDc",
+      "XAGUSDc"
+    ]
+  }
+]
