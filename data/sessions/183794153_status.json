@@ -13,16 +13,16 @@
       "first_entry_price": 0.0,
       "net_profit": 0.0,
       "risk_level": "low",
-      "current_price": 64848.81
+      "current_price": 64879.99
     },
     {
       "symbol": "XAUUSDc",
-      "layers": 2,
+      "layers": 1,
       "direction": "BUY",
-      "first_entry_price": 4342.56,
-      "net_profit": 2.0,
+      "first_entry_price": 4340.785,
+      "net_profit": 0.6,
       "risk_level": "low",
-      "current_price": 4340.642
+      "current_price": 4341.413
     },
     {
       "symbol": "XAGUSDc",
@@ -31,17 +31,17 @@
       "first_entry_price": 0.0,
       "net_profit": 0.0,
       "risk_level": "low",
-      "current_price": 63.774
+      "current_price": 63.801
     }
   ],
   "account": {
-    "balance": 31449.44,
-    "equity": 31451.44,
-    "margin_free": 31447.1,
-    "profit": 2.0,
+    "balance": 31453.04,
+    "equity": 31453.64,
+    "margin_free": 31451.47,
+    "profit": 0.6,
     "login": 183794153,
     "server": "Exness-MT5Real25",
     "currency": "USC"
   },
-  "last_updated": 1786320287.127534
+  "last_updated": 1786320343.356138
 }

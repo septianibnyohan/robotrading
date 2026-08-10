@@ -1,6 +1,6 @@
 [
   {
-    "time": "2026-07-11T00:04:39+00:00",
+    "time": "2026-07-11T00:05:39+00:00",
     "balance": 24944.01,
     "profit": 0.0,
     "reason": "Initial",
@@ -8421,5 +8421,21 @@
     "reason": "Close BASKET_TP",
     "symbol": "XAUUSDc",
     "ticket": 3530172562
+  },
+  {
+    "time": "2026-08-10T00:05:15+00:00",
+    "balance": 31448.24,
+    "profit": -1.2,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3530286255
+  },
+  {
+    "time": "2026-08-10T00:05:15+00:00",
+    "balance": 31453.04,
+    "profit": 4.8,
+    "reason": "Close BASKET_TP",
+    "symbol": "XAUUSDc",
+    "ticket": 3530286271
   }
 ]
