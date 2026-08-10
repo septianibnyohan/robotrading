@@ -3,6 +3,7 @@ import KPIWidget from './KPIWidget';
 import LayerChart from './LayerChart';
 import EquityChart from './EquityChart';
 import PositionsTable from './PositionsTable';
+import HistoryTable from './HistoryTable';
 import { PlayIcon, StopIcon, InfoIcon, AlertIcon } from './Icons';
 
 const TradingDashboard = ({
@@ -20,15 +21,18 @@ const TradingDashboard = ({
   const [actionLoading, setActionLoading] = useState(false);
 
   const isLive = mode === 'live';
+  const botRunning = status?.bot_running || false;
+  const activeSymbols = status?.active_symbols || [];
 
-  // Initialize selected symbols from active symbol configurations
+  // Default select current active symbols if bot is already running
   useEffect(() => {
-    if (symbolsData?.active?.length > 0 && selectedSymbols.length === 0) {
-      setSelectedSymbols([symbolsData.active[0]]);
+    if (botRunning && activeSymbols.length > 0) {
+      setSelectedSymbols(activeSymbols);
     }
-  }, [symbolsData]);
+  }, [botRunning, activeSymbols]);
 
-  const toggleSymbolSelection = (sym) => {
+  const handleToggleSymbol = (sym) => {
+    if (botRunning) return; // Prevent edits when loop is running
     setSelectedSymbols((prev) =>
       prev.includes(sym) ? prev.filter((s) => s !== sym) : [...prev, sym]
     );
@@ -51,128 +55,98 @@ const TradingDashboard = ({
   };
 
   const handleEmergency = async () => {
-    setActionLoading(true);
     await onEmergencyClose(mode);
-    setActionLoading(false);
   };
 
-  const activeSession = status?.active_sessions?.[0] || null;
-  const currentPrice = activeSession ? activeSession.current_price : null;
+  // Safe checks for sessions
+  const activeSessions = status?.active_sessions || [];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      {/* Top statistics summary cards */}
-      <KPIWidget account={status?.account} positions={positions} activeSession={activeSession} />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      {/* KPI Info Cards */}
+      <KPIWidget account={status?.account} positions={positions} activeSession={activeSessions[0]} />
 
-      {/* Execution panel and grid chart */}
+      {/* Grid Monitor & Control cards row */}
       <div className="charts-grid">
         {/* Controls Card */}
         <div className="control-card">
-          <div className="control-card-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: isLive ? 'var(--warning)' : 'var(--secondary)' }}>
-              <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
-              <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
-              <line x1="6" y1="6" x2="6.01" y2="6" />
-              <line x1="6" y1="18" x2="6.01" y2="18" />
-            </svg>
-            <span>{isLive ? 'Live Trading Account Control' : 'Simulated Sandbox Control'}</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+            <h3 style={{ color: 'var(--text-white)', fontSize: '1.1rem', fontWeight: '700' }}>Engine Controller</h3>
+            <span className={`badge ${botRunning ? 'badge-connected' : 'badge-disconnected'}`}>
+              <span className="badge-dot"></span>
+              {botRunning ? 'Active' : 'Offline'}
+            </span>
           </div>
 
-          {status?.bot_running ? (
-            <div className="control-row">
-              <div style={{
-                padding: '1.25rem',
-                background: isLive ? 'rgba(255, 170, 0, 0.05)' : 'rgba(0, 240, 255, 0.05)',
-                border: `1px solid ${isLive ? 'rgba(255, 170, 0, 0.15)' : 'rgba(0, 240, 255, 0.15)'}`,
-                borderRadius: '8px',
-                display: 'flex',
-                gap: '10px'
-              }}>
-                <InfoIcon style={{ color: isLive ? 'var(--warning)' : 'var(--secondary)', flexShrink: 0, marginTop: '2px' }} />
-                <div style={{ fontSize: '0.9rem', lineHeight: '1.4' }}>
-                  <strong>Bot Engine running</strong> for <strong>{status.running_symbols.join(", ")}</strong> in <strong>{isLive ? 'LIVE ACCOUNT' : 'SIMULATED SANDBOX'}</strong>. Grid monitoring threads are actively listening.
+          <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+            <label className="form-label">Configure Trading Symbols</label>
+            <div className="symbol-check-grid" style={{ marginTop: '0.5rem' }}>
+              {symbolsData?.active?.map((sym) => (
+                <div
+                  key={sym}
+                  className={`symbol-check-item ${selectedSymbols.includes(sym) ? 'selected' : ''} ${botRunning ? 'disabled' : ''}`}
+                  onClick={() => handleToggleSymbol(sym)}
+                >
+                  <span className="symbol-check-label">{sym}</span>
+                  <div className="checkbox-custom"></div>
                 </div>
-              </div>
-              <div className="control-actions-row">
-                <button className="btn btn-danger" style={{ flex: 1 }} onClick={handleStop} disabled={actionLoading}>
-                  <StopIcon />
-                  <span>Stop Bot Loops</span>
-                </button>
-                <button className="btn btn-secondary" onClick={handleEmergency} disabled={actionLoading}>
-                  <span>Emergency Close All</span>
-                </button>
-              </div>
+              ))}
             </div>
-          ) : (
-            <div className="control-row">
-              <div className="control-item">
-                <div className="control-label">Select Trading Instruments</div>
-                <div className="symbol-check-grid" style={{ marginTop: '0.5rem' }}>
-                  {symbolsData?.active?.map((sym) => (
-                    <div
-                      key={sym}
-                      className={`symbol-check-item ${selectedSymbols.includes(sym) ? 'selected' : ''}`}
-                      onClick={() => toggleSymbolSelection(sym)}
-                    >
-                      <span className="symbol-check-label">{sym}</span>
-                      <div className="checkbox-custom"></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {botRunning && (
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block', marginTop: '0.5rem' }}>
+                * Stop the strategy engine to update trading symbols.
+              </span>
+            )}
+          </div>
 
-              {isLive && (
-                <div style={{
-                  padding: '0.85rem 1rem',
-                  background: 'rgba(255, 51, 102, 0.1)',
-                  border: '1px solid rgba(255, 51, 102, 0.25)',
-                  borderRadius: '8px',
-                  display: 'flex',
-                  gap: '8px'
-                }}>
-                  <AlertIcon style={{ color: 'var(--red)', flexShrink: 0, marginTop: '2px' }} />
-                  <span style={{ fontSize: '0.8rem', color: 'var(--red)', lineHeight: '1.35', fontWeight: '500' }}>
-                    CAUTION: Starting this loop places real trades on your live broker account. Verify your settings page overrides before running!
-                  </span>
-                </div>
-              )}
-
+          <div style={{ display: 'flex', gap: '0.75rem', marginTop: 'auto' }}>
+            {botRunning ? (
               <button
-                className="btn"
-                style={{
-                  background: isLive ? 'linear-gradient(135deg, var(--warning), #E67E22)' : 'linear-gradient(135deg, var(--primary), #6A11CB)',
-                  color: isLive ? '#000' : 'var(--text-white)',
-                  boxShadow: isLive ? '0 4px 15px rgba(255, 170, 0, 0.2)' : '0 4px 15px var(--primary-glow)',
-                  fontWeight: '700',
-                  marginTop: '0.5rem'
-                }}
+                className="btn btn-danger"
+                style={{ flex: 1, padding: '0.75rem' }}
+                onClick={handleStop}
+                disabled={actionLoading}
+              >
+                <StopIcon />
+                <span>Stop Engine</span>
+              </button>
+            ) : (
+              <button
+                className="btn btn-success"
+                style={{ flex: 1, padding: '0.75rem' }}
                 onClick={handleStart}
                 disabled={actionLoading}
               >
                 <PlayIcon />
-                <span>Start {isLive ? 'Live Trading' : 'Forward Tester'}</span>
+                <span>Start Engine</span>
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
-        {/* Spatial Grid visualizer card */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: isLive ? 'var(--warning)' : 'var(--secondary)' }}>
-                <line x1="4" y1="21" x2="4" y2="14" />
-                <line x1="4" y1="10" x2="4" y2="3" />
-                <line x1="12" y1="21" x2="12" y2="12" />
-                <line x1="12" y1="8" x2="12" y2="3" />
-                <line x1="20" y1="21" x2="20" y2="16" />
-                <line x1="20" y1="12" x2="20" y2="3" />
-              </svg>
-              <span>{isLive ? 'Live Grid Visualizer' : 'Simulated Grid Visualizer'} {activeSession ? `(${activeSession.symbol})` : ''}</span>
-            </h3>
-          </div>
-          <div className="chart-wrapper">
-            <LayerChart activeSession={activeSession} currentPrice={currentPrice} config={config} />
+        {/* Visualizers Container */}
+        <div className="visualizer-card">
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: activeSessions.length > 1 ? '1fr 1fr' : '1fr', 
+            gap: '1.5rem',
+            alignItems: 'start'
+          }}>
+            {activeSessions.length === 0 ? (
+              <LayerChart activeSession={null} config={config} />
+            ) : (
+              activeSessions.map((session) => (
+                <div key={session.symbol} style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+                  <div style={{ fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--text-white)', display: 'flex', justifyContent: 'space-between', padding: '0 4px' }}>
+                    <span>{session.symbol} Grid Monitor</span>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+                      Price: <span style={{ color: isLive ? 'var(--warning)' : 'var(--secondary)', fontWeight: 'bold' }}>{session.current_price?.toFixed(2) || '0.00'}</span>
+                    </span>
+                  </div>
+                  <LayerChart activeSession={session} currentPrice={session.current_price} config={config} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -195,6 +169,9 @@ const TradingDashboard = ({
 
       {/* Active Position Grid Table */}
       <PositionsTable positions={positions} onEmergencyClose={handleEmergency} />
+
+      {/* Realized Transaction History Table */}
+      <HistoryTable history={history} />
     </div>
   );
 };

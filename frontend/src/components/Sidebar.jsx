@@ -18,6 +18,20 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
       glowColor: 'rgba(0, 240, 255, 0.4)'
     },
     { id: 'backtest', label: 'Historical Backtest', icon: <BacktestIcon className="menu-icon" /> },
+    { 
+      id: 'dxy', 
+      label: 'Dollar Index (DXY)', 
+      icon: <DashboardIcon className="menu-icon" />, 
+      dotColor: 'var(--warning)',
+      glowColor: 'rgba(255, 170, 0, 0.4)' 
+    },
+    { 
+      id: 'accounts', 
+      label: 'Accounts Manager', 
+      icon: <SettingsIcon className="menu-icon" />, 
+      dotColor: 'var(--green)',
+      glowColor: 'rgba(0, 230, 118, 0.4)' 
+    },
     { id: 'settings', label: 'Configuration', icon: <SettingsIcon className="menu-icon" /> },
     { id: 'logs', label: 'System Logs', icon: <LogsIcon className="menu-icon" /> },
   ];

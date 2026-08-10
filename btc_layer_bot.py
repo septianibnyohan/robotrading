@@ -36,9 +36,23 @@ def recover_layer_state(positions):
 def check_h1_signal(h1_row):
     """Evaluates the H1 signal (Buy: Close > EMA200; Sell: Close < EMA200)."""
     close, ema_200 = h1_row['close'], h1_row['ema_200']
-    buy_ok = bool(close > ema_200)
-    sell_ok = bool(close < ema_200)
-    logger.info(f"[{btc_config.SYMBOL}][H1 Trend] Close: {close:.2f}, EMA200: {ema_200:.2f} (Buy: {buy_ok}, Sell: {sell_ok})")
+    
+    # Check if this is a XAGUSD variant
+    if "XAGUSD" in btc_config.ACTIVE_SYMBOL:
+        from btc_indicators import get_dxy_h1_latest_ema200
+        dxy_close, dxy_ema = get_dxy_h1_latest_ema200()
+        if dxy_close is None or dxy_ema is None:
+            logger.warning("[XAGUSD Trend Check] Could not retrieve DXY H1 data. Blocking entry.")
+            return None
+            
+        buy_ok = bool(close > ema_200 and dxy_close < dxy_ema)
+        sell_ok = bool(close < ema_200 and dxy_close > dxy_ema)
+        logger.info(f"[{btc_config.ACTIVE_SYMBOL}][XAGUSD-DXY Trend] XAG Close: {close:.4f}, EMA200: {ema_200:.4f} | DXY Close: {dxy_close:.4f}, EMA200: {dxy_ema:.4f} (Buy: {buy_ok}, Sell: {sell_ok})")
+    else:
+        buy_ok = bool(close > ema_200)
+        sell_ok = bool(close < ema_200)
+        logger.info(f"[{btc_config.ACTIVE_SYMBOL}][H1 Trend] Close: {close:.2f}, EMA200: {ema_200:.2f} (Buy: {buy_ok}, Sell: {sell_ok})")
+        
     if buy_ok:
         return "BUY"
     if sell_ok:
@@ -167,8 +181,8 @@ def check_and_trigger_entry(h1_row, m1_df, m5_df, m15_df, tick):
             }
 
     # Check M1 crossover entry (except XAGUSD)
-    is_xagusd = "XAGUSD" in btc_config.SYMBOL
-    logger.info(f"[{btc_config.SYMBOL}]Check M1, is_xagusd: {is_xagusd}")
+    is_xagusd = "XAGUSD" in btc_config.ACTIVE_SYMBOL
+    logger.info(f"[{btc_config.ACTIVE_SYMBOL}]Check M1, is_xagusd: {is_xagusd}")
     if not is_xagusd:
         m1_cross = check_timeframe_crossover(m1_df, "M1")
         if h1_signal == m1_cross:
@@ -194,12 +208,14 @@ def handle_h1_exit_eval(h1_row, positions, state):
     #     return True
     return False
 
-def fetch_indicators_data():
+def fetch_indicators_data(symbol=None):
     """Fetches and calculates H1, M1, M5, and M15 indicators."""
-    h1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_H1, 0, 300)
-    m1_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M1, 0, 100)
-    m5_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M5, 0, 100)
-    m15_rates = mt5.copy_rates_from_pos(btc_config.SYMBOL, mt5.TIMEFRAME_M15, 0, 100)
+    if symbol is None:
+        symbol = btc_config.ACTIVE_SYMBOL
+    h1_rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_H1, 0, 300)
+    m1_rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M1, 0, 100)
+    m5_rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M5, 0, 100)
+    m15_rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M15, 0, 100)
     if h1_rates is None or m1_rates is None or m5_rates is None or m15_rates is None:
         return None, None, None, None
     h1_df = calculate_h1_layer_indicators(rates_to_df(h1_rates))
@@ -334,7 +350,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                 state = recover_layer_state(positions)
             # if tick and is_spread_valid(tick):
             if tick:
-                h1_df, m1_df, m5_df, m15_df = fetch_indicators_data()
+                h1_df, m1_df, m5_df, m15_df = fetch_indicators_data(symbol)
                 if h1_df is not None and m1_df is not None and m5_df is not None and m15_df is not None:
                     h1_row = h1_df.iloc[-2]
                     state = process_loop_logic(positions, state, h1_df, m1_df, m5_df, m15_df, h1_row, tick, loop_state, starting_balance)

@@ -32,16 +32,16 @@ constant = 2
 # min 0/1 (0.01 lot/56.616), max 2
 # 2 - 7
 LOW_RISK_OVERRIDES = {
-    "LOT_SIZE": 0.01 * (12), # sunday (1), 3, other max(12)
+    "LOT_SIZE": 0.01 * (6), # sunday (1), 3, other max(12)
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (12), #1
+    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (6), #1
 }
 
 # Moderate risk overrides
 # Daytime Window (11:00 - 17:00 WIB): Max layers encountered: 26.
 # min 21, max 50
 MODERATE_RISK_OVERRIDES = {
-    "LOT_SIZE": 0.01 * (41), # Asian Session Window (07:00 - 15:00 WIB): Max layers reached was 24
+    "LOT_SIZE": 0.01 * (43), # Asian Session Window (07:00 - 15:00 WIB): Max layers reached was 24
     "LAYERING_STEP_ATR_MULT": 1.0 * 1,
-    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (40), #25 - 100
+    "TAKE_PROFIT_PER_LAYER_USD": 0.20 * (43), #25 - 100
 }

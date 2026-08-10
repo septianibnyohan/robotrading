@@ -243,5 +243,35 @@ class TestLayeringStrategy(unittest.TestCase):
         self.assertEqual(len(passed_positions), 1)
         self.assertEqual(passed_positions[0].ticket, 101)
 
+    @patch('btc_config.ACTIVE_SYMBOL', 'XAGUSDc')
+    @patch('btc_indicators.get_dxy_h1_latest_ema200')
+    def test_check_h1_signal_xagusd_buy(self, mock_dxy):
+        """Verify XAGUSD H1 Buy condition when XAGUSD > EMA200 and DXY < EMA200."""
+        row = {'close': 30.0, 'ema_200': 29.0}
+        mock_dxy.return_value = (100.0, 101.0)  # Close < EMA200
+        self.assertEqual(bot.check_h1_signal(row), "BUY")
+
+    @patch('btc_config.ACTIVE_SYMBOL', 'XAGUSDc')
+    @patch('btc_indicators.get_dxy_h1_latest_ema200')
+    def test_check_h1_signal_xagusd_sell(self, mock_dxy):
+        """Verify XAGUSD H1 Sell condition when XAGUSD < EMA200 and DXY > EMA200."""
+        row = {'close': 28.0, 'ema_200': 29.0}
+        mock_dxy.return_value = (102.0, 101.0)  # Close > EMA200
+        self.assertEqual(bot.check_h1_signal(row), "SELL")
+
+    @patch('btc_config.ACTIVE_SYMBOL', 'XAGUSDc')
+    @patch('btc_indicators.get_dxy_h1_latest_ema200')
+    def test_check_h1_signal_xagusd_none(self, mock_dxy):
+        """Verify XAGUSD does not entry if condition is not met."""
+        # Condition 1: XAGUSD > EMA200, but DXY > EMA200
+        row = {'close': 30.0, 'ema_200': 29.0}
+        mock_dxy.return_value = (102.0, 101.0)  # Close > EMA200
+        self.assertIsNone(bot.check_h1_signal(row))
+
+        # Condition 2: XAGUSD < EMA200, but DXY < EMA200
+        row = {'close': 28.0, 'ema_200': 29.0}
+        mock_dxy.return_value = (100.0, 101.0)  # Close < EMA200
+        self.assertIsNone(bot.check_h1_signal(row))
+
 if __name__ == "__main__":
     unittest.main()

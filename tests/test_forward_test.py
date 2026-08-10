@@ -189,6 +189,11 @@ class TestForwardTestSimulator(unittest.TestCase):
         """Verify that patch_all successfully binds simulated methods to target modules."""
         orig_positions_get = mt5.positions_get
         orig_history_deals_get = mt5.history_deals_get
+        orig_account_info = mt5.account_info
+        
+        import btc_trading
+        orig_open_trade = btc_trading.open_trade
+        orig_close_all_open_positions = btc_trading.close_all_open_positions
         
         # Create a mock main/bot module to test namespace patching
         import types
@@ -215,7 +220,6 @@ class TestForwardTestSimulator(unittest.TestCase):
             self.assertEqual(mt5.account_info, self.manager.account_info)
             
             # Check btc_trading functions
-            import btc_trading
             self.assertEqual(btc_trading.open_trade, self.manager.open_trade)
             self.assertEqual(btc_trading.close_all_open_positions, self.manager.close_all_open_positions)
             
@@ -228,6 +232,11 @@ class TestForwardTestSimulator(unittest.TestCase):
             # Restore originals
             mt5.positions_get = orig_positions_get
             mt5.history_deals_get = orig_history_deals_get
+            mt5.account_info = orig_account_info
+            
+            btc_trading.open_trade = orig_open_trade
+            btc_trading.close_all_open_positions = orig_close_all_open_positions
+            
             if orig_main:
                 sys.modules['__main__'] = orig_main
             if orig_bot:

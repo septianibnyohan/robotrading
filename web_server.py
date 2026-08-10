@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import time
+import subprocess
 import logging
 import threading
 import sqlite3
@@ -152,9 +153,12 @@ class BotManager:
         self.mt5_connected = False
         
         # execution states separated by mode
-        self.running_symbols = {"live": [], "forward_test": []}
-        self.stop_events = {"live": {}, "forward_test": {}}
-        self.threads = {"live": {}, "forward_test": {}}
+        self.running_symbols = {"forward_test": []}
+        self.stop_events = {"forward_test": {}}
+        self.threads = {"forward_test": {}}
+        
+        # Live account subprocess dictionary: login -> Popen
+        self.live_processes = {}
         
         # Instantiate forward test manager persistently
         self.sim_manager = ForwardTestManager()
@@ -171,43 +175,66 @@ class BotManager:
         with self.lock:
             if self.bridge.connect():
                 self.mt5_connected = True
-                logger.info("MT5 connection established successfully.")
+                logger.info("MT5 default connection established successfully (for market rate lookups).")
                 return True
             else:
                 self.mt5_connected = False
-                logger.warning("MT5 connection failed.")
+                logger.warning("MT5 default connection failed.")
                 return False
 
     def get_status(self):
-        if self.mt5_connected:
-            self.bridge.ensure_connection()
+        # 1. Live Accounts details (from status files & active processes)
+        accounts_list = []
+        accounts = load_accounts()
+        for acct in accounts:
+            login_id = acct["login"]
+            proc = self.live_processes.get(login_id)
             
-        # 1. Live Account details
-        live_acc_dict = {}
-        # Temporarily force 'live' context to query real MT5 balance safely
-        token = trading_mode_var.set("live")
-        acc_info = mt5.account_info()
-        if acc_info and self.mt5_connected:
-            live_acc_dict = {
-                "balance": round(acc_info.balance, 2),
-                "equity": round(acc_info.equity, 2),
-                "margin_free": round(acc_info.margin_free, 2),
-                "profit": round(acc_info.profit, 2),
-                "login": acc_info.login,
-                "server": acc_info.server,
-                "currency": acc_info.currency
-            }
-        else:
-            live_acc_dict = {
-                "balance": 0.0,
-                "equity": 0.0,
-                "margin_free": 0.0,
-                "profit": 0.0,
-                "login": 0,
-                "server": "OFFLINE",
-                "currency": "USD"
-            }
-        trading_mode_var.reset(token)
+            # Check if process is still running
+            bot_running = False
+            if proc:
+                if proc.poll() is None:
+                    bot_running = True
+                else:
+                    # Clean up dead process
+                    del self.live_processes[login_id]
+                    
+            # Try to load status from file
+            status_path = f"data/sessions/{login_id}_status.json"
+            status_data = None
+            if bot_running and os.path.exists(status_path):
+                try:
+                    with open(status_path, "r") as f:
+                        status_data = json.load(f)
+                except:
+                    pass
+                    
+            if status_data:
+                accounts_list.append({
+                    "login": login_id,
+                    "name": acct["name"],
+                    "bot_running": True,
+                    "running_symbols": acct["symbols"],
+                    "active_sessions": status_data.get("active_sessions", []),
+                    "account": status_data.get("account", {})
+                })
+            else:
+                accounts_list.append({
+                    "login": login_id,
+                    "name": acct["name"],
+                    "bot_running": bot_running,
+                    "running_symbols": acct["symbols"] if bot_running else [],
+                    "active_sessions": [],
+                    "account": {
+                        "balance": 0.0,
+                        "equity": 0.0,
+                        "margin_free": 0.0,
+                        "profit": 0.0,
+                        "login": login_id,
+                        "server": "OFFLINE",
+                        "currency": "USD"
+                    }
+                })
 
         # 2. Simulated Account details
         sim_acc = self.sim_manager.account_info()
@@ -226,127 +253,168 @@ class BotManager:
         }
         trading_mode_var.reset(token)
 
-        # Gather sessions info per mode
-        sessions = {"live": [], "forward_test": []}
-        for mode in ["live", "forward_test"]:
-            token = trading_mode_var.set(mode)
-            for sym in self.running_symbols[mode]:
-                positions = mt5.positions_get(symbol=sym)
-                layers = len(positions) if positions else 0
-                direction = None
-                first_entry_price = 0.0
-                net_profit = 0.0
-                
-                if positions:
-                    oldest = min(positions, key=lambda p: p.time)
-                    direction = "BUY" if oldest.type == mt5.POSITION_TYPE_BUY else "SELL"
-                    first_entry_price = oldest.price_open
-                    net_profit = sum(p.profit + p.swap for p in positions)
-                
-                tick = mt5.symbol_info_tick(sym)
-                current_price = 0.0
-                if tick:
-                    current_price = tick.bid if direction == "BUY" else tick.ask
-                    if not direction:
-                        current_price = (tick.bid + tick.ask) / 2
-                
-                sessions[mode].append({
-                    "symbol": sym,
-                    "layers": layers,
-                    "direction": direction,
-                    "first_entry_price": first_entry_price,
-                    "net_profit": round(net_profit, 2),
-                    "risk_level": btc_config.get_risk_level(),
-                    "current_price": current_price
-                })
-            trading_mode_var.reset(token)
+        # Gather simulated sessions info
+        sim_sessions = []
+        token = trading_mode_var.set("forward_test")
+        for sym in self.running_symbols["forward_test"]:
+            positions = mt5.positions_get(symbol=sym)
+            layers = len(positions) if positions else 0
+            direction = None
+            first_entry_price = 0.0
+            net_profit = 0.0
+            
+            if positions:
+                oldest = min(positions, key=lambda p: p.time)
+                direction = "BUY" if oldest.type == mt5.POSITION_TYPE_BUY else "SELL"
+                first_entry_price = oldest.price_open
+                net_profit = sum(p.profit + p.swap for p in positions)
+            
+            tick = mt5.symbol_info_tick(sym)
+            current_price = 0.0
+            if tick:
+                current_price = tick.bid if direction == "BUY" else tick.ask
+                if not direction:
+                    current_price = (tick.bid + tick.ask) / 2
+            
+            sim_sessions.append({
+                "symbol": sym,
+                "layers": layers,
+                "direction": direction,
+                "first_entry_price": first_entry_price,
+                "net_profit": round(net_profit, 2),
+                "risk_level": btc_config.get_risk_level(),
+                "current_price": current_price
+            })
+        trading_mode_var.reset(token)
 
         return {
             "live": {
-                "bot_running": len(self.running_symbols["live"]) > 0,
-                "running_symbols": self.running_symbols["live"],
-                "active_sessions": sessions["live"],
-                "account": live_acc_dict
+                "accounts": accounts_list
             },
             "forward_test": {
                 "bot_running": len(self.running_symbols["forward_test"]) > 0,
                 "running_symbols": self.running_symbols["forward_test"],
-                "active_sessions": sessions["forward_test"],
+                "active_sessions": sim_sessions,
                 "account": sim_acc_dict
             },
             "mt5_connected": self.mt5_connected
         }
 
-    def start_bot(self, symbols: List[str], mode: str = "forward_test"):
+    def start_bot(self, login: int):
         with self.lock:
-            # Stop existing bot threads for this mode
-            self._stop_bot_unlocked(mode)
+            # Stop if already running
+            self.stop_bot(login)
             
-            # Ensure connection
-            self.connect_mt5()
+            accounts = load_accounts()
+            acct = next((a for a in accounts if a["login"] == login), None)
+            if not acct:
+                raise Exception(f"Account with login {login} not found.")
+                
+            cmd = [
+                sys.executable,
+                "live_account_runner.py",
+                "--login", str(acct["login"]),
+                "--password", acct["password"],
+                "--server", acct["server"],
+                "--path", acct["path"],
+                "--symbols", ",".join(acct["symbols"])
+            ]
             
-            if mode == "live":
-                logger.info("Starting loops in LIVE TRADING mode.")
-                acc_info = mt5.account_info()
-                if not acc_info:
-                    raise Exception("Failed to start bot in live mode: MT5 terminal is not connected.")
-                from btc_risk import get_daily_realized_profit
-                today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
-                starting_balance = acc_info.balance - get_daily_realized_profit(today)
-            else:
-                logger.info("Starting loops in Simulated FORWARD TEST mode.")
-                starting_balance = self.sim_manager.balance
+            # Clean up old status/positions files to prevent stale values from loading
+            for suffix in ["_status.json", "_positions.json", "_close_all.flag"]:
+                p_path = f"data/sessions/{login}{suffix}"
+                if os.path.exists(p_path):
+                    try:
+                        os.remove(p_path)
+                    except:
+                        pass
+                        
+            proc = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            self.live_processes[login] = proc
+            logger.info(f"Spawned live runner process for login {login} (pid={proc.pid})")
 
-            # Target thread wrapper that sets ContextVar local values inside loop thread
-            def thread_wrapper(sym, start_bal, stop_ev, m):
-                trading_mode_var.set(m)
+    def stop_bot(self, login: int):
+        with self.lock:
+            proc = self.live_processes.get(login)
+            if proc:
+                logger.info(f"Stopping live runner process for login {login}...")
+                proc.terminate()
+                try:
+                    proc.wait(timeout=3.0)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                del self.live_processes[login]
+                
+            # Clean up status file
+            status_path = f"data/sessions/{login}_status.json"
+            if os.path.exists(status_path):
+                try:
+                    os.remove(status_path)
+                except:
+                    pass
+
+    def close_all_positions(self, login: int):
+        logger.info(f"Writing emergency close flag for live account login {login}...")
+        flag_path = f"data/sessions/{login}_close_all.flag"
+        try:
+            with open(flag_path, "w") as f:
+                f.write("1")
+        except Exception as e:
+            logger.error(f"Failed to write emergency close flag: {e}")
+
+    def start_sim_bot(self, symbols: List[str]):
+        with self.lock:
+            self.stop_sim_bot()
+            
+            logger.info("Starting loops in Simulated FORWARD TEST mode.")
+            starting_balance = self.sim_manager.balance
+
+            def thread_wrapper(sym, start_bal, stop_ev):
+                trading_mode_var.set("forward_test")
                 btc_config.set_active_symbol(sym)
-                logger.info(f"Context variables set for thread: symbol={sym}, mode={m}")
+                logger.info(f"Context variables set for simulation thread: symbol={sym}")
                 btc_layer_bot.run_trading_loop(sym, start_bal, stop_ev)
 
             for sym in symbols:
                 mt5.symbol_select(sym, True)
                 
                 stop_event = threading.Event()
-                self.stop_events[mode][sym] = stop_event
+                self.stop_events["forward_test"][sym] = stop_event
                 
                 t = threading.Thread(
                     target=thread_wrapper,
-                    args=(sym, starting_balance, stop_event, mode),
-                    name=f"WebBotThread-{mode}-{sym}"
+                    args=(sym, starting_balance, stop_event),
+                    name=f"WebBotThread-forward_test-{sym}"
                 )
                 t.daemon = True
                 t.start()
-                self.threads[mode][sym] = t
-                self.running_symbols[mode].append(sym)
-                logger.info(f"Bot thread started for {sym} ({mode}).")
+                self.threads["forward_test"][sym] = t
+                self.running_symbols["forward_test"].append(sym)
+                logger.info(f"Simulated bot thread started for {sym}.")
 
-    def stop_bot(self, mode: str = "forward_test"):
+    def stop_sim_bot(self):
         with self.lock:
-            self._stop_bot_unlocked(mode)
+            if not self.running_symbols["forward_test"]:
+                return
+                
+            logger.info("Stopping active simulation bot loops...")
+            for sym, stop_event in self.stop_events["forward_test"].items():
+                stop_event.set()
+                
+            for sym, t in self.threads["forward_test"].items():
+                t.join(timeout=2.0)
+                logger.info(f"Simulation thread for {sym} stopped.")
+                
+            self.threads["forward_test"].clear()
+            self.stop_events["forward_test"].clear()
+            self.running_symbols["forward_test"].clear()
+            logger.info("All active simulation loops stopped.")
 
-    def _stop_bot_unlocked(self, mode: str = "forward_test"):
-        if mode not in self.running_symbols or not self.running_symbols[mode]:
-            return
-            
-        logger.info(f"Stopping active bot loops for {mode}...")
-        for sym, stop_event in self.stop_events[mode].items():
-            stop_event.set()
-            
-        for sym, t in self.threads[mode].items():
-            t.join(timeout=2.0)
-            logger.info(f"Thread for {sym} ({mode}) stopped.")
-            
-        self.threads[mode].clear()
-        self.stop_events[mode].clear()
-        self.running_symbols[mode].clear()
-        logger.info(f"All active loops stopped for {mode}.")
-
-    def close_all_positions(self, mode: str = "forward_test"):
+    def close_all_sim_positions(self):
         import btc_trading
-        logger.info(f"Emergency: closing all open positions for active {mode} loops.")
-        token = trading_mode_var.set(mode)
-        for sym in self.running_symbols[mode]:
+        logger.info("Emergency: closing all open positions for active simulation loops.")
+        token = trading_mode_var.set("forward_test")
+        for sym in self.running_symbols["forward_test"]:
             btc_config.set_active_symbol(sym)
             magics = [
                 getattr(btc_config, 'MAGIC_NUMBER', 20260523),
@@ -362,16 +430,44 @@ class BotManager:
 bot_manager = None
 bot_manager = BotManager()
 
+# --- ACCOUNTS CONFIG ---
+ACCOUNTS_FILE = "config/accounts_settings.json"
+
+def load_accounts():
+    if not os.path.exists(ACCOUNTS_FILE):
+        return []
+    try:
+        with open(ACCOUNTS_FILE, "r") as f:
+            return json.load(f)
+    except:
+        return []
+
+def save_accounts(accounts):
+    os.makedirs("config", exist_ok=True)
+    with open(ACCOUNTS_FILE, "w") as f:
+        json.dump(accounts, f, indent=2)
+
+class AccountConfig(BaseModel):
+    name: str
+    login: int
+    password: str
+    server: str
+    path: str
+    symbols: List[str]
+
 # --- API MODELS ---
 class StartRequest(BaseModel):
-    symbols: List[str]
+    symbols: Optional[List[str]] = None
     mode: str  # "live" | "forward_test"
+    login: Optional[int] = None
 
 class StopRequest(BaseModel):
     mode: str
+    login: Optional[int] = None
 
 class CloseAllRequest(BaseModel):
     mode: str
+    login: Optional[int] = None
 
 class ConfigUpdateRequest(BaseModel):
     symbol: str
@@ -385,12 +481,40 @@ def startup_event():
 
 @app.on_event("shutdown")
 def shutdown_event():
-    bot_manager.stop_bot("live")
-    bot_manager.stop_bot("forward_test")
+    bot_manager.stop_sim_bot()
+    # Terminate all live subprocesses
+    for login_id, proc in list(bot_manager.live_processes.items()):
+        try:
+            proc.terminate()
+            proc.wait(timeout=1.0)
+        except:
+            pass
     try:
         mt5.shutdown()
     except:
         pass
+
+@app.get("/api/accounts")
+def get_accounts():
+    return load_accounts()
+
+@app.post("/api/accounts")
+def add_update_account(req: AccountConfig):
+    accounts = load_accounts()
+    # Remove existing if any
+    accounts = [a for a in accounts if a["login"] != req.login]
+    accounts.append(req.dict())
+    save_accounts(accounts)
+    return {"status": "success", "message": f"Account {req.login} configured successfully"}
+
+@app.delete("/api/accounts/{login}")
+def delete_account(login: int):
+    # Stop bot if running
+    bot_manager.stop_bot(login)
+    accounts = load_accounts()
+    accounts = [a for a in accounts if a["login"] != login]
+    save_accounts(accounts)
+    return {"status": "success", "message": f"Account {login} deleted successfully"}
 
 @app.get("/api/status")
 def get_status():
@@ -400,9 +524,15 @@ def get_status():
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/positions")
-def get_positions(mode: str = "forward_test"):
+def get_positions(mode: str = "forward_test", login: Optional[int] = None):
     try:
-        # Route to correct MT5 list
+        if mode == "live" and login:
+            positions_path = f"data/sessions/{login}_positions.json"
+            if os.path.exists(positions_path):
+                with open(positions_path, "r") as f:
+                    return json.load(f)
+            return []
+            
         token = trading_mode_var.set(mode)
         raw_positions = mt5.positions_get()
         trading_mode_var.reset(token)
@@ -430,8 +560,15 @@ def get_positions(mode: str = "forward_test"):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/api/history")
-def get_history(mode: str = "forward_test"):
+def get_history(mode: str = "forward_test", login: Optional[int] = None):
     try:
+        if mode == "live" and login:
+            history_path = f"data/sessions/{login}_history.json"
+            if os.path.exists(history_path):
+                with open(history_path, "r") as f:
+                    return json.load(f)
+            return []
+            
         history = []
         if mode == "forward_test":
             db_path = "data/database/forward_test_market_data.sqlite"
@@ -479,7 +616,6 @@ def get_history(mode: str = "forward_test"):
             start_time = now - 30 * 86400
             
             bot_manager.bridge.ensure_connection()
-            # Ensure live MT5 query
             token = trading_mode_var.set("live")
             deals = mt5.history_deals_get(start_time, now + 10)
             trading_mode_var.reset(token)
@@ -595,24 +731,63 @@ def update_config(req: ConfigUpdateRequest):
 @app.post("/api/control")
 def start_stop_bot(req: StartRequest):
     try:
-        bot_manager.start_bot(symbols=req.symbols, mode=req.mode)
-        return {"status": "success", "message": f"Bot started in {req.mode} mode for {', '.join(req.symbols)}"}
+        if req.mode == "live":
+            login = req.login
+            if not login:
+                accounts = load_accounts()
+                if accounts:
+                    login = accounts[0]["login"]
+                    logger.info(f"Start request missing login. Defaulting to first configured account: {login}")
+            
+            if not login:
+                raise HTTPException(status_code=400, detail="Missing login for live mode start request")
+            bot_manager.start_bot(login=login)
+            return {"status": "success", "message": f"Live bot process initiated for account {login}"}
+        else:
+            bot_manager.start_sim_bot(symbols=req.symbols)
+            return {"status": "success", "message": f"Simulation bot threads started for {', '.join(req.symbols)}"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/control/stop")
 def stop_bot_api(req: StopRequest):
     try:
-        bot_manager.stop_bot(mode=req.mode)
-        return {"status": "success", "message": f"Bot threads for {req.mode} stopped successfully."}
+        if req.mode == "live":
+            login = req.login
+            if not login:
+                accounts = load_accounts()
+                if accounts:
+                    login = accounts[0]["login"]
+                    logger.info(f"Stop request missing login. Defaulting to first configured account: {login}")
+            
+            if not login:
+                raise HTTPException(status_code=400, detail="Missing login for live mode stop request")
+            bot_manager.stop_bot(login=login)
+            return {"status": "success", "message": f"Live bot process for account {login} stopped successfully."}
+        else:
+            bot_manager.stop_sim_bot()
+            return {"status": "success", "message": "Simulation bot threads stopped successfully."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/control/close-all")
 def close_all_positions_api(req: CloseAllRequest):
     try:
-        bot_manager.close_all_positions(mode=req.mode)
-        return {"status": "success", "message": f"Close all positions request sent for {req.mode}."}
+        if req.mode == "live":
+            login = req.login
+            if not login:
+                accounts = load_accounts()
+                if accounts:
+                    login = accounts[0]["login"]
+                    logger.info(f"Close-all request missing login. Defaulting to first configured account: {login}")
+            
+            if not login:
+                raise HTTPException(status_code=400, detail="Missing login for live mode close-all request")
+            bot_manager.close_all_positions(login=login)
+            return {"status": "success", "message": f"Emergency close flag set for live account {login}."}
+        else:
+            bot_manager.close_all_sim_positions()
+            return {"status": "success", "message": "Simulation positions emergency close completed."}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -632,7 +807,6 @@ def run_backtest_in_thread(symbol, limit, use_mt5):
         import numpy as np
         
         logger.info(f"Starting background backtest for {symbol} (limit={limit}, use_mt5={use_mt5})")
-        # Ensure 'live' terminal data loading for backtesting
         token = trading_mode_var.set("live")
         m1_df, m5_df, m15_df, h1_df = load_data(symbol, use_mt5=use_mt5, limit=limit)
         trading_mode_var.reset(token)
@@ -751,8 +925,14 @@ def get_backtest_results():
     return bot_manager.backtest_results
 
 @app.get("/api/logs")
-def get_logs(mode: str = "forward_test"):
-    log_path = "btc_layer_bot_live.log" if mode == "live" else "btc_layer_bot_sim.log"
+def get_logs(mode: str = "forward_test", login: Optional[int] = None):
+    if mode == "live" and login:
+        log_path = f"data/logs/{login}.log"
+    elif mode == "live":
+        log_path = "btc_layer_bot_live.log"
+    else:
+        log_path = "btc_layer_bot_sim.log"
+        
     if not os.path.exists(log_path):
         return {"logs": []}
     try:
@@ -761,6 +941,54 @@ def get_logs(mode: str = "forward_test"):
         return {"logs": [line.strip() for line in lines[-200:]]}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+# DXY Rust service proxy endpoints below
+@app.get("/api/dxy/latest")
+def get_dxy_latest():
+    """
+    Proxies request to the Rust DXY service to get the latest Dollar Index data.
+    """
+    import requests
+    try:
+        response = requests.get("http://127.0.0.1:8081/api/dxy/latest", timeout=5)
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            raise HTTPException(status_code=404, detail="No DXY records found.")
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"DXY service unavailable: {e}")
+
+@app.get("/api/dxy/historical")
+def get_dxy_historical(limit: Optional[int] = 1000):
+    """
+    Proxies request to the Rust DXY service to get historical DXY data.
+    """
+    import requests
+    try:
+        response = requests.get(f"http://127.0.0.1:8081/api/dxy/historical?limit={limit}", timeout=5)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"DXY service unavailable: {e}")
+
+@app.post("/api/dxy/harvest")
+def post_dxy_harvest():
+    """
+    Triggers an immediate harvest on the Rust DXY service.
+    """
+    import requests
+    try:
+        response = requests.post("http://127.0.0.1:8081/api/dxy/harvest", timeout=15)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"DXY service unavailable: {e}")
 
 @app.get("/api/symbols")
 def get_symbols():

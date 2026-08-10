@@ -96,3 +96,28 @@ def calculate_h1_layer_indicators(df):
     df = compute_rsi(df)
     df, _ = compute_atr(df)
     return df
+
+def get_dxy_h1_latest_ema200():
+    """Fetches DXY H1 historical data from the dxy_service microservice and computes the latest EMA 200."""
+    import requests
+    import pandas as pd
+    
+    url = "http://127.0.0.1:8081/api/dxy/historical?limit=300"
+    try:
+        response = requests.get(url, timeout=5)
+        if response.status_code != 200:
+            return None, None
+            
+        data = response.json()
+        if not data or len(data) < 200:
+            return None, None
+            
+        df = pd.DataFrame(data)
+        # Sort ascending for EMA calculation
+        df = df.sort_values('time').copy()
+        df['ema_200'] = df['close'].ewm(span=200, adjust=False).mean()
+        
+        latest_row = df.iloc[-1]
+        return float(latest_row['close']), float(latest_row['ema_200'])
+    except Exception:
+        return None, None

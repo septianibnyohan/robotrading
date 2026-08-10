@@ -26,6 +26,7 @@ SYMBOL_SPECS = {
     "XAUUSDm": {"contract_size": 100.0, "pip_size": 0.01},
     "XAGUSDc": {"contract_size": 5000.0, "pip_size": 0.001},
     "ETHUSDc": {"contract_size": 1.0, "pip_size": 1.0},
+    "EURUSDc": {"contract_size": 1000.0, "pip_size": 0.0001},
 }
 
 def load_data(symbol, use_mt5=False, limit=50000):
@@ -191,6 +192,28 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
     # Calculate indicators
     logger.info("Calculating technical indicators...")
     h1_df = calculate_h1_layer_indicators(h1_df)
+    
+    if "XAGUSD" in symbol:
+        try:
+            import requests
+            url = "http://127.0.0.1:8081/api/dxy/historical?limit=50000"
+            logger.info(f"Fetching historical DXY data from microservice: {url} ...")
+            response = requests.get(url, timeout=15)
+            if response.status_code == 200:
+                data = response.json()
+                dxy_df = pd.DataFrame(data)
+                dxy_df['time'] = pd.to_datetime(dxy_df['time'], utc=True).dt.tz_localize(None)
+                dxy_df = dxy_df.sort_values('time').copy()
+                dxy_df['dxy_ema_200'] = dxy_df['close'].ewm(span=200, adjust=False).mean()
+                dxy_df = dxy_df.rename(columns={'close': 'dxy_close'})
+                h1_df = h1_df.sort_values('time')
+                h1_df = pd.merge_asof(h1_df, dxy_df[['time', 'dxy_close', 'dxy_ema_200']], on='time', direction='backward')
+                logger.info("Successfully fetched and merged DXY data from microservice for XAGUSD backtesting.")
+            else:
+                logger.error(f"Failed to fetch DXY data from microservice: HTTP {response.status_code}")
+        except Exception as e:
+            logger.error(f"Failed to load DXY data for XAGUSD backtest: {e}")
+            
     m5_df = calculate_m1_layer_indicators(m5_df)
     m1_df = calculate_m1_layer_indicators(m1_df)
     m15_df = calculate_m1_layer_indicators(m15_df)
@@ -282,7 +305,7 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
             
             is_sunday_override = oldest_pos.get('sunday_override', False)
             
-            if is_sunday_override:
+            if is_sunday_override and basket_risk == "low":
                 if "BTCUSD" in symbol:
                     tp_val = 0.20
                 elif "ETHUSD" in symbol:
@@ -376,7 +399,7 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
                 
             # is_sunday_override and basket_risk are locked to the oldest position (first layer)
                 
-            if is_sunday_override:
+            if is_sunday_override and basket_risk == "low":
                 current_lot_size = 0.01
             elif basket_risk == "low":
                 current_lot_size = low_risk_overrides.get('LOT_SIZE', normal_lot_size)
@@ -452,7 +475,18 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
             
             # H1 Signal
             h1_close, h1_ema = h1_row['close'], h1_row['ema_200']
-            h1_signal = "BUY" if h1_close > h1_ema else ("SELL" if h1_close < h1_ema else None)
+            if is_xagusd:
+                dxy_close = h1_row.get('dxy_close')
+                dxy_ema = h1_row.get('dxy_ema_200')
+                if pd.isna(dxy_close) or pd.isna(dxy_ema):
+                    h1_signal = None
+                else:
+                    buy_ok = h1_close > h1_ema and dxy_close < dxy_ema
+                    sell_ok = h1_close < h1_ema and dxy_close > dxy_ema
+                    h1_signal = "BUY" if buy_ok else ("SELL" if sell_ok else None)
+            else:
+                h1_signal = "BUY" if h1_close > h1_ema else ("SELL" if h1_close < h1_ema else None)
+                
             if h1_signal is None:
                 continue
                 
@@ -496,7 +530,7 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
             if "BTCUSD" in symbol or "ETHUSD" in symbol:
                 is_sunday_override = (weekday == 6 and 20 <= hour < 22) or (weekday == 0 and 1 <= hour < 12)
                 
-            if is_sunday_override:
+            if is_sunday_override and risk_level == "low":
                 current_lot_size = 0.01
             elif risk_level == "low":
                 current_lot_size = low_risk_overrides.get('LOT_SIZE', normal_lot_size)

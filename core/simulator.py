@@ -18,6 +18,7 @@ SYMBOL_SPECS = {
     "XAUUSDm": {"contract_size": 100.0, "pip_size": 0.01},
     "XAGUSDc": {"contract_size": 5000.0, "pip_size": 0.001},
     "ETHUSDc": {"contract_size": 1.0, "pip_size": 1.0},
+    "EURUSDc": {"contract_size": 1000.0, "pip_size": 0.0001},
 }
 
 def get_contract_size(symbol):

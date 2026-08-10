@@ -13,7 +13,7 @@ _active_risk_var = contextvars.ContextVar('active_risk', default=None)
 _active_sunday_override_var = contextvars.ContextVar('active_sunday_override', default=None)
 
 # Configured active symbols
-ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc"]
+ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc"]
 
 def set_active_symbol(symbol):
     _active_symbol_var.set(symbol)
@@ -130,10 +130,10 @@ class DynamicConfigModule(types.ModuleType):
                 logger.error(f"Error checking open positions in btc_config: {e}")
             
         # Return Sunday lot size override first if applicable
-        if ("BTCUSD" in symbol or "ETHUSD" in symbol) and name == "LOT_SIZE" and is_sunday_override:
+        if ("BTCUSD" in symbol or "ETHUSD" in symbol) and name == "LOT_SIZE" and is_sunday_override and active_risk == "low":
             return 0.01
 
-        if name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override:
+        if name == "TAKE_PROFIT_PER_LAYER_USD" and is_sunday_override and active_risk == "low":
             if "BTCUSD" in symbol:
                 return 0.20
             elif "ETHUSD" in symbol:

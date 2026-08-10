@@ -62,12 +62,22 @@ class TestStrategyEdgeCases(unittest.TestCase):
         self.assertFalse(res['rsi'].isnull().all())
 
 class TestDynamicConfig(unittest.TestCase):
+    def setUp(self):
+        import btc_config
+        btc_config.clear_active_risk()
+
+    def tearDown(self):
+        import btc_config
+        btc_config.clear_active_risk()
+        btc_config.set_active_symbol("BTCUSDc")
+
     def test_active_symbols_list(self):
         """Verify ACTIVE_SYMBOLS list is correctly defined in btc_config."""
         import btc_config
-        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc"])
+        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc"])
 
-    def test_dynamic_config_time_based_switching(self):
+    @patch('MetaTrader5.terminal_info', return_value=None)
+    def test_dynamic_config_time_based_switching(self, mock_term_info):
         """Verify dynamic configuration switches based on time and day."""
         import btc_config
         import datetime
@@ -80,25 +90,25 @@ class TestDynamicConfig(unittest.TestCase):
 
         # Case 1: Weekday (Wednesday) at 08:00 AM (Outside windows -> low risk config)
         wednesday_morning_1 = datetime.datetime(2026, 6, 3, 8, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning_1):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=wednesday_morning_1):
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOW_RISK_OVERRIDES["LOT_SIZE"])
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, BTCUSDc.LOW_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
 
         # Case 2: Weekday (Wednesday) at 15:00 PM (Within 12:00 - 20:00 moderate window)
         wednesday_morning_2 = datetime.datetime(2026, 6, 3, 15, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_morning_2):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=wednesday_morning_2):
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.MODERATE_RISK_OVERRIDES["LOT_SIZE"])
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, BTCUSDc.MODERATE_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
  
         # Case 3: Weekday (Wednesday) at 21:00 PM (Outside windows -> low risk config)
         wednesday_evening = datetime.datetime(2026, 6, 3, 21, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_evening):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=wednesday_evening):
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOW_RISK_OVERRIDES["LOT_SIZE"])
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, BTCUSDc.LOW_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
  
         # Case 4: Weekday (Wednesday) at 23:00 PM (Within 22:00 - 01:00 normal window)
         wednesday_night = datetime.datetime(2026, 6, 3, 23, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=wednesday_night):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=wednesday_night):
             self.assertAlmostEqual(btc_config.LOT_SIZE, BTCUSDc.LOT_SIZE)
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, BTCUSDc.LAYERING_STEP_ATR_MULT)
 
@@ -107,17 +117,17 @@ class TestDynamicConfig(unittest.TestCase):
 
         # Case 5: Weekday (Wednesday) at 02:00 AM (Within 01:00 - 05:00 normal window)
         xau_normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xau_normal_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xau_normal_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAUUSDc.LAYERING_STEP_ATR_MULT)
 
         # Case 6: Weekday (Wednesday) at 23:00 PM (Within 22:00 - 04:00 moderate window, outside normal)
         xau_moderate_time = datetime.datetime(2026, 6, 3, 23, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xau_moderate_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xau_moderate_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAUUSDc.MODERATE_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
 
         # Case 6b: Weekday (Wednesday) at 12:00 PM (Outside windows -> low risk)
         xau_lowrisk_time = datetime.datetime(2026, 6, 3, 12, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xau_lowrisk_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xau_lowrisk_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAUUSDc.LOW_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
 
         # --- XAGUSD Scheduling Rules ---
@@ -126,17 +136,17 @@ class TestDynamicConfig(unittest.TestCase):
 
         # Case 7: Weekday (Wednesday) at 03:00 AM (Within 02:00 - 06:00 normal window)
         xag_normal_time = datetime.datetime(2026, 6, 3, 3, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xag_normal_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xag_normal_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAGUSDc.LAYERING_STEP_ATR_MULT)
 
         # Case 8: Weekday (Wednesday) at 15:00 PM (Within 12:00 - 18:00 moderate window)
         xag_moderate_time = datetime.datetime(2026, 6, 3, 15, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xag_moderate_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xag_moderate_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAGUSDc.MODERATE_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
 
         # Case 8b: Weekday (Wednesday) at 01:00 AM (Outside windows -> low risk)
         xag_lowrisk_time = datetime.datetime(2026, 6, 3, 1, 0, 0)
-        with patch.object(btc_config, '_get_current_time', return_value=xag_lowrisk_time):
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xag_lowrisk_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAGUSDc.LOW_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
 
         # Clean up by resetting active symbol to default

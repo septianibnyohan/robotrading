@@ -148,6 +148,10 @@ def main():
     if not bridge.connect():
         logger.error("Could not connect to MT5. Exiting.")
         return
+
+    # Get digits dynamically for rounding and formatting
+    info = mt5.symbol_info(symbol)
+    digits = info.digits if info is not None else (5 if "EURUSD" in symbol else 2)
         
     logger.info(f"Bot started. Instrument: {symbol} | Timeframe: {args.timeframe}")
     logger.info(f"Parameters: Fast EMA={args.fast_ema}, Slow EMA={args.slow_ema}, RSI={args.rsi_period}, "
@@ -236,9 +240,9 @@ def main():
                         msg = (
                             f"🔔 <b>RSI 50 Cross Detected ({direction})</b>\n"
                             f"<b>Time:</b> {completed_time}\n"
-                            f"<b>Current Price:</b> {completed_row['close']:.2f}\n"
-                            f"<b>EMA Fast:</b> {completed_row['fast_ema']:.2f}\n"
-                            f"<b>EMA Slow:</b> {completed_row['slow_ema']:.2f}\n"
+                            f"<b>Current Price:</b> {completed_row['close']:.{digits}f}\n"
+                            f"<b>EMA Fast:</b> {completed_row['fast_ema']:.{digits}f}\n"
+                            f"<b>EMA Slow:</b> {completed_row['slow_ema']:.{digits}f}\n"
                             f"<b>RSI Previous:</b> {prev_rsi:.2f}\n"
                             f"<b>RSI Current:</b> {curr_rsi:.2f}\n\n"
                             f"📈 <b>Long Criteria:</b>\n"
@@ -273,9 +277,9 @@ def main():
             
             # Print track info to console/log with REAL-TIME live updating indicators
             logger.info(
-                f"[TRACK] Bid: {bid:.2f} | Ask: {ask:.2f} | Spread: {spread_points:.1f} pts | "
-                f"RSI(7): {realtime_bar['rsi']:.2f} | ATR(14): {realtime_bar['atr']:.2f} | "
-                f"Fast EMA: {realtime_bar['fast_ema']:.2f} | Slow EMA: {realtime_bar['slow_ema']:.2f}"
+                f"[TRACK] Bid: {bid:.{digits}f} | Ask: {ask:.{digits}f} | Spread: {spread_points:.1f} pts | "
+                f"RSI(7): {realtime_bar['rsi']:.2f} | ATR(14): {realtime_bar['atr']:.{digits}f} | "
+                f"Fast EMA: {realtime_bar['fast_ema']:.{digits}f} | Slow EMA: {realtime_bar['slow_ema']:.{digits}f}"
             )
             
             # 4. Open Positions Monitoring & Manage Exits
@@ -317,10 +321,10 @@ def main():
                     exit_msg = (
                         f"🚪 <b>Technical Long Exit Triggered</b>\n"
                         f"<b>Ticket:</b> {pos.ticket}\n"
-                        f"<b>Price:</b> {bid:.2f}\n"
+                        f"<b>Price:</b> {bid:.{digits}f}\n"
                         f"<b>RSI:</b> {last_completed['rsi']:.2f}\n"
-                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.2f}\n"
-                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.2f}"
+                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.{digits}f}\n"
+                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.{digits}f}"
                     )
                     notifier.send_message(exit_msg)
                     closed_any = True
@@ -339,10 +343,10 @@ def main():
                     exit_msg = (
                         f"🚪 <b>Technical Short Exit Triggered</b>\n"
                         f"<b>Ticket:</b> {pos.ticket}\n"
-                        f"<b>Price:</b> {ask:.2f}\n"
+                        f"<b>Price:</b> {ask:.{digits}f}\n"
                         f"<b>RSI:</b> {last_completed['rsi']:.2f}\n"
-                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.2f}\n"
-                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.2f}"
+                        f"<b>EMA Fast:</b> {last_completed['fast_ema']:.{digits}f}\n"
+                        f"<b>EMA Slow:</b> {last_completed['slow_ema']:.{digits}f}"
                     )
                     notifier.send_message(exit_msg)
                     closed_any = True
@@ -358,17 +362,17 @@ def main():
                         if price_move >= 2.0 * initial_sl_dist:
                             new_sl = bid - 0.5 * initial_sl_dist
                             # Round to point digits
-                            new_sl = round(new_sl, 2)
+                            new_sl = round(new_sl, digits)
                             if new_sl > pos.sl:
-                                logger.info(f"Trailing Stop Buy: Moving SL from {pos.sl} to {new_sl}")
+                                logger.info(f"Trailing Stop Buy: Moving SL from {pos.sl:.{digits}f} to {new_sl:.{digits}f}")
                                 executor.modify_position_sltp(pos.ticket, new_sl, pos.tp)
                     elif pos.type == mt5.POSITION_TYPE_SELL:
                         price_move = pos.price_open - ask
                         if price_move >= 2.0 * initial_sl_dist:
                             new_sl = ask + 0.5 * initial_sl_dist
-                            new_sl = round(new_sl, 2)
+                            new_sl = round(new_sl, digits)
                             if pos.sl == 0 or new_sl < pos.sl:
-                                logger.info(f"Trailing Stop Sell: Moving SL from {pos.sl} to {new_sl}")
+                                logger.info(f"Trailing Stop Sell: Moving SL from {pos.sl:.{digits}f} to {new_sl:.{digits}f}")
                                 executor.modify_position_sltp(pos.ticket, new_sl, pos.tp)
             
             # Refresh position state if we closed any
@@ -443,13 +447,13 @@ def main():
                 if long_trigger:
                     sl_level = ask - sl_dist
                     tp_level = ask + tp_dist
-                    logger.info(f"Executing BUY: Entry={ask:.2f}, SL={sl_level:.2f}, TP={tp_level:.2f}")
-                    res = executor.execute_buy(args.lot_size, stop_loss=round(sl_level, 2), take_profit=round(tp_level, 2))
+                    logger.info(f"Executing BUY: Entry={ask:.{digits}f}, SL={sl_level:.{digits}f}, TP={tp_level:.{digits}f}")
+                    res = executor.execute_buy(args.lot_size, stop_loss=round(sl_level, digits), take_profit=round(tp_level, digits))
                 else:
                     sl_level = bid + sl_dist
                     tp_level = bid - tp_dist
-                    logger.info(f"Executing SELL: Entry={bid:.2f}, SL={sl_level:.2f}, TP={tp_level:.2f}")
-                    res = executor.execute_sell(args.lot_size, stop_loss=round(sl_level, 2), take_profit=round(tp_level, 2))
+                    logger.info(f"Executing SELL: Entry={bid:.{digits}f}, SL={sl_level:.{digits}f}, TP={tp_level:.{digits}f}")
+                    res = executor.execute_sell(args.lot_size, stop_loss=round(sl_level, digits), take_profit=round(tp_level, digits))
                     
                 if res and res.retcode == mt5.TRADE_RETCODE_DONE:
                     logger.info(f"Trade successfully placed! Ticket: {res.order}")
