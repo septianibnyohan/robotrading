@@ -1,0 +1,77 @@
+{
+  "bot_running": true,
+  "running_symbols": [
+    "XAUUSDm",
+    "BTCUSDm",
+    "ETHUSDm",
+    "EURUSDm",
+    "EURJPYm",
+    "USDJPYm"
+  ],
+  "active_sessions": [
+    {
+      "symbol": "XAUUSDm",
+      "layers": 1,
+      "direction": "BUY",
+      "first_entry_price": 4611.832,
+      "net_profit": -2.0,
+      "risk_level": "low",
+      "current_price": 4609.828
+    },
+    {
+      "symbol": "BTCUSDm",
+      "layers": 0,
+      "direction": null,
+      "first_entry_price": 0.0,
+      "net_profit": 0.0,
+      "risk_level": "low",
+      "current_price": 77664.39
+    },
+    {
+      "symbol": "ETHUSDm",
+      "layers": 0,
+      "direction": null,
+      "first_entry_price": 0.0,
+      "net_profit": 0.0,
+      "risk_level": "moderate",
+      "current_price": 2459.24
+    },
+    {
+      "symbol": "EURUSDm",
+      "layers": 0,
+      "direction": null,
+      "first_entry_price": 0.0,
+      "net_profit": 0.0,
+      "risk_level": "low",
+      "current_price": 1.16763
+    },
+    {
+      "symbol": "EURJPYm",
+      "layers": 1,
+      "direction": "BUY",
+      "first_entry_price": 185.595,
+      "net_profit": -1.13,
+      "risk_level": "low",
+      "current_price": 185.58
+    },
+    {
+      "symbol": "USDJPYm",
+      "layers": 1,
+      "direction": "BUY",
+      "first_entry_price": 158.981,
+      "net_profit": -2.87,
+      "risk_level": "low",
+      "current_price": 158.943
+    }
+  ],
+  "account": {
+    "balance": 19503.9,
+    "equity": 19497.9,
+    "margin_free": 19398.77,
+    "profit": -6.0,
+    "login": 414200000,
+    "server": "Exness-MT5Trial6",
+    "currency": "USD"
+  },
+  "last_updated": 1787525006.357543
+}

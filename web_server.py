@@ -344,6 +344,20 @@ class BotManager:
                 except subprocess.TimeoutExpired:
                     proc.kill()
                 del self.live_processes[login]
+
+            # Clean up any duplicate or zombie runner processes for this account
+            try:
+                import subprocess as sp
+                cmd_find = f'wmic process where "name=\'python.exe\' and commandline like \'%live_account_runner.py%--login {login}%\'" get processid'
+                out = sp.check_output(cmd_find, shell=True).decode()
+                for line in out.splitlines():
+                    parts = line.strip().split()
+                    if parts and parts[0].isdigit():
+                        pid_to_kill = int(parts[0])
+                        if pid_to_kill != os.getpid():
+                            sp.run(f'taskkill /F /PID {pid_to_kill}', shell=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+            except Exception as e:
+                logger.error(f"Error cleaning zombie processes for login {login}: {e}")
                 
             # Clean up status file
             status_path = f"data/sessions/{login}_status.json"
@@ -477,6 +491,21 @@ class ConfigUpdateRequest(BaseModel):
 
 @app.on_event("startup")
 def startup_event():
+    # Kill any orphaned live account runner processes on startup
+    try:
+        import subprocess as sp
+        import os
+        cmd_find = 'wmic process where "name=\'python.exe\' and commandline like \'%%live_account_runner.py%%\'" get processid'
+        out = sp.check_output(cmd_find, shell=True).decode()
+        for line in out.splitlines():
+            parts = line.strip().split()
+            if parts and parts[0].isdigit():
+                pid_to_kill = int(parts[0])
+                if pid_to_kill != os.getpid():
+                    sp.run(f'taskkill /F /PID {pid_to_kill}', shell=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+    except Exception as e:
+        logger.error(f"Error cleaning zombie processes on startup: {e}")
+
     bot_manager.connect_mt5()
 
 @app.on_event("shutdown")
@@ -924,6 +953,30 @@ def get_backtest_results():
         raise HTTPException(status_code=400, detail="Backtest results not ready or failed.")
     return bot_manager.backtest_results
 
+def tail_log_file(filename, n=200):
+    if not os.path.exists(filename):
+        return []
+    try:
+        with open(filename, 'rb') as f:
+            f.seek(0, 2)
+            file_size = f.tell()
+            # Read a chunk from the end of the file (64KB is plenty for last 200 lines)
+            read_size = min(file_size, 65536)
+            if read_size > 0:
+                f.seek(file_size - read_size)
+                chunk = f.read(read_size)
+                decoded = chunk.decode('utf-8', errors='ignore')
+                lines = [line.strip() for line in decoded.splitlines() if line.strip()]
+                return lines[-n:]
+            return []
+    except Exception as e:
+        logger.error(f"Error in tail_log_file: {e}")
+        try:
+            with open(filename, 'r', encoding='utf-8', errors='ignore') as f:
+                return [line.strip() for line in f.readlines()[-n:]]
+        except:
+            return []
+
 @app.get("/api/logs")
 def get_logs(mode: str = "forward_test", login: Optional[int] = None):
     if mode == "live" and login:
@@ -933,14 +986,7 @@ def get_logs(mode: str = "forward_test", login: Optional[int] = None):
     else:
         log_path = "btc_layer_bot_sim.log"
         
-    if not os.path.exists(log_path):
-        return {"logs": []}
-    try:
-        with open(log_path, 'r', encoding='utf-8', errors='ignore') as f:
-            lines = f.readlines()
-        return {"logs": [line.strip() for line in lines[-200:]]}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return {"logs": tail_log_file(log_path, 200)}
 
 # DXY Rust service proxy endpoints below
 @app.get("/api/dxy/latest")
@@ -985,6 +1031,73 @@ def post_dxy_harvest():
         response = requests.post("http://127.0.0.1:8081/api/dxy/harvest", timeout=15)
         if response.status_code == 200:
             return response.json()
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"DXY service unavailable: {e}")
+
+@app.get("/api/market/dxy")
+def get_dxy():
+    """
+    Proxies to the Rust DXY service to return current price, change, and change percent.
+    """
+    import requests
+    try:
+        response = requests.get("http://127.0.0.1:8081/api/dxy/historical?limit=2", timeout=5)
+        if response.status_code == 200:
+            records = response.json()
+            if not records:
+                raise HTTPException(status_code=404, detail="No DXY records found.")
+            
+            latest = records[-1]
+            price = latest["close"]
+            change = 0.0
+            change_percent = 0.0
+            
+            if len(records) >= 2:
+                prev = records[-2]
+                if prev["close"] > 0:
+                    change = price - prev["close"]
+                    change_percent = (change / prev["close"]) * 100
+            
+            return {
+                "symbol": "DXY",
+                "price": round(price, 3),
+                "change": round(change, 3),
+                "change_percent": round(change_percent, 2),
+                "source": "RustDXYService"
+            }
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+    except requests.exceptions.RequestException as e:
+        raise HTTPException(status_code=503, detail=f"DXY service unavailable: {e}")
+
+@app.get("/api/market/dxy/history")
+def get_dxy_history(range: str = "7d"):
+    """
+    Proxies to the Rust DXY service and formats historical data for the frontend chart.
+    """
+    import requests
+    limit = 168  # Default 7d (24 * 7)
+    if range == "1d":
+        limit = 24
+    elif range == "30d":
+        limit = 720
+    elif range == "3y" or range == "5y":
+        limit = 20000
+        
+    try:
+        response = requests.get(f"http://127.0.0.1:8081/api/dxy/historical?limit={limit}", timeout=5)
+        if response.status_code == 200:
+            records = response.json()
+            history_list = []
+            for rec in records:
+                iso_time = rec["time"].replace(" ", "T")
+                history_list.append({
+                    "time": iso_time,
+                    "value": round(rec["close"], 3)
+                })
+            return history_list
         else:
             raise HTTPException(status_code=response.status_code, detail=response.text)
     except requests.exceptions.RequestException as e:

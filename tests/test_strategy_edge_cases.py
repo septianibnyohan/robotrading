@@ -74,7 +74,7 @@ class TestDynamicConfig(unittest.TestCase):
     def test_active_symbols_list(self):
         """Verify ACTIVE_SYMBOLS list is correctly defined in btc_config."""
         import btc_config
-        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc"])
+        self.assertEqual(btc_config.ACTIVE_SYMBOLS, ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc", "EURJPYc", "ETHUSDm", "EURUSDm", "EURJPYm", "USDJPYm"])
 
     @patch('MetaTrader5.terminal_info', return_value=None)
     def test_dynamic_config_time_based_switching(self, mock_term_info):
@@ -148,6 +148,25 @@ class TestDynamicConfig(unittest.TestCase):
         xag_lowrisk_time = datetime.datetime(2026, 6, 3, 1, 0, 0)
         with patch('btc_config.DynamicConfigModule._get_current_time', return_value=xag_lowrisk_time):
             self.assertAlmostEqual(btc_config.LAYERING_STEP_ATR_MULT, XAGUSDc.LOW_RISK_OVERRIDES["LAYERING_STEP_ATR_MULT"])
+
+        # --- ETHUSD Scheduling Rules ---
+        import config.symbols.ETHUSDc as ETHUSDc
+        btc_config.set_active_symbol("ETHUSDc")
+
+        # Case 9: Weekday (Wednesday) at 02:00 AM (Within 00:00 - 02:59 normal window)
+        eth_normal_time = datetime.datetime(2026, 6, 3, 2, 0, 0)
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=eth_normal_time):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, ETHUSDc.LOT_SIZE)
+
+        # Case 10: Weekday (Wednesday) at 06:00 AM (Within 05:00 - 10:59 moderate window)
+        eth_moderate_time = datetime.datetime(2026, 6, 3, 6, 0, 0)
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=eth_moderate_time):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, ETHUSDc.MODERATE_RISK_OVERRIDES["LOT_SIZE"])
+
+        # Case 10b: Weekday (Wednesday) at 15:00 PM (Outside windows -> low risk)
+        eth_lowrisk_time = datetime.datetime(2026, 6, 3, 15, 0, 0)
+        with patch('btc_config.DynamicConfigModule._get_current_time', return_value=eth_lowrisk_time):
+            self.assertAlmostEqual(btc_config.LOT_SIZE, ETHUSDc.LOW_RISK_OVERRIDES["LOT_SIZE"])
 
         # Clean up by resetting active symbol to default
         btc_config.set_active_symbol("BTCUSDc")

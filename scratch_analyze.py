@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 
-# Load basket data for XAGUSDc
-baskets_path = "backtest_XAGUSDc_baskets.csv"
+# Load basket data for ETHUSDm
+baskets_path = "backtest_ETHUSDm_baskets.csv"
 baskets = pd.read_csv(baskets_path)
 
-# Convert times
-baskets['first_trade_open_time'] = pd.to_datetime(baskets['first_trade_open_time'])
-baskets['closed_time'] = pd.to_datetime(baskets['closed_time'])
+# Convert times (input is UTC, convert to Asia/Jakarta WIB timezone)
+baskets['first_trade_open_time'] = pd.to_datetime(baskets['first_trade_open_time']).dt.tz_localize('UTC').dt.tz_convert('Asia/Jakarta')
+baskets['closed_time'] = pd.to_datetime(baskets['closed_time']).dt.tz_localize('UTC').dt.tz_convert('Asia/Jakarta')
 
 # Extract components (times are in WIB time)
 baskets['open_hour'] = baskets['first_trade_open_time'].dt.hour
@@ -16,7 +16,7 @@ baskets['open_day_num'] = baskets['first_trade_open_time'].dt.dayofweek
 baskets['open_date'] = baskets['first_trade_open_time'].dt.date
 baskets['open_year'] = baskets['first_trade_open_time'].dt.year
 
-print("=== OVERALL STATS (XAGUSDc - 12.5 YEARS) ===")
+print("=== OVERALL STATS (ETHUSDm - 7.6 YEARS) ===")
 print(f"Total baskets closed: {len(baskets)}")
 print(f"Max layers reached: {baskets['total_layers'].max()}")
 print(f"Mean layers per basket: {baskets['total_layers'].mean():.2f}")
@@ -82,6 +82,6 @@ print("\n=== TOP 15 PEAK VOLATILITY DATES ===")
 print(top_dates.to_string(index=False))
 
 # Save daily stats
-daily_csv = "backtest_XAGUSDc_10y_daily_max_layers.csv"
+daily_csv = "backtest_ETHUSDm_10y_daily_max_layers.csv"
 date_stats.to_csv(daily_csv, index=False)
 print(f"\nSaved daily stats to {daily_csv}")

@@ -8,6 +8,53 @@ import threading
 import signal
 from datetime import datetime, timezone
 import MetaTrader5 as mt5
+import types
+from functools import wraps
+
+mt5_lock = threading.RLock()
+
+def make_thread_safe(func):
+    @wraps(func)
+    def wrapper(*args_fn, **kwargs_fn):
+        with mt5_lock:
+            func_name = getattr(func, "__name__", "")
+            if func_name in ("initialize", "last_error"):
+                if not kwargs_fn:
+                    return func(*args_fn)
+                return func(*args_fn, **kwargs_fn)
+                
+            if not kwargs_fn:
+                res = func(*args_fn)
+            else:
+                res = func(*args_fn, **kwargs_fn)
+                
+            if res is None:
+                err = mt5.last_error()
+                if err and (err[0] in (-10001, -10002, -10003, -10004) or "IPC" in str(err[1])):
+                    try:
+                        # Attempt to dynamically reconnect
+                        reinit = mt5.initialize(
+                            path=args.path,
+                            login=args.login,
+                            password=args.password,
+                            server=args.server
+                        )
+                        if reinit:
+                            # Retry the original call
+                            if not kwargs_fn:
+                                res = func(*args_fn)
+                            else:
+                                res = func(*args_fn, **kwargs_fn)
+                    except Exception:
+                        pass
+            return res
+    return wrapper
+
+# Wrap all functions in mt5 module to make them thread-safe
+for attr_name in dir(mt5):
+    attr = getattr(mt5, attr_name)
+    if isinstance(attr, (types.FunctionType, types.BuiltinFunctionType, types.MethodType)) and not attr_name.startswith("__"):
+        setattr(mt5, attr_name, make_thread_safe(attr))
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -32,11 +79,15 @@ os.makedirs("data/sessions", exist_ok=True)
 os.makedirs("data/logs", exist_ok=True)
 
 # Configure logging to write to account-specific log file and stdout
+import logging.handlers
 log_path = f"data/logs/{login}.log"
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] " + f"({login}) %(message)s",
-    handlers=[logging.FileHandler(log_path, encoding='utf-8'), logging.StreamHandler(sys.stdout)]
+    handlers=[
+        logging.handlers.RotatingFileHandler(log_path, encoding='utf-8', maxBytes=5 * 1024 * 1024, backupCount=1),
+        logging.StreamHandler(sys.stdout)
+    ]
 )
 logger = logging.getLogger(f"account_runner_{login}")
 
@@ -228,6 +279,27 @@ def dump_deals_history():
         logger.error(f"Error dumping closed deals history: {e}")
 
 def main():
+    # Pre-launch the MT5 terminal to enforce portable mode isolation if it is in a custom path
+    if "Program Files" not in path:
+        logger.info(f"Pre-launching MT5 in portable mode to prevent socket clashing: {path} /portable")
+        try:
+            import shutil
+            src_dir = r"C:\Users\septi\AppData\Roaming\MetaQuotes\Terminal\9E1962F504DD205630274C46543BC64F\config"
+            dst_dir = os.path.join(os.path.dirname(path), "config")
+            if os.path.exists(src_dir) and os.path.exists(dst_dir):
+                shutil.copy2(os.path.join(src_dir, "servers.dat"), os.path.join(dst_dir, "servers.dat"))
+                shutil.copy2(os.path.join(src_dir, "accounts.dat"), os.path.join(dst_dir, "accounts.dat"))
+                logger.info("Cloned server and account configurations to portable terminal config folder.")
+        except Exception as e:
+            logger.error(f"Failed to clone configurations: {e}")
+            
+        try:
+            import subprocess
+            subprocess.Popen([path, "/portable"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            time.sleep(3.0)
+        except Exception as e:
+            logger.error(f"Failed to pre-launch MT5 in portable mode: {e}")
+
     logger.info(f"Initializing connection to MT5 terminal at: {path}")
     
     # Initialize connection
@@ -237,7 +309,19 @@ def main():
         
     logger.info("Successfully connected to MT5 account.")
     
-    acc_info = mt5.account_info()
+    # Wait for terminal to complete broker server authorization
+    acc_info = None
+    for attempt in range(15):
+        acc_info = mt5.account_info()
+        if acc_info is not None:
+            break
+        logger.info(f"Waiting for MT5 account authorization (attempt {attempt+1}/15)...")
+        time.sleep(1.0)
+        
+    if not acc_info:
+        logger.error("Failed to retrieve MT5 account info (authorization timeout).")
+        sys.exit(1)
+        
     today = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
     starting_balance = acc_info.balance - get_daily_realized_profit(today)
     

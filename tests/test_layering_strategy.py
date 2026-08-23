@@ -273,5 +273,27 @@ class TestLayeringStrategy(unittest.TestCase):
         mock_dxy.return_value = (100.0, 101.0)  # Close < EMA200
         self.assertIsNone(bot.check_h1_signal(row))
 
+    @patch('btc_config.ACTIVE_SYMBOL', 'ETHUSDc')
+    @patch('btc_layer_bot.check_timeframe_crossover')
+    @patch('btc_layer_bot.open_trade')
+    def test_check_and_trigger_entry_ethusd_skips_m1(self, mock_open_trade, mock_cross):
+        """Verify check_and_trigger_entry skips M1 crossover logic for ETHUSD."""
+        h1_row = {'close': 3000.0, 'ema_200': 2900.0}
+        m1_df = pd.DataFrame([{'rsi_14': 50.0}])
+        m5_df = pd.DataFrame([{'rsi_14': 50.0}])
+        m15_df = pd.DataFrame([{'rsi_14': 50.0}])
+        tick = MagicMock(ask=3005.0, bid=2995.0)
+        
+        # When M15 and M5 crossover do not match but M1 would have matched
+        def side_effect(df, tf):
+            if tf == "M1":
+                return "BUY"
+            return None
+        mock_cross.side_effect = side_effect
+        
+        result = bot.check_and_trigger_entry(h1_row, m1_df, m5_df, m15_df, tick)
+        self.assertIsNone(result)
+        mock_open_trade.assert_not_called()
+
 if __name__ == "__main__":
     unittest.main()

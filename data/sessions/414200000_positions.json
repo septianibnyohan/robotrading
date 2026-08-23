@@ -1,0 +1,41 @@
+[
+  {
+    "ticket": 4957910696,
+    "symbol": "USDJPYm",
+    "type": "BUY",
+    "volume": 0.12,
+    "price_open": 158.981,
+    "magic": 20260832,
+    "sl": 0.0,
+    "tp": 0.0,
+    "time": 1787521971,
+    "profit": -2.87,
+    "swap": 0.0
+  },
+  {
+    "ticket": 4958331587,
+    "symbol": "EURJPYm",
+    "type": "BUY",
+    "volume": 0.12,
+    "price_open": 185.595,
+    "magic": 20260827,
+    "sl": 0.0,
+    "tp": 0.0,
+    "time": 1787524936,
+    "profit": -1.13,
+    "swap": 0.0
+  },
+  {
+    "ticket": 4958336018,
+    "symbol": "XAUUSDm",
+    "type": "BUY",
+    "volume": 0.01,
+    "price_open": 4611.832,
+    "magic": 20260608,
+    "sl": 0.0,
+    "tp": 0.0,
+    "time": 1787524980,
+    "profit": -2.0,
+    "swap": 0.0
+  }
+]

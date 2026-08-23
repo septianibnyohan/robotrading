@@ -10,6 +10,9 @@ const AccountsManager = ({
   onStopAccount
 }) => {
   const [formOpen, setFormOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingLogin, setEditingLogin] = useState(null);
+
   const [name, setName] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +20,30 @@ const AccountsManager = ({
   const [path, setPath] = useState('');
   const [selectedSymbols, setSelectedSymbols] = useState([]);
   const [submitting, setSubmitting] = useState(false);
+
+  const resetForm = () => {
+    setName('');
+    setLogin('');
+    setPassword('');
+    setServer('');
+    setPath('');
+    setSelectedSymbols([]);
+    setIsEditing(false);
+    setEditingLogin(null);
+    setFormOpen(false);
+  };
+
+  const handleEditClick = (acct) => {
+    setName(acct.name);
+    setLogin(acct.login.toString());
+    setPassword(acct.password || '');
+    setServer(acct.server);
+    setPath(acct.path);
+    setSelectedSymbols(acct.symbols || []);
+    setIsEditing(true);
+    setEditingLogin(acct.login);
+    setFormOpen(true);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -41,14 +68,7 @@ const AccountsManager = ({
     setSubmitting(false);
 
     if (success) {
-      // Clear form
-      setName('');
-      setLogin('');
-      setPassword('');
-      setServer('');
-      setPath('');
-      setSelectedSymbols([]);
-      setFormOpen(false);
+      resetForm();
     }
   };
 
@@ -73,7 +93,13 @@ const AccountsManager = ({
         </div>
         <button 
           className="btn btn-primary"
-          onClick={() => setFormOpen(!formOpen)}
+          onClick={() => {
+            if (formOpen) {
+              resetForm();
+            } else {
+              setFormOpen(true);
+            }
+          }}
         >
           {formOpen ? 'Cancel' : 'Add MT5 Account'}
         </button>
@@ -81,7 +107,9 @@ const AccountsManager = ({
 
       {formOpen && (
         <form onSubmit={handleSubmit} className="config-form" style={{ maxWidth: '700px' }}>
-          <div className="config-section-title">Configure New Live Account</div>
+          <div className="config-section-title">
+            {isEditing ? 'Edit Live Account Configuration' : 'Configure New Live Account'}
+          </div>
           
           <div className="form-row-grid">
             <div className="form-group">
@@ -102,6 +130,7 @@ const AccountsManager = ({
                 placeholder="e.g. 123456" 
                 value={login} 
                 onChange={(e) => setLogin(e.target.value)} 
+                disabled={isEditing}
               />
             </div>
           </div>
@@ -159,14 +188,26 @@ const AccountsManager = ({
             </div>
           </div>
 
-          <button 
-            type="submit" 
-            className="btn btn-success" 
-            style={{ alignSelf: 'start', padding: '0.75rem 2rem', fontWeight: 'bold' }}
-            disabled={submitting}
-          >
-            {submitting ? 'Saving Config...' : 'Save Account Settings'}
-          </button>
+          <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <button 
+              type="submit" 
+              className="btn btn-success" 
+              style={{ padding: '0.75rem 2rem', fontWeight: 'bold' }}
+              disabled={submitting}
+            >
+              {submitting ? 'Saving Config...' : isEditing ? 'Save Changes' : 'Save Account Settings'}
+            </button>
+            {isEditing && (
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                style={{ padding: '0.75rem 2rem', fontWeight: 'bold' }}
+                onClick={resetForm}
+              >
+                Cancel Edit
+              </button>
+            )}
+          </div>
         </form>
       )}
 
@@ -270,6 +311,20 @@ const AccountsManager = ({
                       Start Bot
                     </button>
                   )}
+                  
+                  {/* Edit Account Action Button */}
+                  <button 
+                    className="btn btn-secondary btn-icon-only"
+                    onClick={() => handleEditClick(acct)}
+                    disabled={isRunning}
+                    title={isRunning ? "Stop the bot process to edit account details" : "Edit Account Config"}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                  </button>
+
                   <button 
                     className="btn btn-secondary btn-icon-only"
                     onClick={() => {

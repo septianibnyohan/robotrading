@@ -9,7 +9,7 @@ from datetime import datetime, timezone, timedelta
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def analyze_real_spreads():
-    symbol = "XAUUSDc"
+    symbol = "ETHUSDc"
     
     if not mt5.initialize():
         print("Failed to initialize MT5")

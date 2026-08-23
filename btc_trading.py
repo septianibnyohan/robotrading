@@ -20,12 +20,12 @@ def get_filling_type(symbol):
     """Retrieves appropriate order filling mode dynamically."""
     info = mt5.symbol_info(symbol)
     if info is None:
-        return mt5.ORDER_FILLING_FOK
+        return mt5.ORDER_FILLING_IOC
     filling = info.filling_mode
-    if filling & 1:  # SYMBOL_FILLING_FOK is bit 1 (FOK)
-        return mt5.ORDER_FILLING_FOK
     if filling & 2:  # SYMBOL_FILLING_IOC is bit 2 (IOC)
         return mt5.ORDER_FILLING_IOC
+    if filling & 1:  # SYMBOL_FILLING_FOK is bit 1 (FOK)
+        return mt5.ORDER_FILLING_FOK
     return mt5.ORDER_FILLING_RETURN
 
 def close_position_by_ticket(ticket, volume, pos_type, exit_reason, symbol=None):
@@ -66,6 +66,9 @@ def close_position_by_ticket(ticket, volume, pos_type, exit_reason, symbol=None)
         "type_time": mt5.ORDER_TIME_GTC, "type_filling": get_filling_type(target_symbol),
     }
     res = mt5.order_send(request)
+    if res is None:
+        logger.error(f"Failed to close {ticket} for {target_symbol}: order_send returned None. MT5 Error: {mt5.last_error()}")
+        return False
     if res.retcode != mt5.TRADE_RETCODE_DONE:
         logger.error(f"Failed to close {ticket} for {target_symbol}: {res.comment}")
         return False
@@ -113,6 +116,9 @@ def modify_position_sl(ticket, sl_price, tp_price, symbol=None):
         "symbol": target_symbol, "sl": float(sl_price), "tp": float(tp_price),
     }
     result = mt5.order_send(request)
+    if result is None:
+        logger.error(f"Failed to modify SL/TP for {ticket}: order_send returned None. MT5 Error: {mt5.last_error()}")
+        return False
     if result.retcode != mt5.TRADE_RETCODE_DONE:
         return False
     logger.info(f"Modified {ticket}: SL={sl_price:.2f}, TP={tp_price:.2f}")
@@ -143,6 +149,9 @@ def open_trade(direction, entry_price, sl_price, tp_price, symbol=None, magic=No
         "type_time": mt5.ORDER_TIME_GTC, "type_filling": get_filling_type(target_symbol),
     }
     res = mt5.order_send(request)
+    if res is None:
+        logger.error(f"Failed {direction} entry for {target_symbol}: order_send returned None. MT5 Error: {mt5.last_error()}")
+        return None
     if res.retcode != mt5.TRADE_RETCODE_DONE:
         logger.error(f"Failed {direction} entry: {res.comment}")
         return None

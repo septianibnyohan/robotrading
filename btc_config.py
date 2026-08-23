@@ -13,7 +13,7 @@ _active_risk_var = contextvars.ContextVar('active_risk', default=None)
 _active_sunday_override_var = contextvars.ContextVar('active_sunday_override', default=None)
 
 # Configured active symbols
-ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc"]
+ACTIVE_SYMBOLS = ["BTCUSDc", "XAUUSDc", "BTCUSDm", "XAUUSDm", "XAGUSDc", "ETHUSDc", "EURUSDc", "EURJPYc", "ETHUSDm", "EURUSDm", "EURJPYm", "USDJPYm"]
 
 def set_active_symbol(symbol):
     _active_symbol_var.set(symbol)
@@ -209,11 +209,19 @@ class DynamicConfigModule(types.ModuleType):
             now = dt
         is_weekend = now.weekday() >= 5
         
-        if "BTCUSD" in symbol or "ETHUSD" in symbol:
+        if "BTCUSD" in symbol:
             hour = now.hour
             if hour >= 22 or hour < 1:
                 return "normal"
             elif 12 <= hour < 20:
+                return "moderate"
+            else:
+                return "low"
+        elif "ETHUSD" in symbol:
+            hour = now.hour
+            if 0 <= hour < 3:
+                return "normal"
+            elif 5 <= hour < 11:
                 return "moderate"
             else:
                 return "low"

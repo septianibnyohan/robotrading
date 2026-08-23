@@ -161,12 +161,12 @@ async fn harvest_dxy(db_path: &Path) -> Result<usize, Box<dyn std::error::Error 
     
     {
         let mut stmt_h1 = tx.prepare(
-            "INSERT OR IGNORE INTO DXY_H1 (time, open, high, low, close, tick_volume, spread, real_volume) 
+            "INSERT OR REPLACE INTO DXY_H1 (time, open, high, low, close, tick_volume, spread, real_volume) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         )?;
         
         let mut stmt_16385 = tx.prepare(
-            "INSERT OR IGNORE INTO DXY_16385 (time, open, high, low, close, tick_volume, spread, real_volume) 
+            "INSERT OR REPLACE INTO DXY_16385 (time, open, high, low, close, tick_volume, spread, real_volume) 
              VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         )?;
         
@@ -179,8 +179,10 @@ async fn harvest_dxy(db_path: &Path) -> Result<usize, Box<dyn std::error::Error 
             let close = match closes[i] { Some(val) => val, None => continue };
             let vol = match volumes[i] { Some(val) => val as i64, None => 0 };
             
-            let datetime = Utc.timestamp_opt(ts, 0).single().ok_or("Invalid timestamp")?;
-            let formatted_time = datetime.format("%Y-%m-%d %H:%M:%S+00:00").to_string();
+            // Round to the nearest hour to maintain clean hourly candles and handle live ticks
+            let rounded_ts = ((ts + 1800) / 3600) * 3600;
+            let datetime = Utc.timestamp_opt(rounded_ts, 0).single().ok_or("Invalid timestamp")?;
+            let formatted_time = datetime.format("%Y-%m-%d %H:00:00+00:00").to_string();
             
             let r1 = stmt_h1.execute(rusqlite::params![
                 formatted_time, open, high, low, close, vol, 0, 0
@@ -205,7 +207,7 @@ fn spawn_periodic_harvest(db_path: PathBuf) {
         println!("Starting periodic DXY harvest task (every 20 minutes)...");
         loop {
             tokio::time::sleep(tokio::time::Duration::from_secs(20 * 60)).await;
-            println!("Periodic check: harvesting DXY data...");
+            println!("Periodic check: harvesting DXY H1 data...");
             match harvest_dxy(&db_path).await {
                 Ok(count) => println!("Periodic harvest complete: Inserted {} new rows", count),
                 Err(e) => eprintln!("Periodic harvest error: {}", e),

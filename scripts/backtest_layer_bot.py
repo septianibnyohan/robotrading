@@ -27,16 +27,89 @@ SYMBOL_SPECS = {
     "XAGUSDc": {"contract_size": 5000.0, "pip_size": 0.001},
     "ETHUSDc": {"contract_size": 1.0, "pip_size": 1.0},
     "EURUSDc": {"contract_size": 1000.0, "pip_size": 0.0001},
+    "EURJPYc": {"contract_size": 6.25, "pip_size": 0.01},
+    "ETHUSDm": {"contract_size": 1.0, "pip_size": 1.0},
+    "EURUSDm": {"contract_size": 1000.0, "pip_size": 0.0001},
+    "EURJPYm": {"contract_size": 6.25, "pip_size": 0.01},
+    "USDJPYm": {"contract_size": 6.25, "pip_size": 0.01},
 }
 
-def load_data(symbol, use_mt5=False, limit=50000):
+def load_data(symbol, use_mt5=False, limit=50000, path=None, login=None, password=None, server=None):
     """Loads historical data for backtesting."""
     m1_df, m5_df, m15_df = pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+    
+    if symbol == "ETHUSDm" and use_mt5:
+        import MetaTrader5 as mt5
+        logger.info("Connecting to MT5 to fetch ETHUSDm long history using M30 base...")
+        init_kwargs = {}
+        if path is not None:
+            init_kwargs["path"] = path
+        if login is not None:
+            init_kwargs["login"] = int(login)
+        if password is not None:
+            init_kwargs["password"] = password
+        if server is not None:
+            init_kwargs["server"] = server
+            
+        if mt5.initialize(**init_kwargs):
+            btc_config.set_active_symbol(symbol)
+            mt5.symbol_select(symbol, True)
+            
+            chunk_size = 50000
+            total_downloaded = 0
+            start_pos = 0
+            m30_dfs = []
+            from btc_indicators import rates_to_df
+            
+            m30_limit = 200000
+            while total_downloaded < m30_limit:
+                req_size = min(chunk_size, m30_limit - total_downloaded)
+                rates = mt5.copy_rates_from_pos(symbol, mt5.TIMEFRAME_M30, start_pos, req_size)
+                if rates is None or len(rates) == 0:
+                    break
+                m30_dfs.append(rates_to_df(rates))
+                downloaded = len(rates)
+                total_downloaded += downloaded
+                start_pos += downloaded
+                if downloaded < req_size:
+                    logger.info("Broker reached the end of M30 history.")
+                    break
+            
+            if m30_dfs:
+                m30_df = pd.concat(m30_dfs, ignore_index=True)
+                m30_df = m30_df.drop_duplicates(subset=['time']).sort_values('time').reset_index(drop=True)
+                m30_df['time'] = pd.to_datetime(m30_df['time'], format='mixed', utc=True).dt.tz_localize(None)
+                logger.info(f"Loaded {len(m30_df)} M30 bars from MT5.")
+                
+                m5_df = m30_df.copy()
+                m15_df = m30_df.copy()
+                h1_df = m30_df.set_index('time').resample('1h').agg({
+                    'open': 'first',
+                    'high': 'max',
+                    'low': 'min',
+                    'close': 'last',
+                    'tick_volume': 'sum'
+                }).dropna().reset_index()
+                
+                m1_df = m30_df.copy()
+                mt5.shutdown()
+                return m1_df, m5_df, m15_df, h1_df
+            mt5.shutdown()
     
     if use_mt5:
         import MetaTrader5 as mt5
         logger.info("Connecting to MT5 to fetch fresh data...")
-        if mt5.initialize():
+        init_kwargs = {}
+        if path is not None:
+            init_kwargs["path"] = path
+        if login is not None:
+            init_kwargs["login"] = int(login)
+        if password is not None:
+            init_kwargs["password"] = password
+        if server is not None:
+            init_kwargs["server"] = server
+            
+        if mt5.initialize(**init_kwargs):
             # Set active symbol in config
             btc_config.set_active_symbol(symbol)
             mt5.symbol_select(symbol, True)
@@ -247,7 +320,8 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
     
     # Choose timeline: M5 for XAGUSD, M1 for all others
     is_xagusd = "XAGUSD" in symbol
-    timeline_df = m5_df if is_xagusd else m1_df
+    use_m5 = is_xagusd or "ETHUSD" in symbol
+    timeline_df = m5_df if use_m5 else m1_df
     timeline_times = timeline_df['time'].values
     
     logger.info(f"Timeline starts: {timeline_times[0]} to {timeline_times[-1]}")
@@ -468,7 +542,7 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
             idx_m15 = np.searchsorted(m15_times, t_np - np.timedelta64(15, 'm'), side='right') - 1
             idx_m1 = np.searchsorted(m1_times, t_np - np.timedelta64(1, 'm'), side='right') - 1
             
-            if idx_h1 < 0 or idx_m5 < 1 or idx_m15 < 1 or (not is_xagusd and idx_m1 < 1):
+            if idx_h1 < 0 or idx_m5 < 1 or idx_m15 < 1 or (not use_m5 and idx_m1 < 1):
                 continue
                 
             h1_row = h1_df.iloc[idx_h1]
@@ -510,7 +584,8 @@ def run_simulation(symbol, m1_df, m5_df, m15_df, h1_df, initial_balance=10000.0)
             
             # M1 Crossover Signal
             m1_signal = None
-            if not is_xagusd:
+            is_ethusd = "ETHUSD" in symbol
+            if not is_xagusd and not is_ethusd:
                 m1_curr = m1_df.iloc[idx_m1]
                 m1_prev = m1_df.iloc[idx_m1 - 1]
                 rsi_curr_m1 = m1_curr['rsi_14']
@@ -606,10 +681,22 @@ def main():
     parser.add_argument("--symbol", type=str, default="XAUUSDc", help="Symbol to backtest")
     parser.add_argument("--limit", type=int, default=50000, help="Number of historical bars to load")
     parser.add_argument("--use-mt5", action="store_true", help="Download fresh data from MT5 terminal")
+    parser.add_argument("--path", type=str, default=None, help="Path to Metatrader 5 terminal64.exe")
+    parser.add_argument("--login", type=int, default=None, help="MT5 login account number")
+    parser.add_argument("--password", type=str, default=None, help="MT5 login account password")
+    parser.add_argument("--server", type=str, default=None, help="MT5 server name")
     args = parser.parse_args()
     
     logger.info(f"Starting backtest simulation for symbol: {args.symbol}...")
-    m1_df, m5_df, m15_df, h1_df = load_data(args.symbol, use_mt5=args.use_mt5, limit=args.limit)
+    m1_df, m5_df, m15_df, h1_df = load_data(
+        args.symbol,
+        use_mt5=args.use_mt5,
+        limit=args.limit,
+        path=args.path,
+        login=args.login,
+        password=args.password,
+        server=args.server
+    )
     
     if m1_df is None or m1_df.empty:
         logger.error("Could not run backtest due to lack of historical data.")

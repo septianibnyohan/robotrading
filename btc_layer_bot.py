@@ -180,10 +180,11 @@ def check_and_trigger_entry(h1_row, m1_df, m5_df, m15_df, tick):
                 "total_layers": 1
             }
 
-    # Check M1 crossover entry (except XAGUSD)
+    # Check M1 crossover entry (except XAGUSD and ETHUSD)
     is_xagusd = "XAGUSD" in btc_config.ACTIVE_SYMBOL
-    logger.info(f"[{btc_config.ACTIVE_SYMBOL}]Check M1, is_xagusd: {is_xagusd}")
-    if not is_xagusd:
+    is_ethusd = "ETHUSD" in btc_config.ACTIVE_SYMBOL
+    logger.info(f"[{btc_config.ACTIVE_SYMBOL}]Check M1, is_xagusd: {is_xagusd}, is_ethusd: {is_ethusd}")
+    if not is_xagusd and not is_ethusd:
         m1_cross = check_timeframe_crossover(m1_df, "M1")
         if h1_signal == m1_cross:
             price = tick.ask if h1_signal == "BUY" else tick.bid
@@ -356,7 +357,7 @@ def run_trading_loop(symbol, starting_balance, stop_event):
                     state = process_loop_logic(positions, state, h1_df, m1_df, m5_df, m15_df, h1_row, tick, loop_state, starting_balance)
         except Exception as e:
             logger.error(f"[{symbol}] Error in loop: {e}", exc_info=True)
-        time.sleep(20)
+        time.sleep(15)
     
     logger.info(f"[{symbol}] Exiting trading loop (keeping open positions).")
 
